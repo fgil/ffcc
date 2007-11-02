@@ -27,12 +27,17 @@ public class Main {
     public static void main(String[] args) {
         // TODO code application logic here
         info();
+        Token token = new Token();
         
-        String fileName;
-        if(args!=null) fileName = "fonte.horae";
-
-        //Lexico lexico = new Lexico(fileName);
-        
+        String fileName = "E:\\tmp\\compiladores\\horae\\src\\horae\\fonte.horae";
+        if(args==null) fileName = "fonte.horae";
+        //else fileName = args[0];
+        Lexico lexico = new Lexico(fileName);
+        token = lexico.nextToken(); 
+        while (token != null){
+            System.out.println(token.getType());
+            token = lexico.nextToken(); 
+        }
         
     }
     
