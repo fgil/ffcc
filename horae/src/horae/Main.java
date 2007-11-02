@@ -27,6 +27,13 @@ public class Main {
     public static void main(String[] args) {
         // TODO code application logic here
         info();
+        
+        String fileName;
+        if(args!=null) fileName = "fonte.horae";
+
+        //Lexico lexico = new Lexico(fileName);
+        
+        
     }
     
     public static void info() {
