@@ -58,8 +58,7 @@ public class Lexico {
                             case -1://EOF
                                 return null;
                             case 32://Espaço: desencana
-                                
-                                
+                            case (int) '\n':    
                                 estado = 0;
                                 break;
                             case (int) 'S':
@@ -93,45 +92,86 @@ public class Lexico {
                                 estado = 55;
                                 break;
                             case (int) '{':
+                                token.type = "{";
                                 estado = 0;
-                                break;
+                                charLido = -10;
+                                return token;
                             case (int) '}':
+                                token.type = "}";
                                 estado = 0;
-                                break;
+                                charLido = -10;
+                                return token;
                             case (int) ';':
                                 token.type = ";";
                                 estado = 0;
+                                charLido = -10;
                                 return token;
                             case (int) '+':
                                 token.type = "+";
+                                charLido = -10;
                                 estado = 0;
                                 return token;
                             case (int) '-':
+                                token.type = "-";
                                 estado = 0;
-                                break;
+                                charLido = -10;
+                                return token;
                             case (int) '/':
+                                token.type = "/";
                                 estado = 0;
-                                break;
+                                charLido = -10;
+                                return token;
                             case (int) '*':
+                                token.type = "*";
                                 estado = 0;
+                                charLido = -10;
+                                return token;
+                            case (int) '=':
+                                estado = 60;
                                 break;
-                            case (int) '='://Aqui tah errado... tem q tratar... == tambem
-                                estado = 0;
+                            case (int) '!':
+                                estado = 62;
+                                break;
+                            case (int) '<':
+                                estado = 64;
+                                break;
+                            case (int) '>':
+                                estado = 66;
                                 break;
                             case (int) '(':
+                                token.type = "(";
                                 estado = 0;
-                                break;
+                                charLido = -10;
+                                return token;
                             case (int) ')':
+                                token.type = ")";
                                 estado = 0;
-                                break;
+                                charLido = -10;
+                                return token;
                             case (int) ',':
+                                token.type = ",";
                                 estado = 0;
-                                break;
+                                charLido = -10;
+                                return token;
                             case (int) '\'':
+                                token.type = "'";
                                 estado = 0;
+                                charLido = -10;
+                                return token;
+                            case (int) '0':
+                            case (int) '1':
+                            case (int) '2':
+                            case (int) '3':
+                            case (int) '4':
+                            case (int) '5':
+                            case (int) '6':
+                            case (int) '7':
+                            case (int) '8':
+                            case (int) '9':
+                                estado = 59;
                                 break;
-                            default://Falta <=, >=, !=, <,>
-                                estado = 0;
+                            default:
+                                estado = 58;
                                 break;
                         }
                         break;
@@ -271,10 +311,6 @@ public class Lexico {
                     case 8:
                         switch (charLido) {
                             case -1://EOF
-                                token.type = "END";
-                                estado = 0;
-                                return token;
-
                             case 32://Espaço: fim do token
                             case (int) '\n':
                             case (int) ';':
@@ -1221,22 +1257,244 @@ public class Lexico {
                             case (int) '\n'://EOF
                             case 32://Espaço: fim do identificador
                             case (int) ';'://; fim do identificador
+                            case (int) '(':
+                            case (int) '[':
+                            case (int) ',':
+                            case (int) '!':
+                            case (int) '=':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '{':
+                            case (int) ')':
                                 token.type = "identificador";
-                                
                                 estado = 0;
                                 return token;
                                 //break;
-                            default://
-
+                            case (int) '}':
+                            case (int) ']':
+//agora os casos em que o cara fez besteira... por enquanto tah igual, mas vamos ver mais pra frente o que fazer
                                 token.type = "identificador";
+                                estado = 0;
+                                return token;                                
+                            default://
+                                //token.type = "identificador";
                                 estado = 58;
                             break;
                         }
                         break;
+
+                    case 59:
+                        switch (charLido) {
+                            case (int) '0':
+                            case (int) '1':
+                            case (int) '2':
+                            case (int) '3':
+                            case (int) '4':
+                            case (int) '5':
+                            case (int) '6':
+                            case (int) '7':
+                            case (int) '8':
+                            case (int) '9':
+                                estado = 59;
+                                break;
+                            case -1://EOF
+                            case (int) '\n'://EOF
+                            case 32://Espaço: fim do identificador
+                            case (int) ';'://; fim do identificador
+                            case (int) '(':
+                            case (int) '[':
+                            case (int) ',':
+                            case (int) '!':
+                            case (int) '=':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '{':
+                            case (int) ')':
+                            case (int) '}':
+                            case (int) ']':
+                                token.type = "numero";
+                                estado = 0;
+                                return token;
+                                //break;
+//agora os casos em que o cara fez besteira... por enquanto tah igual, mas vamos ver mais pra frente o que fazer
+                            default://
+                                //token.type = "identificador";
+                                estado = 58;
+                            break;
+                        }
+                        break;
+
+                
+                    case 60:
+                        switch (charLido) {
+                            case -1://EOF
+                            case 32://Espaço: fim do token
+                            case (int) '\n':
+                            case (int) ';':
+                                token.type = "=";
+                                
+                                estado = 0;
+                                return token;
+                                //break;
+                            case (int) '=':
+                                estado = 61;
+                                break;
+                            default://O default aqui é o cara ter acabado... vou mandar pro 0
+                                token.type = "=";
+                                estado = 0;
+                                return token;
+                        }
+                        break;
+
+                    case 61:
+                        switch (charLido) {//esse no final das contas nao tem o que fazer... é voltar pro 0 mesmo...
+                            case -1://EOF
+                            case 32://Espaço: fim do token
+                            case (int) '\n':
+                            case (int) ';':
+                                token.type = "==";
+                                
+                                estado = 0;
+                                return token;
+                                //break;
+                            default://O default aqui é o cara ter acabado... vou mandar pro 0
+                                token.type = "==";
+                                estado = 0;
+                                return token;
+                        }
+
+                    case 62:
+                        switch (charLido) {
+                            case -1://EOF: erro
+                            case 32://Espaço: erro
+                            case (int) '\n'://erro
+                            case (int) ';'://erro
+                                token.type = "!";
+                                estado = 0;
+                                return token;
+                            case (int) '=':
+                                estado = 63;
+                                break;
+                            default:
+                                token.type = "!";
+                                estado = 0;
+                                return token;
+                            
+                        }
+                        break;
+
+                    case 63:
+                        switch (charLido) {
+                            case -1://EOF
+                            case 32://Espaço: fim do token
+                            case (int) '\n':
+                            case (int) ';':
+                                token.type = "!=";
+                                estado = 0;
+                                return token;
+                                //break;
+                            default:
+                                token.type = "!=";
+                                estado = 0;
+                                return token;
+                        }
+
+                
+                    case 64:
+                        switch (charLido) {
+                            case -1://EOF
+                            case 32://Espaço: fim do token
+                            case (int) '\n':
+                            case (int) ';':
+                                token.type = "<";
+                                estado = 0;
+                                return token;
+                                //break;
+                            case (int) '=':
+                                estado = 65;
+                                break;
+                            default://O default aqui é o cara ter acabado... vou mandar pro 0
+                                token.type = "=";
+                                estado = 0;
+                                return token;
+                        }
+                        break;
+
+                    case 65:
+                        switch (charLido) {//esse no final das contas nao tem o que fazer... é voltar pro 0 mesmo...
+                            case -1://EOF
+                            case 32://Espaço: fim do token
+                            case (int) '\n':
+                            case (int) ';':
+                                token.type = "<=";
+                                estado = 0;
+                                return token;
+                                //break;
+                            default://O default aqui é o cara ter acabado... vou mandar pro 0
+                                token.type = "<=";
+                                estado = 0;
+                                return token;
+                        }
+                
+                    case 66:
+                        switch (charLido) {
+                            case -1://EOF
+                            case 32://Espaço: fim do token
+                            case (int) '\n':
+                            case (int) ';':
+                                token.type = ">";
+                                
+                                estado = 0;
+                                return token;
+                                //break;
+                            case (int) '=':
+                                estado = 67;
+                                break;
+                            default://O default aqui é o cara ter acabado... vou mandar pro 0
+                                token.type = ">";
+                                estado = 0;
+                                return token;
+                        }
+                        break;
+
+                    case 67:
+                        switch (charLido) {//esse no final das contas nao tem o que fazer... é voltar pro 0 mesmo...
+                            case -1://EOF
+                            case 32://Espaço: fim do token
+                            case (int) '\n':
+                            case (int) ';':
+                                token.type = ">=";
+                                
+                                estado = 0;
+                                return token;
+                                //break;
+                            default://O default aqui é o cara ter acabado... vou mandar pro 0
+                                token.type = ">=";
+                                estado = 0;
+                                return token;
+                        }
+
+                    
                     default:
                         return null;
 
-                }
+                        
+                        
+                        
+                        
+                }//Fim do case
+
+                
+                
+
                 
 //                if ((char)charLido == 'T'){
 //
