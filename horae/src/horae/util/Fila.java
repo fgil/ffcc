@@ -9,39 +9,60 @@
 
 package horae.util;
 
+import java.nio.BufferUnderflowException;
+
 /**
  *
  * @author Fernando
  */
 public class Fila {
-    protected Object[] queue;
+    protected FilaItem primeiro;
+    protected FilaItem ultimo;
     protected int tamanho;
+    
     /** Creates a new instance of Fila */
     public Fila() {
+        primeiro = null;
+        ultimo = null;
         tamanho = 0;
-        queue = new Object[tamanho];
     }
     
     public void adicionar(Object novoObjeto) {
-        tamanho++;
-        Object[] newQueue = new Object[tamanho];
-        for (int i=0;i<tamanho-1;i++) {
-            newQueue[i] = this.queue[i];
+        FilaItem novo = new FilaItem(novoObjeto);
+        
+        if(primeiro == null){
+            primeiro = novo;
         }
-        newQueue[tamanho-1] = novoObjeto;
-        this.queue = newQueue;
+        
+        if(ultimo != null){
+            ultimo.setProximo(novo);
+        }
+        
+        ultimo = novo;
+        
+        tamanho++;
     }
     
-    public Object remover() {
-        tamanho--;
-        Object[] newQueue = new Object[tamanho];
-        for (int i=1;i<tamanho-1;i++) {
-            newQueue[i] = this.queue[i+1];
+    public Object remover() {        
+        FilaItem removido = primeiro;
+        
+        if(primeiro != null){
+            primeiro = primeiro.getProximo();
         }
-        this.queue = newQueue;
-        return this.queue[0];
+        else {
+            throw new BufferUnderflowException();
+        }
+        
+        if(primeiro == null){
+            ultimo = null;
+        }
+        
+        tamanho--;
+        
+        return removido.getItem();
     }    
     
-    
-    
+    public int getTamanho(){
+        return tamanho;
+    }
 }
