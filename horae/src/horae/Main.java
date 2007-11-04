@@ -9,6 +9,8 @@
 
 package horae;
 
+import horae.maquinas.Programa;
+import horae.util.Fila;
 import java.util.logging.ConsoleHandler;
 
 /**
@@ -28,6 +30,8 @@ public class Main {
         // TODO code application logic here
         info();
         Token token = new Token();
+        Fila filaLida = new Fila();
+
         
         String fileName = "E:\\tmp\\compiladores\\horae\\src\\horae\\fonte.horae";
         if(args==null) fileName = "fonte.horae";
@@ -35,9 +39,19 @@ public class Main {
         Lexico lexico = new Lexico(fileName);
         token = lexico.nextToken(); 
         while (token != null){
+            filaLida.adicionar(token);
             System.out.println(token.getType());
             token = lexico.nextToken(); 
         }
+        Programa programa = new Programa(filaLida);
+        //System.out.println(programa.filaLida.getTamanho());
+        
+        while(filaLida.getTamanho() > 0){
+            programa.processaToken((Token) filaLida.remover());
+        }
+        
+
+        
         
     }
     

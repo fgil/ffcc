@@ -15,6 +15,11 @@ package horae.util;
  */
 public class Maquina {
     public Estado[] estados;
+    
+    public int A_Programa = 1;
+    public int A_Declaracao = 2;
+    public int A_DeclaracaoFuncao = 3;
+    public int A_Comando = 4;
     /** Creates a new instance of Maquina */
     public Maquina(int qtdEstados) {
         this.estados = new Estado[qtdEstados];
@@ -22,12 +27,14 @@ public class Maquina {
     
     
     //Metodo usado para montar a maquina
-    public void setTransicao(int estado, int indiceRota, String tokenEsperado, int proximoEstado, String proximaMaquina){
-        this.estados[estado].setTransicao(indiceRota, tokenEsperado, proximoEstado, proximaMaquina);
+    public void setTransicao(int estado, int indiceRota, String tokenEsperado,
+            int proximoEstado, int proximaMaquina, boolean consome){
+        this.estados[estado].setTransicao(indiceRota, tokenEsperado,
+                proximoEstado, proximaMaquina, consome);
     }
 
     public void criaTransicoes (int estado, int qtdTransicoes) {
-        this.estados[estado].criaTransicoes(qtdTransicoes);
+        this.estados[estado] = new Estado(qtdTransicoes);
     }
     
 }

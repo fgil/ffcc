@@ -17,12 +17,13 @@ public class Estado {
     private Transicao[] transicoes;
     
     /** Creates a new instance of Estado */
-    public Estado() {
-    }
-
-    public void criaTransicoes(int qtdTransicoes) {
+    public Estado(int qtdTransicoes) {
         transicoes = new Transicao[qtdTransicoes];
     }
+
+//    public void criaTransicoes(int qtdTransicoes) {
+//        transicoes = new Transicao[qtdTransicoes];
+//    }
     
     public Transicao proximoEstado(String tokenRecebido) {
         for(int i = 0; i < transicoes.length; i++){
@@ -32,9 +33,12 @@ public class Estado {
     }
     
     
-    public void setTransicao(int indice, String tokenEsperado, int proximoEstado, String proximaMaquina){
+    public void setTransicao(int indice, String tokenEsperado, int proximoEstado,
+            int proximaMaquina, boolean consome){
+        transicoes[indice] = new Transicao();
         transicoes[indice].tokenEsperado = tokenEsperado;
         transicoes[indice].proximaMaquina = proximaMaquina;
         transicoes[indice].proximoEstado = proximoEstado;
+        transicoes[indice].consome = consome;
     }
 }

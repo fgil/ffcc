@@ -21,8 +21,9 @@ public class Transicao {
      */
     public int proximoEstado;
     /*proxima Maquina avisa se sera necessario chamar outra maquina*/
-    public String proximaMaquina;
-    
+    public int proximaMaquina;
+
+    public boolean consome;
     /**
      * Creates a new instance of Transicao
      */
