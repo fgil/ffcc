@@ -14,22 +14,16 @@ package horae.util;
  * @author Fernando
  */
 public class Estado {
-    private int estadoNumero;
     private Transicao[] transicoes;
     
     /** Creates a new instance of Estado */
-    public Estado(int qtdRotas) {
-        transicoes = new Transicao[qtdRotas];
+    public Estado() {
     }
 
-    public int getEstadoNumero() {
-        return estadoNumero;
+    public void criaTransicoes(int qtdTransicoes) {
+        transicoes = new Transicao[qtdTransicoes];
     }
-
-    public void setEstadoNumero(int estadoNumero) {
-        this.estadoNumero = estadoNumero;
-    }
-
+    
     public Transicao proximoEstado(String tokenRecebido) {
         for(int i = 0; i < transicoes.length; i++){
             if (transicoes[i].tokenEsperado == tokenRecebido) return transicoes[i];
