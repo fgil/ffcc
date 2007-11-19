@@ -60,7 +60,22 @@ public class Fila {
         tamanho--;
         
         return removido.getItem();
-    }    
+    }
+    
+    public Object consultar(int n){
+        FilaItem retorno = primeiro;
+        
+        for(int i=0; i<n; i++){
+            if(retorno != null){
+                retorno = retorno.getProximo();
+            }
+            else {
+                throw new BufferUnderflowException();
+            }
+        }
+        
+        return retorno.getItem();
+    }
     
     public int getTamanho(){
         return tamanho;
