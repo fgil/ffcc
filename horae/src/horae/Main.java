@@ -33,14 +33,14 @@ public class Main {
         Fila filaLida = new Fila();
 
         
-        String fileName = "E:\\tmp\\compiladores\\horae\\src\\horae\\fonte.horae";
+        String fileName = "fonte.horae";
         if(args==null) fileName = "fonte.horae";
         //else fileName = args[0];
         Lexico lexico = new Lexico(fileName);
         token = lexico.nextToken(); 
         while (token != null){
             filaLida.adicionar(token);
-            System.out.println(token.getType());
+            System.out.println(token.getType() + " - " + token.getWord());
             token = lexico.nextToken(); 
         }
         Programa programa = new Programa(filaLida);

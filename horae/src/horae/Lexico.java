@@ -23,6 +23,7 @@ public class Lexico {
     FileReader fileStream;
     int estado;
     int charLido = -10;
+
     // O valor -10 tem o intuito de indicar que nenhum caracter foi lido.
     // Quando o nextToken acabar OK, c sera -10. Caso tenha algo, como um ;
     // este ficarà armazenado em c.
@@ -58,37 +59,47 @@ public class Lexico {
                             case -1://EOF
                                 return null;
                             case 32://Espaço: desencana
-                            case (int) '\n':    
+                            case (int) '\n':
                                 estado = 0;
                                 break;
                             case (int) 'S':
+                                token.word = lido + (char) charLido;
                                 estado = 1;
                                 break;
                             case (int) 'E':
+                                lido = "" + (char) charLido;
                                 estado = 6;
                                 break;
                             case (int) 'I':
+                                lido = "" + (char) charLido;
                                 estado = 15;
                                 break;
                             case (int) 'B':
+                                lido = "" + (char) charLido;
                                 estado = 22;
                                 break;
                             case (int) 'C':
+                                lido = "" + (char) charLido;
                                 estado = 29;
                                 break;
                             case (int) 'O':
+                                lido = "" + (char) charLido;
                                 estado = 33;
                                 break;
                             case (int) 'T':
+                                lido = "" + (char) charLido;
                                 estado = 40;
                                 break;
                             case (int) 'F':
+                                lido = "" + (char) charLido;
                                 estado = 47;
                                 break;
                             case (int) 'N':
+                                lido = "" + (char) charLido;
                                 estado = 52;
                                 break;
                             case (int) 'A':
+                                lido = "" + (char) charLido;
                                 estado = 55;
                                 break;
                             case (int) '{':
@@ -182,13 +193,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'T':
                                 estado = 2;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                                 break;
                         }
@@ -200,13 +214,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'A':
                                 estado = 3;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -218,13 +235,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'R':
                                 estado = 4;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                                 break;
                         }
@@ -236,13 +256,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'T':
                                 estado = 5;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                                 break;
                         }
@@ -265,6 +288,7 @@ public class Lexico {
 
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -276,16 +300,20 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'N':
                                 estado = 7;
+                                lido = lido + (char) charLido;
                                 break;
                             case (int) 'L':
                                 estado = 12;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -297,13 +325,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'D':
                                 estado = 8;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -321,12 +352,15 @@ public class Lexico {
                                 //break;
                             case (int) 'W':
                                 estado = 9;
+                                lido = lido + (char) charLido;
                                 break;
                             case (int) 'I':
                                 estado = 10;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -344,6 +378,7 @@ public class Lexico {
                                 //break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -355,13 +390,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'F':
                                 estado = 11;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -379,6 +417,7 @@ public class Lexico {
                                 //break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -391,13 +430,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'S':
                                 estado = 13;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -410,13 +452,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'E':
                                 estado = 14;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -435,6 +480,7 @@ public class Lexico {
                                 //break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -447,16 +493,20 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'N':
                                 estado = 16;
+                                lido = lido + (char) charLido;
                                 break;
                             case (int) 'F':
                                 estado = 21;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -469,16 +519,20 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'T':
                                 estado = 17;
+                                lido = lido + (char) charLido;
                                 break;
                             case (int) 'P':
                                 estado = 18;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -497,6 +551,7 @@ public class Lexico {
                                 //break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -509,13 +564,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'U':
                                 estado = 19;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -528,13 +586,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'T':
                                 estado = 20;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -552,6 +613,7 @@ public class Lexico {
                                 //break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -570,6 +632,7 @@ public class Lexico {
                                 //break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -585,13 +648,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'O':
                                 estado = 23;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -603,13 +669,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'O':
                                 estado = 24;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -621,13 +690,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'L':
                                 estado = 25;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -639,13 +711,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'E':
                                 estado = 26;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -657,13 +732,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'A':
                                 estado = 27;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -675,13 +753,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'N':
                                 estado = 28;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -700,6 +781,7 @@ public class Lexico {
                                 //break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -712,13 +794,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'H':
                                 estado = 30;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -730,13 +815,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'A':
                                 estado = 31;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -748,13 +836,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'R':
                                 estado = 32;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -773,6 +864,7 @@ public class Lexico {
                                 //break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -785,16 +877,20 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'R':
                                 estado = 34;
+                                lido = lido + (char) charLido;
                                 break;
                             case (int) 'U':
                                 estado = 35;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -812,6 +908,7 @@ public class Lexico {
                                 //break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -824,13 +921,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'T':
                                 estado = 36;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -842,13 +942,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'P':
                                 estado = 37;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -860,13 +963,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'U':
                                 estado = 38;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -878,13 +984,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'T':
                                 estado = 39;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -903,6 +1012,7 @@ public class Lexico {
                                 //break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -915,16 +1025,20 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'H':
                                 estado = 44;
+                                lido = lido + (char) charLido;
                                 break;
                             case (int) 'R':
                                 estado = 41;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -937,13 +1051,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'U':
                                 estado = 42;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -955,13 +1072,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'E':
                                 estado = 43;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -980,6 +1100,7 @@ public class Lexico {
                                 //break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -992,13 +1113,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'E':
                                 estado = 45;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -1010,13 +1134,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'N':
                                 estado = 46;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -1035,6 +1162,7 @@ public class Lexico {
                                 //break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -1047,16 +1175,20 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'A':
                                 estado = 48;
+                                lido = lido + (char) charLido;
                                 break;
                             case (int) 'U':
                                 estado = 99;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -1068,13 +1200,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'L':
                                 estado = 49;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -1086,13 +1221,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'S':
                                 estado = 50;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -1104,13 +1242,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'E':
                                 estado = 51;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -1129,6 +1270,7 @@ public class Lexico {
                                 //break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -1142,13 +1284,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'O':
                                 estado = 53;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -1160,13 +1305,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'T':
                                 estado = 54;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -1185,6 +1333,7 @@ public class Lexico {
                                 //break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -1198,13 +1347,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'N':
                                 estado = 56;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -1216,13 +1368,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'D':
                                 estado = 57;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -1241,6 +1396,7 @@ public class Lexico {
                                 //break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -1274,6 +1430,7 @@ public class Lexico {
                             case (int) '{':
                             case (int) ')':
                                 token.type = "identificador";
+                                token.setWord(lido);
                                 estado = 0;
                                 return token;
                                 //break;
@@ -1281,10 +1438,12 @@ public class Lexico {
                             case (int) ']':
 //agora os casos em que o cara fez besteira... por enquanto tah igual, mas vamos ver mais pra frente o que fazer
                                 token.type = "identificador";
+                                token.setWord(lido);
                                 estado = 0;
                                 return token;                                
                             default://
                                 //token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -1493,13 +1652,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'N':
                                 estado = 100;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -1511,13 +1673,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'C':
                                 estado = 101;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -1529,13 +1694,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'A':
                                 estado = 102;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -1547,13 +1715,16 @@ public class Lexico {
                             case (int) '\n':
                             case (int) ';':
                                 token.type = "identificador";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                             case (int) 'O':
                                 estado = 103;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }
@@ -1572,6 +1743,7 @@ public class Lexico {
                                 //break;
                             default:
                                 token.type = "identificador";
+                                lido = lido + (char) charLido;
                                 estado = 58;
                             break;
                         }

@@ -85,8 +85,8 @@ public class Programa {
         System.out.println(filaLida.getTamanho());
         Transicao transicao =
                 maquina.estados[estadoAtual].proximoEstado(token.getType());
-        //System.out.println("Estado Atual: " + estadoAtual + 
-        //        " Proximo Estado: " + transicao.proximoEstado);
+        System.out.println("Programa - " + token.getType() + " - Estado Atual: " + estadoAtual + 
+                " Proximo Estado: " + transicao.proximoEstado);
         Token proximoToken;
         if (transicao.proximaMaquina > 0) {
             switch(transicao.proximaMaquina) {
@@ -99,7 +99,11 @@ public class Programa {
                         proximoToken = (Token) filaLida.remover();
                     }
                     while(proximaMaquina.processaToken(proximoToken) == 0){
-                        proximoToken = (Token) filaLida.remover();
+                        if (proximaMaquina.consome) {
+                            //proximoToken = proximoToken;                        
+                        } else {
+                            proximoToken = (Token) filaLida.remover();
+                        }
                     }
                     break;
                 default:
