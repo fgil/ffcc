@@ -32,6 +32,7 @@ public class Main {
         Token token = new Token();
         Fila filaLida = new Fila();
 
+
         
         String fileName = "fonte.horae";
         if(args==null) fileName = "fonte.horae";
@@ -45,9 +46,14 @@ public class Main {
         }
         Programa programa = new Programa(filaLida);
         //System.out.println(programa.filaLida.getTamanho());
-        
+
+        token = null;
         while(filaLida.getTamanho() > 0){
-            programa.processaToken((Token) filaLida.remover());
+            if (token == null) {
+                token = programa.processaToken((Token) filaLida.remover());
+            } else {
+                token = programa.processaToken(token);
+            }
         }
         
 

@@ -31,7 +31,7 @@ public class Declaracao {
      */
     public Declaracao(Fila filaLida) {
         this.filaLida = filaLida;
-        maquina = new Maquina(3);
+        maquina = new Maquina(6);
         estadoAtual = 0;
         consome = false;
 
@@ -50,15 +50,27 @@ public class Declaracao {
         maquina.setTransicao(2,0,";",3,0,true);
         maquina.setTransicao(2,1,"[",4,0,false);
         
+        maquina.criaTransicoes(3,0);
+//        maquina.setTransicao(2,0,";",3,0,true);
+//        maquina.setTransicao(2,1,"[",4,0,false);
+        
+        maquina.criaTransicoes(4,1);
+        maquina.setTransicao(4,0,"numero",5,0,false);
+
+        maquina.criaTransicoes(5,1);
+        maquina.setTransicao(5,0,"]",3,0,false);
+        
     }
     
     public int processaToken(Token token) {
         System.out.println(filaLida.getTamanho());
+        try {
         Transicao transicao =
                 maquina.estados[estadoAtual].proximoEstado(token.getType());
-        System.out.println("Maquina - " + token.getType() + " - Estado Atual: " + estadoAtual + 
+        System.out.println("Declaracao - " + token.getType() + " - Estado Atual: " + estadoAtual + 
                 " Proximo Estado: " + transicao.proximoEstado);
-        if (transicao.proximaMaquina > 0) {
+        
+                if (transicao.proximaMaquina > 0) {
 //            switch(transicao.proximaMaquina) {
 //                case 1:
 //                    Declaracao declaracao = new Declaracao(filaLida);
@@ -77,6 +89,14 @@ public class Declaracao {
             return 1;
         } else {
             return 0;
+        }
+
+        } catch(Exception e) {
+        System.out.println("Maquina - " + token.getType() + " - Estado Atual: " + estadoAtual + 
+                " Transicao nao encontrada: ");
+            
+            return 0;
+
         }
     }
 

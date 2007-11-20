@@ -159,6 +159,16 @@ public class Lexico {
                                 estado = 0;
                                 charLido = -10;
                                 return token;
+                            case (int) '[':
+                                token.type = "[";
+                                estado = 0;
+                                charLido = -10;
+                                return token;
+                            case (int) ']':
+                                token.type = "]";
+                                estado = 0;
+                                charLido = -10;
+                                return token;
                             case (int) ',':
                                 token.type = ",";
                                 estado = 0;
@@ -180,6 +190,7 @@ public class Lexico {
                             case (int) '8':
                             case (int) '9':
                                 estado = 59;
+                                lido = lido + (char) charLido;
                                 break;
                             default:
                                 estado = 58;
@@ -1461,6 +1472,7 @@ public class Lexico {
                             case (int) '7':
                             case (int) '8':
                             case (int) '9':
+                                lido = lido + (char) charLido;
                                 estado = 59;
                                 break;
                             case -1://EOF
@@ -1483,6 +1495,7 @@ public class Lexico {
                             case (int) '}':
                             case (int) ']':
                                 token.type = "numero";
+                                token.word = lido;
                                 estado = 0;
                                 return token;
                                 //break;

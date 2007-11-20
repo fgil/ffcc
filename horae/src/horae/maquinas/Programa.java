@@ -81,18 +81,20 @@ public class Programa {
         
     }
  
-    public void processaToken(Token token) {
+    public Token processaToken(Token token) {
         System.out.println(filaLida.getTamanho());
         Transicao transicao =
                 maquina.estados[estadoAtual].proximoEstado(token.getType());
-        System.out.println("Programa - " + token.getType() + " - Estado Atual: " + estadoAtual + 
-                " Proximo Estado: " + transicao.proximoEstado);
-        Token proximoToken;
+        System.out.println("Programa - " + token.getType() + " - Estado Atual: " + estadoAtual);
+        System.out.println("Proximo Estado: " + transicao.proximoEstado);
+        Token proximoToken = null;
+
         if (transicao.proximaMaquina > 0) {
             switch(transicao.proximaMaquina) {
                 case 2:
                     Declaracao proximaMaquina = new Declaracao(filaLida);
                     System.out.println(filaLida.getTamanho());
+                    //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
                     if (transicao.consome) {
                         proximoToken = token;                        
                     } else {
@@ -105,8 +107,18 @@ public class Programa {
                             proximoToken = (Token) filaLida.remover();
                         }
                     }
+                    //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
+                    //Como anteriormente, mas agora ao sair do loop
+                        if (proximaMaquina.consome) {
+                            //proximoToken = proximoToken;
+                            System.out.println("Proximo token (n): " + proximoToken.getType());
+                        } else {
+                            proximoToken = null;
+                            //System.out.println("Proximo token (s): " + proximoToken.getType());
+                        }                    
                     break;
                 default:
+                    proximoToken = null;
                     //Ainda nao implementado
                 
             }
@@ -114,6 +126,7 @@ public class Programa {
         
         //Seta o estado de retorno
         estadoAtual = transicao.proximoEstado;
+        return proximoToken;
         }
     
 }
