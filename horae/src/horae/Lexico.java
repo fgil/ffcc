@@ -175,10 +175,10 @@ public class Lexico {
                                 charLido = -10;
                                 return token;
                             case (int) '\'':
-                                token.type = "'";
-                                estado = 0;
-                                charLido = -10;
-                                return token;
+                                token.type = "CADEIA";
+                                estado = 70;
+                                lido = "";
+                                break;
                             case (int) '0':
                             case (int) '1':
                             case (int) '2':
@@ -1657,6 +1657,47 @@ public class Lexico {
                                 return token;
                         }
 
+                    case 70:
+                        switch (charLido) {
+                            case -1://EOF
+                            case (int) '\n'://EOF
+                            case 32://Espaço: fim do identificador
+                            case (int) '&'://; fim do identificador
+                            case (int) '(':
+                            case (int) '[':
+                            case (int) ',':
+                            case (int) '!':
+                            case (int) '=':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '{':
+                            case (int) ')'://Fez besteira
+                                token.type = "CADEIA";
+                                token.setWord(lido);
+                                estado = 0;
+                                return token;
+                                //break;
+                            case (int) '\'':
+                                token.type = "CADEIA";
+                                token.setWord(lido);
+                                estado = 0;
+                                charLido = -10;
+                                return token;                                
+                            default://
+                                //token.type = "identificador";
+                                lido = lido + (char) charLido;
+                                estado = 70;
+                            break;
+                        }
+                        break;
+                        
+                        
+                        
+                        
                         
                         case 99:
                         switch (charLido) {
