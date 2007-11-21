@@ -24,6 +24,7 @@ public class Declaracao {
     public int estadoAceito = 3;
     public boolean consome;
     public Token restoToken;
+    private String maquinaNome = "Declaração";
     
     /** Creates a new instance of Declaracao
      * Lembrando:
@@ -82,10 +83,10 @@ public class Declaracao {
         try {
         Transicao transicao =
                 maquina.estados[estadoAtual].proximoEstado(token.getType());
-        System.out.println("Declaracao - " + token.getType() + " - Estado Atual: " + estadoAtual + 
-                " Proximo Estado: " + transicao.proximoEstado);
+        System.out.println(maquinaNome + " - " + token.getType() + " - Estado Atual: " + estadoAtual);
+        System.out.println("Proximo Estado: " + transicao.proximoEstado);
         
-                if (transicao.proximaMaquina > 0) {
+        if (transicao.proximaMaquina > 0) {
 //            switch(transicao.proximaMaquina) {
 //                case 1:
 //                    Declaracao declaracao = new Declaracao(filaLida);
@@ -108,7 +109,7 @@ public class Declaracao {
         }
 
         } catch(Exception e) {
-        System.out.println("Declaracao - " + token.getType() + " - Estado Atual: " + estadoAtual + 
+        System.out.println(maquinaNome + " - " + token.getType() + " - Estado Atual: " + estadoAtual + 
                 " Transicao nao encontrada: ");
             
             return 0;

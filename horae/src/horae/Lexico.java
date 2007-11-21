@@ -1500,7 +1500,7 @@ public class Lexico {
                             case (int) ')':
                             case (int) '}':
                             case (int) ']':
-                                token.type = "numero";
+                                token.type = "NUMERO";
                                 token.word = lido;
                                 estado = 0;
                                 return token;

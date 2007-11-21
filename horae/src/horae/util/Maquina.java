@@ -20,6 +20,7 @@ public class Maquina {
     public int A_Declaracao = 2;
     public int A_DeclaracaoFuncao = 3;
     public int A_Comando = 4;
+    public int A_Expressao = 5;
     /** Creates a new instance of Maquina */
     public Maquina(int qtdEstados) {
         this.estados = new Estado[qtdEstados];

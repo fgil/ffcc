@@ -26,6 +26,7 @@ public class DeclaracaoFuncao {
     public int estadoAceito = 14;
     public boolean consome;
     public Token restoToken;
+    private String maquinaNome = "DeclaracaoFuncao";
     
     /** Creates a new instance of Declaracao
      * Lembrando:
@@ -68,32 +69,43 @@ public class DeclaracaoFuncao {
         maquina.setTransicao(6,0,",",4,0,false);
         maquina.setTransicao(6,1,")",5,0,false);
         
-        
         maquina.criaTransicoes(7,5);
-        maquina.setTransicao(7,1,"INT",12,maquina.A_Declaracao,true);
-        maquina.setTransicao(7,2,"CHAR",12,maquina.A_Declaracao,true);
-        maquina.setTransicao(7,3,"BOOLEAN",12,maquina.A_Declaracao,true);
+        maquina.setTransicao(7,1,"INT",8,maquina.A_Declaracao,true);
+        maquina.setTransicao(7,2,"CHAR",8,maquina.A_Declaracao,true);
+        maquina.setTransicao(7,3,"BOOLEAN",8,maquina.A_Declaracao,true);
         maquina.setTransicao(7,0,"COMMANDO",9,maquina.A_Comando,false);//Aqui nao implementado
-        maquina.setTransicao(7,4,"RETURN",8,0,false);
+        maquina.setTransicao(7,4,"RETURN",11,0,false);
         
         maquina.criaTransicoes(8,1);
-        maquina.setTransicao(8,0,"EXP",10,0,false);//Aqui nao implementado
+        maquina.setTransicao(8,0,";",7,0,false);
+        
+        maquina.criaTransicoes(9,2);
+        maquina.setTransicao(9,0,"COMMANDO",9,maquina.A_Comando,false);//Aqui nao implementado
+        maquina.setTransicao(9,1,"RETURN",8,0,false);
 
-        maquina.criaTransicoes(9,1);
-        maquina.setTransicao(9,0,";",13,0,false);
-        
         maquina.criaTransicoes(10,1);
-        maquina.setTransicao(10,0,";",11,0,false);
+        maquina.setTransicao(10,0,";",9,0,false);
         
-        maquina.criaTransicoes(11,1);
-        maquina.setTransicao(11,0,"}",12,0,false);
+
+        
+        maquina.criaTransicoes(11,6);
+        //maquina.setTransicao(11,0,"EXP",12,0,false);//Aqui nao implementado
+        maquina.setTransicao(11,0,"-",12,1,true);
+        maquina.setTransicao(11,1,"(",12,maquina.A_Expressao,true);
+        maquina.setTransicao(11,2,"identificador",12,maquina.A_Expressao,true);
+        maquina.setTransicao(11,3,"TRUE",12,maquina.A_Expressao,true);
+        maquina.setTransicao(11,4,"FALSE",12,maquina.A_Expressao,true);
+        maquina.setTransicao(11,5,"NUMERO",12,maquina.A_Expressao,true);
         
         maquina.criaTransicoes(12,1);
-        maquina.setTransicao(12,0,";",7,0,false);
+        maquina.setTransicao(12,0,";",13,0,false);
+        
+        maquina.criaTransicoes(13,1);
+        maquina.setTransicao(13,0,"}",14,0,false);
+        
 
-        maquina.criaTransicoes(13,2);
-        maquina.setTransicao(13,0,"COMMANDO",9,maquina.A_Comando,false);//Aqui nao implementado
-        maquina.setTransicao(13,1,"RETURN",8,0,false);
+
+        
         
 //        
 //        maquina.criaTransicoes(2,2);
@@ -125,10 +137,10 @@ public class DeclaracaoFuncao {
         try {
         Transicao transicao =
                 maquina.estados[estadoAtual].proximoEstado(token.getType());
-        System.out.println("DeclaracaoFuncao - " + token.getType() + " - Estado Atual: " + estadoAtual + 
-                " Proximo Estado: " + transicao.proximoEstado);
+        System.out.println(maquinaNome + " - " + token.getType() + " - Estado Atual: " + estadoAtual);
+        System.out.println("Proximo Estado: " + transicao.proximoEstado);
         Token proximoToken = null;        
-                if (transicao.proximaMaquina > 0) {
+        if (transicao.proximaMaquina > 0) {
             switch(transicao.proximaMaquina) {
                 case 2:
                     Declaracao maquinaDeclaracao = new Declaracao(filaLida);
@@ -148,13 +160,39 @@ public class DeclaracaoFuncao {
                     }
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
                     //Como anteriormente, mas agora ao sair do loop
-                        if (maquinaDeclaracao.consome) {
-                            //proximoToken = proximoToken;
-                            System.out.println("Proximo token (n): " + proximoToken.getType());
+                    if (maquinaDeclaracao.consome) {
+                        //proximoToken = proximoToken;
+                        System.out.println("Proximo token (n): " + proximoToken.getType());
+                    } else {
+                        proximoToken = null;
+                        //System.out.println("Proximo token (s): " + proximoToken.getType());
+                    }                    
+                    break;
+                case 5://Maquina Expressao
+                    Expressao maquinaExpressao = new Expressao(filaLida);
+                    System.out.println(filaLida.getTamanho());
+                    //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
+                    if (transicao.consome) {
+                        proximoToken = token;                        
+                    } else {
+                        proximoToken = (Token) filaLida.remover();
+                    }
+                    while(maquinaExpressao.processaToken(proximoToken) == 0){
+                        if (maquinaExpressao.consome) {
+                            proximoToken = maquinaExpressao.restoToken;                        
                         } else {
-                            proximoToken = null;
-                            //System.out.println("Proximo token (s): " + proximoToken.getType());
-                        }                    
+                            proximoToken = (Token) filaLida.remover();
+                        }
+                    }
+                    //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
+                    //Como anteriormente, mas agora ao sair do loop
+//                        if (maquinaExpressao.consome) {
+//                            proximoToken = proximoToken;
+//                            System.out.println("Proximo token (n): " + proximoToken.getType());
+//                        } else {
+                           proximoToken = maquinaExpressao.restoToken;
+//                            //System.out.println("Proximo token (s): " + proximoToken.getType());
+//                        }                    
                     break;
                 default:
                     //Ainda nao implementado
@@ -173,7 +211,7 @@ public class DeclaracaoFuncao {
         }
 
         } catch(Exception e) {
-        System.out.println("DeclaracaoFuncao - " + token.getType() + " - Estado Atual: " + estadoAtual + 
+        System.out.println(maquinaNome + " - " + token.getType() + " - Estado Atual: " + estadoAtual + 
                 " Transicao nao encontrada: ");
             
             return 0;

@@ -21,6 +21,7 @@ public class Programa {
     public Fila filaLida;
     private Maquina maquina;
     public int estadoAtual;
+    private String maquinaNome = "Programa";
     
     /** Creates a new instance of Programa */
     public Programa(Fila filaLida) {
@@ -85,7 +86,7 @@ public class Programa {
         //System.out.println(filaLida.getTamanho());
         Transicao transicao =
                 maquina.estados[estadoAtual].proximoEstado(token.getType());
-        System.out.println("Programa - " + token.getType() + " - Estado Atual: " + estadoAtual);
+        System.out.println(maquinaNome + " - " + token.getType() + " - Estado Atual: " + estadoAtual);
         System.out.println("Proximo Estado: " + transicao.proximoEstado);
         Token proximoToken = null;
 
