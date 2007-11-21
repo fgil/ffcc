@@ -82,7 +82,7 @@ public class Programa {
     }
  
     public Token processaToken(Token token) {
-        System.out.println(filaLida.getTamanho());
+        //System.out.println(filaLida.getTamanho());
         Transicao transicao =
                 maquina.estados[estadoAtual].proximoEstado(token.getType());
         System.out.println("Programa - " + token.getType() + " - Estado Atual: " + estadoAtual);
@@ -92,7 +92,7 @@ public class Programa {
         if (transicao.proximaMaquina > 0) {
             switch(transicao.proximaMaquina) {
                 case 2:
-                    Declaracao proximaMaquina = new Declaracao(filaLida);
+                    Declaracao maquinaDeclaracao = new Declaracao(filaLida);
                     System.out.println(filaLida.getTamanho());
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
                     if (transicao.consome) {
@@ -100,8 +100,8 @@ public class Programa {
                     } else {
                         proximoToken = (Token) filaLida.remover();
                     }
-                    while(proximaMaquina.processaToken(proximoToken) == 0){
-                        if (proximaMaquina.consome) {
+                    while(maquinaDeclaracao.processaToken(proximoToken) == 0){
+                        if (maquinaDeclaracao.consome) {
                             //proximoToken = proximoToken;                        
                         } else {
                             proximoToken = (Token) filaLida.remover();
@@ -109,7 +109,33 @@ public class Programa {
                     }
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
                     //Como anteriormente, mas agora ao sair do loop
-                        if (proximaMaquina.consome) {
+                        if (maquinaDeclaracao.consome) {
+                            //proximoToken = proximoToken;
+                            System.out.println("Proximo token (n): " + proximoToken.getType());
+                        } else {
+                            proximoToken = null;
+                            //System.out.println("Proximo token (s): " + proximoToken.getType());
+                        }                    
+                    break;
+                case 3:
+                    DeclaracaoFuncao maquinaFuncao = new DeclaracaoFuncao(filaLida);
+                    System.out.println(filaLida.getTamanho());
+                    //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
+                    if (transicao.consome) {
+                        proximoToken = token;                        
+                    } else {
+                        proximoToken = (Token) filaLida.remover();
+                    }
+                    while(maquinaFuncao.processaToken(proximoToken) == 0){
+                        if (maquinaFuncao.consome) {
+                            proximoToken = maquinaFuncao.restoToken;//descobri agora que o esquema eh mandar o resto token
+                        } else {
+                            proximoToken = (Token) filaLida.remover();
+                        }
+                    }
+                    //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
+                    //Como anteriormente, mas agora ao sair do loop
+                        if (maquinaFuncao.consome) {
                             //proximoToken = proximoToken;
                             System.out.println("Proximo token (n): " + proximoToken.getType());
                         } else {

@@ -23,6 +23,7 @@ public class Declaracao {
     public int estadoAtual;
     public int estadoAceito = 3;
     public boolean consome;
+    public Token restoToken;
     
     /** Creates a new instance of Declaracao
      * Lembrando:
@@ -31,7 +32,7 @@ public class Declaracao {
      */
     public Declaracao(Fila filaLida) {
         this.filaLida = filaLida;
-        maquina = new Maquina(6);
+        maquina = new Maquina(9);
         estadoAtual = 0;
         consome = false;
 
@@ -46,9 +47,11 @@ public class Declaracao {
         maquina.setTransicao(1,0,"identificador",2,0,false);
         
         
-        maquina.criaTransicoes(2,2);
+        maquina.criaTransicoes(2,4);
         maquina.setTransicao(2,0,";",3,0,true);
-        maquina.setTransicao(2,1,"[",4,0,false);
+        maquina.setTransicao(2,1,",",3,0,true);
+        maquina.setTransicao(2,3,")",3,0,true);
+        maquina.setTransicao(2,2,"[",4,0,false);
         
         maquina.criaTransicoes(3,0);
 //        maquina.setTransicao(2,0,";",3,0,true);
@@ -58,7 +61,19 @@ public class Declaracao {
         maquina.setTransicao(4,0,"numero",5,0,false);
 
         maquina.criaTransicoes(5,1);
-        maquina.setTransicao(5,0,"]",3,0,false);
+        maquina.setTransicao(5,0,"]",6,0,false);
+        
+        maquina.criaTransicoes(6,4);
+        maquina.setTransicao(6,0,";",3,0,true);
+        maquina.setTransicao(6,1,",",3,0,true);
+        maquina.setTransicao(6,3,")",3,0,true);
+        maquina.setTransicao(6,2,"[",7,0,false);
+        
+        maquina.criaTransicoes(7,1);
+        maquina.setTransicao(7,0,"numero",8,0,false);
+        
+       maquina.criaTransicoes(8,1);
+        maquina.setTransicao(8,0,"]",3,0,false);
         
     }
     
@@ -84,6 +99,7 @@ public class Declaracao {
         consome = transicao.consome;
         estadoAtual = transicao.proximoEstado;
         
+        
         // Aqui deverá verificar se o estado é aceito e se podemos retornar
         if (transicao.proximoEstado == this.estadoAceito) {
             return 1;
@@ -92,7 +108,7 @@ public class Declaracao {
         }
 
         } catch(Exception e) {
-        System.out.println("Maquina - " + token.getType() + " - Estado Atual: " + estadoAtual + 
+        System.out.println("Declaracao - " + token.getType() + " - Estado Atual: " + estadoAtual + 
                 " Transicao nao encontrada: ");
             
             return 0;
