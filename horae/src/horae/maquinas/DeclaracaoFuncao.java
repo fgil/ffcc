@@ -23,7 +23,7 @@ public class DeclaracaoFuncao {
     public Fila filaLida;
     private Maquina maquina;
     public int estadoAtual;
-    public int estadoAceito = 12;
+    public int estadoAceito = 14;
     public boolean consome;
     public Token restoToken;
     
@@ -34,7 +34,7 @@ public class DeclaracaoFuncao {
      */
     public DeclaracaoFuncao(Fila filaLida) {
         this.filaLida = filaLida;
-        maquina = new Maquina(12);
+        maquina = new Maquina(14);
         estadoAtual = 0;
         consome = false;
 
@@ -69,15 +69,18 @@ public class DeclaracaoFuncao {
         maquina.setTransicao(6,1,")",5,0,false);
         
         
-        maquina.criaTransicoes(7,2);
+        maquina.criaTransicoes(7,5);
+        maquina.setTransicao(7,1,"INT",12,maquina.A_Declaracao,true);
+        maquina.setTransicao(7,2,"CHAR",12,maquina.A_Declaracao,true);
+        maquina.setTransicao(7,3,"BOOLEAN",12,maquina.A_Declaracao,true);
         maquina.setTransicao(7,0,"COMMANDO",9,maquina.A_Comando,false);//Aqui nao implementado
-        maquina.setTransicao(7,1,"RETURN",8,0,false);
+        maquina.setTransicao(7,4,"RETURN",8,0,false);
         
         maquina.criaTransicoes(8,1);
         maquina.setTransicao(8,0,"EXP",10,0,false);//Aqui nao implementado
 
         maquina.criaTransicoes(9,1);
-        maquina.setTransicao(9,0,";",7,0,false);
+        maquina.setTransicao(9,0,";",13,0,false);
         
         maquina.criaTransicoes(10,1);
         maquina.setTransicao(10,0,";",11,0,false);
@@ -85,7 +88,12 @@ public class DeclaracaoFuncao {
         maquina.criaTransicoes(11,1);
         maquina.setTransicao(11,0,"}",12,0,false);
         
+        maquina.criaTransicoes(12,1);
+        maquina.setTransicao(12,0,";",7,0,false);
 
+        maquina.criaTransicoes(13,2);
+        maquina.setTransicao(13,0,"COMMANDO",9,maquina.A_Comando,false);//Aqui nao implementado
+        maquina.setTransicao(13,1,"RETURN",8,0,false);
         
 //        
 //        maquina.criaTransicoes(2,2);
