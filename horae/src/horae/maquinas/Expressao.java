@@ -29,7 +29,7 @@ public class Expressao {
     /** Creates a new instance of Expressao */
     public Expressao(Fila filaLida) {
                 this.filaLida = filaLida;
-        maquina = new Maquina(14);
+        maquina = new Maquina(22);
         estadoAtual = 0;
         consome = false;
         System.out.println("Nasci");
@@ -80,18 +80,22 @@ public class Expressao {
         maquina.setTransicao(6,4,"/",10,0,false);
         
         
-        maquina.criaTransicoes(7,5);//esse vai ser o mais chato
-        maquina.setTransicao(7,1,"INT",12,maquina.A_Declaracao,true);
-        maquina.setTransicao(7,2,"CHAR",12,maquina.A_Declaracao,true);
-        maquina.setTransicao(7,3,"BOOLEAN",12,maquina.A_Declaracao,true);
-        maquina.setTransicao(7,0,"COMMANDO",9,maquina.A_Comando,false);//Aqui nao implementado
-        maquina.setTransicao(7,4,"RETURN",8,0,false);
+        maquina.criaTransicoes(7,8);//esse vai ser o mais chato
+        maquina.setTransicao(7,0,";",3,0,true);
+        maquina.setTransicao(7,1,")",3,0,true);
+        maquina.setTransicao(7,2,"(",12,0,false);
+        maquina.setTransicao(7,3,"+",10,0,false);
+        maquina.setTransicao(7,4,"-",10,0,false);
+        maquina.setTransicao(7,5,"/",10,0,false);
+        maquina.setTransicao(7,6,"*",10,0,false);
+        maquina.setTransicao(7,7,"[",16,0,false);
         
         maquina.criaTransicoes(8,1);
         maquina.setTransicao(8,0,";",3,0,true);
 
-        maquina.criaTransicoes(9,5);
+        maquina.criaTransicoes(9,6);
         maquina.setTransicao(9,0,";",3,0,true);
+        maquina.setTransicao(9,5,")",3,0,true);
         maquina.setTransicao(9,1,"+",10,0,false);
         maquina.setTransicao(9,2,"-",10,0,false);
         maquina.setTransicao(9,3,"*",10,0,false);
@@ -104,11 +108,69 @@ public class Expressao {
         maquina.setTransicao(10,3,"FALSE",11,maquina.A_Expressao,true);
         maquina.setTransicao(10,4,"NUMERO",11,maquina.A_Expressao,true);
         
-        maquina.criaTransicoes(11,1);
+        maquina.criaTransicoes(11,2);
         maquina.setTransicao(11,0,";",3,0,true);
+        maquina.setTransicao(11,1,")",3,0,true);
         
-//        maquina.criaTransicoes(12,1);
-//        maquina.setTransicao(12,0,";",7,0,false);
+        maquina.criaTransicoes(12,7);
+        maquina.setTransicao(12,0,"(",14,maquina.A_Expressao,true);
+        maquina.setTransicao(12,1,"identificador",14,maquina.A_Expressao,true);
+        maquina.setTransicao(12,2,"TRUE",14,maquina.A_Expressao,true);
+        maquina.setTransicao(12,3,"FALSE",14,maquina.A_Expressao,true);
+        maquina.setTransicao(12,4,"NUMERO",14,maquina.A_Expressao,true);
+        maquina.setTransicao(12,5,"-",14,maquina.A_Expressao,true);
+        maquina.setTransicao(12,6,")",15,0,true);
+        
+        maquina.criaTransicoes(13,5);
+        maquina.setTransicao(13,1,"identificador",14,maquina.A_Expressao,true);
+        maquina.setTransicao(13,2,"TRUE",14,maquina.A_Expressao,true);
+        maquina.setTransicao(13,3,"FALSE",14,maquina.A_Expressao,true);
+        maquina.setTransicao(13,4,"NUMERO",14,maquina.A_Expressao,true);
+        maquina.setTransicao(13,0,"-",14,maquina.A_Expressao,true);
+        
+        
+        maquina.criaTransicoes(14,2);
+        maquina.setTransicao(14,0,",",13,0,false);
+        maquina.setTransicao(14,0,")",15,0,false);
+        
+        maquina.criaTransicoes(15,6);
+        maquina.setTransicao(15,0,";",3,0,true);
+        maquina.setTransicao(15,1,")",3,0,true);
+        maquina.setTransicao(15,2,"+",10,0,false);
+        maquina.setTransicao(15,3,"-",10,0,false);
+        maquina.setTransicao(15,4,"/",10,0,false);
+        maquina.setTransicao(15,5,"*",10,0,false);
+        
+        maquina.criaTransicoes(16,1);
+        maquina.setTransicao(16,0,"NUMERO",17,0,false);
+        
+        maquina.criaTransicoes(17,1);
+        maquina.setTransicao(17,0,"]",18,0,false);
+        
+        maquina.criaTransicoes(18,7);
+        maquina.setTransicao(18,0,";",3,0,true);
+        maquina.setTransicao(18,1,")",3,0,true);
+        maquina.setTransicao(18,2,"+",10,0,false);
+        maquina.setTransicao(18,3,"-",10,0,false);
+        maquina.setTransicao(18,4,"/",10,0,false);
+        maquina.setTransicao(18,5,"*",10,0,false);
+        maquina.setTransicao(18,6,"[",19,0,false);
+        
+        maquina.criaTransicoes(19,1);
+        maquina.setTransicao(19,0,"NUMERO",20,0,false);
+        
+        maquina.criaTransicoes(20,1);
+        maquina.setTransicao(20,0,"]",21,0,false);
+        
+        maquina.criaTransicoes(21,6);
+        maquina.setTransicao(21,0,";",3,0,true);
+        maquina.setTransicao(21,1,")",3,0,true);
+        maquina.setTransicao(21,2,"+",10,0,false);
+        maquina.setTransicao(21,3,"-",10,0,false);
+        maquina.setTransicao(21,4,"/",10,0,false);
+        maquina.setTransicao(21,5,"*",10,0,false);
+        
+        
 //
 //        maquina.criaTransicoes(13,2);
 //        maquina.setTransicao(13,0,"COMMANDO",9,maquina.A_Comando,false);//Aqui nao implementado
