@@ -92,6 +92,7 @@ public class Programa {
 
         if (transicao.proximaMaquina > 0) {
             switch(transicao.proximaMaquina) {
+
                 case 2:
                     Declaracao maquinaDeclaracao = new Declaracao(filaLida);
                     System.out.println(filaLida.getTamanho());
@@ -118,6 +119,7 @@ public class Programa {
                             //System.out.println("Proximo token (s): " + proximoToken.getType());
                         }                    
                     break;
+
                 case 3:
                     DeclaracaoFuncao maquinaFuncao = new DeclaracaoFuncao(filaLida);
                     System.out.println(filaLida.getTamanho());
@@ -144,6 +146,28 @@ public class Programa {
                             //System.out.println("Proximo token (s): " + proximoToken.getType());
                         }                    
                     break;
+
+                case 4://Maquina Comando
+                    Comando maquinaComando = new Comando(filaLida);
+                    System.out.println(filaLida.getTamanho());
+                    //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
+                    if (transicao.consome) {
+                        proximoToken = token;                        
+                    } else {
+                        proximoToken = (Token) filaLida.remover();
+                    }
+                    while(maquinaComando.processaToken(proximoToken) == 0){
+                        if (maquinaComando.consome) {
+                            proximoToken = maquinaComando.restoToken;                          
+                        } else {
+                            proximoToken = (Token) filaLida.remover();
+                        }
+                    }
+                        if(maquinaComando.consome) {
+                            proximoToken = maquinaComando.restoToken;
+                        }
+                    break;
+
                 default:
                     proximoToken = null;
                     //Ainda nao implementado

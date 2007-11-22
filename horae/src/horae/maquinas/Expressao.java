@@ -80,9 +80,10 @@ public class Expressao {
         maquina.setTransicao(6,4,"/",10,0,false);
         
         
-        maquina.criaTransicoes(7,8);//esse vai ser o mais chato
+        maquina.criaTransicoes(7,9);//esse vai ser o mais chato
         maquina.setTransicao(7,0,";",3,0,true);
         maquina.setTransicao(7,1,")",3,0,true);
+        maquina.setTransicao(7,8,"]",3,0,true);
         maquina.setTransicao(7,2,"(",12,0,false);
         maquina.setTransicao(7,3,"+",10,0,false);
         maquina.setTransicao(7,4,"-",10,0,false);
@@ -93,13 +94,14 @@ public class Expressao {
         maquina.criaTransicoes(8,1);
         maquina.setTransicao(8,0,";",3,0,true);
 
-        maquina.criaTransicoes(9,6);
+        maquina.criaTransicoes(9,7);
         maquina.setTransicao(9,0,";",3,0,true);
         maquina.setTransicao(9,5,")",3,0,true);
         maquina.setTransicao(9,1,"+",10,0,false);
         maquina.setTransicao(9,2,"-",10,0,false);
         maquina.setTransicao(9,3,"*",10,0,false);
         maquina.setTransicao(9,4,"/",10,0,false);
+        maquina.setTransicao(9,6,"]",3,0,true);
         
         maquina.criaTransicoes(10,5);
         maquina.setTransicao(10,0,"(",11,maquina.A_Expressao,true);
@@ -108,9 +110,10 @@ public class Expressao {
         maquina.setTransicao(10,3,"FALSE",11,maquina.A_Expressao,true);
         maquina.setTransicao(10,4,"NUMERO",11,maquina.A_Expressao,true);
         
-        maquina.criaTransicoes(11,2);
+        maquina.criaTransicoes(11,3);
         maquina.setTransicao(11,0,";",3,0,true);
         maquina.setTransicao(11,1,")",3,0,true);
+        maquina.setTransicao(11,2,"]",3,0,true);
         
         maquina.criaTransicoes(12,7);
         maquina.setTransicao(12,0,"(",14,maquina.A_Expressao,true);
