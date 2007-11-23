@@ -1110,6 +1110,8 @@ public class Lexico {
                             case 32://Espaço: fim do token
                             case (int) '\n':
                             case (int) ';':
+                            case (int) ')':
+                            case (int) ']':
                                 token.type = "TRUE";
                                 
                                 estado = 0;
@@ -1280,7 +1282,7 @@ public class Lexico {
                             case 32://Espaço: fim do token
                             case (int) '\n':
                             case (int) ';':
-                                token.type = "ELSE";
+                                token.type = "FALSE";
                                 
                                 estado = 0;
                                 return token;
