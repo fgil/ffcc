@@ -78,7 +78,7 @@ public class Expressao {
         maquina.setTransicao(6,2,"-",10,0,false);
         maquina.setTransicao(6,3,"*",10,0,false);
         maquina.setTransicao(6,4,"/",10,0,false);
-        maquina.setTransicao(6,5,"]",3,0,false);
+        maquina.setTransicao(6,5,"]",3,0,true);
         
         
         maquina.criaTransicoes(7,9);//esse vai ser o mais chato
