@@ -72,25 +72,30 @@ public class Expressao {
         maquina.criaTransicoes(5,1);
         maquina.setTransicao(5,0,")",6,0,false);
         
-        maquina.criaTransicoes(6,6);
+        maquina.criaTransicoes(6,7);
         maquina.setTransicao(6,0,";",3,0,false);
         maquina.setTransicao(6,1,"+",10,0,false);
         maquina.setTransicao(6,2,"-",10,0,false);
         maquina.setTransicao(6,3,"*",10,0,false);
         maquina.setTransicao(6,4,"/",10,0,false);
         maquina.setTransicao(6,5,"]",3,0,true);
+        maquina.setTransicao(6,6,")",3,0,true);
         
-        
-        maquina.criaTransicoes(7,9);//esse vai ser o mais chato
+        maquina.criaTransicoes(7,14);//esse vai ser o mais chato
         maquina.setTransicao(7,0,";",3,0,true);
         maquina.setTransicao(7,1,")",3,0,true);
-        maquina.setTransicao(7,8,"]",3,0,true);
         maquina.setTransicao(7,2,"(",12,0,false);
         maquina.setTransicao(7,3,"+",10,0,false);
         maquina.setTransicao(7,4,"-",10,0,false);
         maquina.setTransicao(7,5,"/",10,0,false);
         maquina.setTransicao(7,6,"*",10,0,false);
         maquina.setTransicao(7,7,"[",16,0,false);
+        maquina.setTransicao(7,8,"]",3,0,true);
+        maquina.setTransicao(7,9,"<=",3,0,true);
+        maquina.setTransicao(7,10,"<",3,0,true);
+        maquina.setTransicao(7,11,">=",3,0,true);
+        maquina.setTransicao(7,12,"==",3,0,true);
+        maquina.setTransicao(7,13,"!=",3,0,true);
         
         maquina.criaTransicoes(8,2);
         maquina.setTransicao(8,0,";",3,0,true);
@@ -138,23 +143,30 @@ public class Expressao {
         maquina.setTransicao(14,0,",",13,0,false);
         maquina.setTransicao(14,0,")",15,0,false);
         
-        maquina.criaTransicoes(15,6);
+        maquina.criaTransicoes(15,12);
         maquina.setTransicao(15,0,";",3,0,true);
         maquina.setTransicao(15,1,")",3,0,true);
         maquina.setTransicao(15,2,"+",10,0,false);
         maquina.setTransicao(15,3,"-",10,0,false);
         maquina.setTransicao(15,4,"/",10,0,false);
         maquina.setTransicao(15,5,"*",10,0,false);
+        maquina.setTransicao(15,6,"]",3,0,true);
+        maquina.setTransicao(15,7,"<=",3,0,true);
+        maquina.setTransicao(15,8,"<",3,0,true);
+        maquina.setTransicao(15,9,">=",3,0,true);
+        maquina.setTransicao(15,10,"==",3,0,true);
+        maquina.setTransicao(15,11,"!=",3,0,true);
         
-        maquina.criaTransicoes(16,3);
+        maquina.criaTransicoes(16,4);
         maquina.setTransicao(16,0,"identificador",17,maquina.A_Expressao,true);
         maquina.setTransicao(16,1,"NUMERO",17,maquina.A_Expressao,true);
         maquina.setTransicao(16,2,"-",17,maquina.A_Expressao,true);
+        maquina.setTransicao(16,3,"(",17,maquina.A_Expressao,true);
         
         maquina.criaTransicoes(17,1);
         maquina.setTransicao(17,0,"]",18,0,false);
         
-        maquina.criaTransicoes(18,7);
+        maquina.criaTransicoes(18,13);
         maquina.setTransicao(18,0,";",3,0,true);
         maquina.setTransicao(18,1,")",3,0,true);
         maquina.setTransicao(18,2,"+",10,0,false);
@@ -162,20 +174,36 @@ public class Expressao {
         maquina.setTransicao(18,4,"/",10,0,false);
         maquina.setTransicao(18,5,"*",10,0,false);
         maquina.setTransicao(18,6,"[",19,0,false);
+        maquina.setTransicao(18,8,"]",3,0,true);
+        maquina.setTransicao(18,9,"<=",3,0,true);
+        maquina.setTransicao(18,10,"<",3,0,true);
+        maquina.setTransicao(18,11,">=",3,0,true);
+        maquina.setTransicao(18,12,"==",3,0,true);
+        maquina.setTransicao(18,7,"!=",3,0,true);
         
-        maquina.criaTransicoes(19,1);
-        maquina.setTransicao(19,0,"NUMERO",20,0,false);
+        
+        maquina.criaTransicoes(19,4);
+        maquina.setTransicao(19,0,"identificador",20,maquina.A_Expressao,true);
+        maquina.setTransicao(19,1,"NUMERO",20,maquina.A_Expressao,true);
+        maquina.setTransicao(19,2,"-",20,maquina.A_Expressao,true);
+        maquina.setTransicao(19,3,"(",20,maquina.A_Expressao,true);
         
         maquina.criaTransicoes(20,1);
         maquina.setTransicao(20,0,"]",21,0,false);
         
-        maquina.criaTransicoes(21,6);
+        maquina.criaTransicoes(21,12);
         maquina.setTransicao(21,0,";",3,0,true);
         maquina.setTransicao(21,1,")",3,0,true);
         maquina.setTransicao(21,2,"+",10,0,false);
         maquina.setTransicao(21,3,"-",10,0,false);
         maquina.setTransicao(21,4,"/",10,0,false);
         maquina.setTransicao(21,5,"*",10,0,false);
+        maquina.setTransicao(21,6,"]",3,0,true);
+        maquina.setTransicao(21,7,"<=",3,0,true);
+        maquina.setTransicao(21,8,"<",3,0,true);
+        maquina.setTransicao(21,9,">=",3,0,true);
+        maquina.setTransicao(21,10,"==",3,0,true);
+        maquina.setTransicao(21,11,"!=",3,0,true);
         
         
 //

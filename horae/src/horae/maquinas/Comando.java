@@ -58,7 +58,7 @@ public class Comando {
         maquina.setTransicao(3,4,"NUMERO",4,maquina.A_Expressao,true);
         maquina.setTransicao(3,5,"-",4,maquina.A_Expressao,true);        
         
-        maquina.criaTransicoes(4,5);
+        maquina.criaTransicoes(4,1);
         maquina.setTransicao(4,0,"]",5,0,false);
         
         maquina.criaTransicoes(5,2);
@@ -117,7 +117,7 @@ public class Comando {
         maquina.setTransicao(14,0,"(",22,0,false);
         
         maquina.criaTransicoes(15,1);
-        maquina.setTransicao(15,0,"(",33,0,false);
+        maquina.setTransicao(15,0,"(",32,0,false);
 
         maquina.criaTransicoes(16,2);
         maquina.setTransicao(16,0,"[",17,0,false);
@@ -147,9 +147,13 @@ public class Comando {
         maquina.setTransicao(21,0,"]",10,0,false);
 
         
-        maquina.criaTransicoes(22,2);
-        maquina.setTransicao(22,0,"TRUE",23,maquina.A_Expressao,true);
-        maquina.setTransicao(22,1,"FALSE",23,maquina.A_Expressao,true);
+        maquina.criaTransicoes(22,6);//Aqui tem q ser as A_ExpAritimetica
+        maquina.setTransicao(22,0,"TRUE",23,maquina.A_ExpAritmetica,true);
+        maquina.setTransicao(22,1,"FALSE",23,maquina.A_ExpAritmetica,true);
+        maquina.setTransicao(22,2,"(",23,maquina.A_ExpAritmetica,true);
+        maquina.setTransicao(22,3,"identificador",23,maquina.A_ExpAritmetica,true);
+        maquina.setTransicao(22,4,"NUMERO",23,maquina.A_ExpAritmetica,true);
+        maquina.setTransicao(22,5,"-",23,maquina.A_ExpAritmetica,true);      
 
         maquina.criaTransicoes(23,1);
         maquina.setTransicao(23,0,")",24,0,false);
@@ -183,38 +187,34 @@ public class Comando {
         maquina.criaTransicoes(31,1);
         maquina.setTransicao(31,0,";",30,0,false);
         
+        maquina.criaTransicoes(32,6);//Aqui tem q ser as A_ExpAritimetica
+        maquina.setTransicao(32,0,"TRUE",33,maquina.A_ExpAritmetica,true);
+        maquina.setTransicao(32,1,"FALSE",33,maquina.A_ExpAritmetica,true);
+        maquina.setTransicao(32,2,"(",33,maquina.A_ExpAritmetica,true);
+        maquina.setTransicao(32,3,"identificador",33,maquina.A_ExpAritmetica,true);
+        maquina.setTransicao(32,4,"NUMERO",33,maquina.A_ExpAritmetica,true);
+        maquina.setTransicao(32,5,"-",33,maquina.A_ExpAritmetica,true); 
         
+        maquina.criaTransicoes(33,1);
+        maquina.setTransicao(33,0,")",34,0,false);
         
+        maquina.criaTransicoes(34,1);
+        maquina.setTransicao(34,0,"DO",36,0,false);
         
-//        
-//        maquina.criaTransicoes(18,7);
-//        maquina.setTransicao(18,0,";",3,0,true);
-//        maquina.setTransicao(18,1,")",3,0,true);
-//        maquina.setTransicao(18,2,"+",10,0,false);
-//        maquina.setTransicao(18,3,"-",10,0,false);
-//        maquina.setTransicao(18,4,"/",10,0,false);
-//        maquina.setTransicao(18,5,"*",10,0,false);
-//        maquina.setTransicao(18,6,"[",19,0,false);
-//        
-//        maquina.criaTransicoes(19,1);
-//        maquina.setTransicao(19,0,"NUMERO",20,0,false);
-//        
-//        maquina.criaTransicoes(20,1);
-//        maquina.setTransicao(20,0,"]",21,0,false);
-//        
-//        maquina.criaTransicoes(21,6);
-//        maquina.setTransicao(21,0,";",3,0,true);
-//        maquina.setTransicao(21,1,")",3,0,true);
-//        maquina.setTransicao(21,2,"+",10,0,false);
-//        maquina.setTransicao(21,3,"-",10,0,false);
-//        maquina.setTransicao(21,4,"/",10,0,false);
-//        maquina.setTransicao(21,5,"*",10,0,false);
+        maquina.criaTransicoes(36,7);
+        maquina.setTransicao(36,0,"identificador",37,maquina.A_Comando,true);
+        maquina.setTransicao(36,1,"INPUT",37,maquina.A_Comando,true);
+        maquina.setTransicao(36,2,"OUTPUT",37,maquina.A_Comando,true);
+        maquina.setTransicao(36,3,"IF",37,maquina.A_Comando,true);
+        maquina.setTransicao(36,4,"WHILE",37,maquina.A_Comando,true);
+        maquina.setTransicao(36,5,"ENDW",38,0,false);
+
+        maquina.criaTransicoes(37,1);
+        maquina.setTransicao(37,0,";",36,0,false);
         
+        maquina.criaTransicoes(38,1);
+        maquina.setTransicao(38,0,";",10,0,true);
         
-//
-//        maquina.criaTransicoes(13,2);
-//        maquina.setTransicao(13,0,"COMMANDO",9,maquina.A_Comando,false);//Aqui nao implementado
-//        maquina.setTransicao(13,1,"RETURN",8,0,false);
     }
     
         
@@ -273,6 +273,27 @@ public class Comando {
                     proximoToken = maquinaComando.restoToken;
                     break;
 
+                case 6://Maquina ExpressaoAritmetica
+                    ExpressaoAritmetica maquinaExpAritmetica = new ExpressaoAritmetica(filaLida);
+                    System.out.println(filaLida.getTamanho());
+                    //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
+                    if (transicao.consome) {
+                        proximoToken = token;                        
+                    } else {
+                        proximoToken = (Token) filaLida.remover();
+                    }
+                    while(maquinaExpAritmetica.processaToken(proximoToken) == 0){
+                        if (maquinaExpAritmetica.consome) {
+                            proximoToken = maquinaExpAritmetica.restoToken;                          
+                        } else {
+                            proximoToken = (Token) filaLida.remover();
+                        }
+                    }
+                        consome = maquinaExpAritmetica.consome;
+                        proximoToken = maquinaExpAritmetica.restoToken;
+//                      
+                break;
+                    
                 default:
                     //Ainda nao implementado
 

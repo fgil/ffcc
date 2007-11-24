@@ -35,7 +35,7 @@ public class DeclaracaoFuncao {
      */
     public DeclaracaoFuncao(Fila filaLida) {
         this.filaLida = filaLida;
-        maquina = new Maquina(14);
+        maquina = new Maquina(16);
         estadoAtual = 0;
         consome = false;
 
@@ -66,27 +66,35 @@ public class DeclaracaoFuncao {
         maquina.setTransicao(5,0,"{",7,0,false);
         
         maquina.criaTransicoes(6,2);
-        maquina.setTransicao(6,0,",",4,0,false);
+        maquina.setTransicao(6,0,",",15,0,false);
         maquina.setTransicao(6,1,")",5,0,false);
         
-        maquina.criaTransicoes(7,5);
+        maquina.criaTransicoes(7,9);
+        maquina.setTransicao(7,0,"RETURN",11,0,false);
         maquina.setTransicao(7,1,"INT",8,maquina.A_Declaracao,true);
         maquina.setTransicao(7,2,"CHAR",8,maquina.A_Declaracao,true);
         maquina.setTransicao(7,3,"BOOLEAN",8,maquina.A_Declaracao,true);
-        maquina.setTransicao(7,0,"COMMANDO",9,maquina.A_Comando,false);//Aqui nao implementado
-        maquina.setTransicao(7,4,"RETURN",11,0,false);
+        maquina.setTransicao(7,4,"identificador",10,maquina.A_Comando,true);
+        maquina.setTransicao(7,5,"INPUT",10,maquina.A_Comando,true);
+        maquina.setTransicao(7,6,"OUTPUT",10,maquina.A_Comando,true);
+        maquina.setTransicao(7,7,"IF",10,maquina.A_Comando,true);
+        maquina.setTransicao(7,8,"WHILE",10,maquina.A_Comando,true);
+        
         
         maquina.criaTransicoes(8,1);
         maquina.setTransicao(8,0,";",7,0,false);
         
-        maquina.criaTransicoes(9,2);
-        maquina.setTransicao(9,0,"COMMANDO",9,maquina.A_Comando,false);//Aqui nao implementado
-        maquina.setTransicao(9,1,"RETURN",8,0,false);
-
+        maquina.criaTransicoes(9,6);
+        maquina.setTransicao(9,0,"RETURN",11,0,false);
+        maquina.setTransicao(9,1,"identificador",10,maquina.A_Comando,true);
+        maquina.setTransicao(9,2,"INPUT",10,maquina.A_Comando,true);
+        maquina.setTransicao(9,3,"OUTPUT",10,maquina.A_Comando,true);
+        maquina.setTransicao(9,4,"IF",10,maquina.A_Comando,true);
+        maquina.setTransicao(9,5,"WHILE",10,maquina.A_Comando,true);
+        
         maquina.criaTransicoes(10,1);
         maquina.setTransicao(10,0,";",9,0,false);
         
-
         
         maquina.criaTransicoes(11,6);
         //maquina.setTransicao(11,0,"EXP",12,0,false);//Aqui nao implementado
@@ -103,6 +111,10 @@ public class DeclaracaoFuncao {
         maquina.criaTransicoes(13,1);
         maquina.setTransicao(13,0,"}",14,0,false);
         
+        maquina.criaTransicoes(15,3);
+        maquina.setTransicao(15,0,"INT",6,maquina.A_Declaracao,true);
+        maquina.setTransicao(15,1,"CHAR",6,maquina.A_Declaracao,true);
+        maquina.setTransicao(15,2,"BOOLEAN",6,maquina.A_Declaracao,true);
 
 
         
@@ -168,6 +180,28 @@ public class DeclaracaoFuncao {
                         //System.out.println("Proximo token (s): " + proximoToken.getType());
                     }                    
                     break;
+                    
+                case 4://Maquina Comando
+                    Comando maquinaComando = new Comando(filaLida);
+                    System.out.println(filaLida.getTamanho());
+                    //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
+                    if (transicao.consome) {
+                        proximoToken = token;                        
+                    } else {
+                        proximoToken = (Token) filaLida.remover();
+                    }
+                    while(maquinaComando.processaToken(proximoToken) == 0){
+                        if (maquinaComando.consome) {
+                            proximoToken = maquinaComando.restoToken;                          
+                        } else {
+                            proximoToken = (Token) filaLida.remover();
+                        }
+                    }
+                 
+                    consome = maquinaComando.consome;
+                    proximoToken = maquinaComando.restoToken;
+                    break;
+                    
                 case 5://Maquina Expressao
                     Expressao maquinaExpressao = new Expressao(filaLida);
                     System.out.println(filaLida.getTamanho());
