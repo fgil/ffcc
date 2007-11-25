@@ -1,0 +1,17 @@
+; =======================================================
+; prog1.mvn
+; Soma os valores de duas posições de memória e guarda o
+; resultado em outra posição de memória, parando na
+; instrução final.
+; PSMuniz 11/07/2006
+; =======================================================
+00 0008  ; Ponto de entrada: JMP para as instruções
+; Variáveis locais 
+02 FF83  ; A = 0xFF83 (-125)
+04 0064  ; B = 0x0064 (100)
+06 0000  ; RESULTADO deverá ser 0xFFE7 (-25)
+; Instruções do programa
+08 8002  ; Carrega o conteúdo de A no acumulador
+0A 4004  ; Adiciona B ao conteúdo do acumulador
+0C 9006  ; Armazena o resultado em RESULTADO 
+0E C00E  ; Pára em 0x000E

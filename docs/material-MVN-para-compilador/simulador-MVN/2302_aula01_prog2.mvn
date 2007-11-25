@@ -1,0 +1,38 @@
+; =======================================================
+; prog2.mvn
+; Programa de ilustração para chamada de sub-rotina
+; 	 int subtrair(int x, int y) {
+; 	   return x - y;
+; 	 }
+; PSMuniz 11/07/2006
+; =======================================================
+00 0010  ; Pula para o início das instruções
+; Variáveis locais
+02 0010  ; A = 0x0010 (16)
+04 0064  ; B = 0x0064 (100)
+06 0000  ; RESULTADO de subtrair() = 0xFFAC (-84) 
+; 
+; =======================================================
+; Programa principal
+; Chamando SUBTRAIR(A, B)
+; =======================================================
+;
+10 8002  ; Carrega o conteúdo de A no acumulador
+12 903C  ; Armazena no parâmetro X
+14 8004  ; Carrega o conteúdo de B
+16 903E  ; Armazena no parâmetro Y
+18 A040  ; Chama a sub-rotina SUBTRAIR
+1A 9006  ; Armazena o resultado em RESULTADO
+1C C01C  ; Pára em 0x001C
+;
+; =======================================================
+; Sub-rotina SUBTRAIR
+; =======================================================
+; Parâmetros formais
+3C 0000  ; X
+3E 0000  ; Y
+; 
+40 0000  ; Endereço de retorno
+42 803C  ; Carrega o conteúdo de X
+44 503E  ; Subtrai Y
+46 B040  ; Retorna para o endereço posto em 0x0040
