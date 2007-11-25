@@ -27,6 +27,7 @@ public class DeclaracaoFuncao {
     public boolean consome;
     public Token restoToken;
     private String maquinaNome = "DeclaracaoFuncao";
+    private String escopo;
     
     /** Creates a new instance of Declaracao
      * Lembrando:
@@ -151,11 +152,15 @@ public class DeclaracaoFuncao {
                 maquina.estados[estadoAtual].proximoEstado(token.getType());
         System.out.println(maquinaNome + " - " + token.getType() + " - Estado Atual: " + estadoAtual);
         System.out.println("Proximo Estado: " + transicao.proximoEstado);
-        Token proximoToken = null;        
+        Token proximoToken = null;
+        
+        analiseSemanticaPre(estadoAtual, transicao.proximoEstado, token);
+        
         if (transicao.proximaMaquina > 0) {
             switch(transicao.proximaMaquina) {
                 case 2:
                     Declaracao maquinaDeclaracao = new Declaracao(filaLida);
+                    maquinaDeclaracao.escopo = this.escopo;
                     System.out.println(filaLida.getTamanho());
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
                     if (transicao.consome) {
@@ -220,19 +225,17 @@ public class DeclaracaoFuncao {
                     }
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
                     //Como anteriormente, mas agora ao sair do loop
-//                        if (maquinaExpressao.consome) {
-//                            proximoToken = proximoToken;
-//                            System.out.println("Proximo token (n): " + proximoToken.getType());
-//                        } else {
-                           proximoToken = maquinaExpressao.restoToken;
-//                            //System.out.println("Proximo token (s): " + proximoToken.getType());
-//                        }                    
+                    proximoToken = maquinaExpressao.restoToken;
                     break;
+
                 default:
                     //Ainda nao implementado
 
             }
         }
+        
+        analiseSemanticaPos(estadoAtual, transicao.proximoEstado, token);
+        
         consome = transicao.consome;
         estadoAtual = transicao.proximoEstado;
         restoToken = proximoToken;
@@ -253,4 +256,18 @@ public class DeclaracaoFuncao {
         }
     }
 
+    private void analiseSemanticaPos(int estadoAtual, int proximoEstado,
+            Token token){
+        if (estadoAtual == 0) {
+        } else if (estadoAtual == 2) {
+            this.escopo = token.getWord();
+        }
+    }
+    
+    
+   private void analiseSemanticaPre(int estadoAtual, int proximoEstado,
+            Token token){
+       //Pro Enquanto Nada
+    }
+    
 }

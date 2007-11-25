@@ -25,6 +25,9 @@ public class Declaracao {
     public boolean consome;
     public Token restoToken;
     private String maquinaNome = "Declaração";
+    private Variavel variavelTemporaria = new Variavel();
+    public Object variavel;
+    public String escopo;
     
     /** Creates a new instance of Declaracao
      * Lembrando:
@@ -54,12 +57,10 @@ public class Declaracao {
         maquina.setTransicao(2,3,")",3,0,true);
         maquina.setTransicao(2,2,"[",4,0,false);
         
-        maquina.criaTransicoes(3,0);
-//        maquina.setTransicao(2,0,";",3,0,true);
-//        maquina.setTransicao(2,1,"[",4,0,false);
+        maquina.criaTransicoes(3,0);//Aceitaçao, desnecessario
         
         maquina.criaTransicoes(4,1);
-        maquina.setTransicao(4,0,"numero",5,0,false);
+        maquina.setTransicao(4,0,"NUMERO",5,0,false);
 
         maquina.criaTransicoes(5,1);
         maquina.setTransicao(5,0,"]",6,0,false);
@@ -71,7 +72,7 @@ public class Declaracao {
         maquina.setTransicao(6,2,"[",7,0,false);
         
         maquina.criaTransicoes(7,1);
-        maquina.setTransicao(7,0,"numero",8,0,false);
+        maquina.setTransicao(7,0,"NUMERO",8,0,false);
         
        maquina.criaTransicoes(8,1);
         maquina.setTransicao(8,0,"]",3,0,false);
@@ -85,18 +86,13 @@ public class Declaracao {
                 maquina.estados[estadoAtual].proximoEstado(token.getType());
         System.out.println(maquinaNome + " - " + token.getType() + " - Estado Atual: " + estadoAtual);
         System.out.println("Proximo Estado: " + transicao.proximoEstado);
+        analiseSemanticaPre(estadoAtual, transicao.proximoEstado, token);
         
-        if (transicao.proximaMaquina > 0) {
-//            switch(transicao.proximaMaquina) {
-//                case 1:
-//                    Declaracao declaracao = new Declaracao(filaLida);
-//                    //System.out.println(filaLida.getTamanho());
-//                    break;
-//                default:
-//                    //Ainda nao implementado
-//
-//            }
+        if (transicao.proximaMaquina > 0) {//Essa Maquina nao precisa
         }
+        
+        analiseSemanticaPos(estadoAtual, transicao.proximoEstado, token);
+        
         consome = transicao.consome;
         estadoAtual = transicao.proximoEstado;
         
@@ -117,4 +113,45 @@ public class Declaracao {
         }
     }
 
+    private void analiseSemanticaPos(int estadoAtual, int proximoEstado,
+            Token token){
+        if (estadoAtual == 0) {
+            if(proximoEstado == 1) {
+                variavelTemporaria.escopo = this.escopo;
+                variavelTemporaria.tipoDeDado = token.getType();
+            }
+        } else if (estadoAtual == 1) {
+            variavelTemporaria.identificador = token.getWord();
+        } else if (estadoAtual == 2) {
+            if(proximoEstado == 3) {//Era soh variavel
+               //Aqui tenho que colocar a logica pra devolver o ponteiro pra variavel...
+                TabelaVariaveis variaveis = TabelaVariaveis.getInstance();
+                variavelTemporaria.tipoDeVariavel = "VARIAVEL";
+                variaveis.adicionaVariavel(variavelTemporaria);
+            } else if (proximoEstado == 4) {//Eh vetor ou matriz... nada agora
+            }
+        } else if (estadoAtual == 4) {
+            variavelTemporaria.dimensaoX = Integer.valueOf(token.getWord()).intValue();
+        } else if (estadoAtual == 6) {
+            if(proximoEstado == 3) {//Era soh vetor...
+                TabelaVariaveis variaveis = TabelaVariaveis.getInstance();
+                variavelTemporaria.tipoDeVariavel = "VETOR";
+                variaveis.adicionaVariavel(variavelTemporaria);
+                //Aqui tenho que colocar a logica pra devolver o ponteiro pro vetor...
+            } else if (proximoEstado == 7) {//Era matriz... nada agora
+            }
+        } else if (estadoAtual == 7) {
+            variavelTemporaria.dimensaoY = Integer.valueOf(token.getWord()).intValue();
+            TabelaVariaveis variaveis = TabelaVariaveis.getInstance();
+            variavelTemporaria.tipoDeVariavel = "MATRIZ";
+            variaveis.adicionaVariavel(variavelTemporaria);
+            //devolver a matriz
+        }
+    }
+    
+    
+   private void analiseSemanticaPre(int estadoAtual, int proximoEstado,
+            Token token){
+       //Pro Enquanto Nada
+    }
 }

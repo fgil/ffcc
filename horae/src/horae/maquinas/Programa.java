@@ -95,7 +95,8 @@ public class Programa {
 
                 case 2:
                     Declaracao maquinaDeclaracao = new Declaracao(filaLida);
-                    System.out.println(filaLida.getTamanho());
+                    maquinaDeclaracao.escopo = "Programa";
+                    //System.out.println(filaLida.getTamanho());
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
                     if (transicao.consome) {
                         proximoToken = token;                        

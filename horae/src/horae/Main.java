@@ -11,6 +11,7 @@ package horae;
 
 import horae.maquinas.Programa;
 import horae.util.Fila;
+import horae.util.TabelaVariaveis;
 import java.util.logging.ConsoleHandler;
 
 /**
@@ -31,7 +32,7 @@ public class Main {
         info();
         Token token = new Token();
         Fila filaLida = new Fila();
-
+        TabelaVariaveis variaveis = TabelaVariaveis.getInstance();
 
         
         String fileName = "fonte.horae";
@@ -41,7 +42,7 @@ public class Main {
         token = lexico.nextToken(); 
         while (token != null){
             filaLida.adicionar(token);
-            System.out.println(token.getType() + " - " + token.getWord());
+            //System.out.println(token.getType() + " - " + token.getWord());
             token = lexico.nextToken(); 
         }
         Programa programa = new Programa(filaLida);
@@ -56,26 +57,26 @@ public class Main {
             }
         }
         
-
+        System.out.println("FIM");
         
         
     }
     
     public static void info() {
-        System.out.println("As horae (vulgarmente designadas como horas pela" +
-                " corrupção do vocábulo original), constituíam um grupo de" +
-                " deusas gregas que presidiam às estações dos anos. Eram " +
-                " filhas de Zeus e Têmis são: Irene (paz), Dike (justiça) e " +
-                " Eumônia (disciplina); estas são as Horas mais velhas e estão" +
-                " ligadas a legislação e ordem natural, sendo uma extensão dos" +
-                " atributos de sua mãe Têmis. Eumônia está relacionada com a" +
-                " representação da divindade da justiça. Temis e Dike elucidam" +
-                " o lado ético do instinto, a voz miúda e calma no seio do" +
-                " impulso. Dike para a humanidade é a função de base institual" +
+        System.out.println("As horae (vulgarmente designadas como horas pela\n" +
+                " corrupção do vocábulo original), constituíam um grupo de\n" +
+                " deusas gregas que presidiam às estações dos anos. Eram \n" +
+                " filhas de Zeus e Têmis são: Irene (paz), Dike (justiça) e \n" +
+                " Eumônia (disciplina); estas são as Horas mais velhas e estão\n" +
+                " ligadas a legislação e ordem natural, sendo uma extensão dos\n" +
+                " atributos de sua mãe Têmis. Eumônia está relacionada com a\n" +
+                " representação da divindade da justiça. Temis e Dike elucidam\n" +
+                " o lado ético do instinto, a voz miúda e calma no seio do\n" +
+                " impulso. Dike para a humanidade é a função de base institual\n" +
                 " muito sintônica com o que chama de instinto para reflexão. \n" +
-                "Existem mais nove Horas que são guardiãs da ordem natural, do" +
-                " ciclo anual de crescimento da vegetação e das estações" +
-                " climaticas anuais. (Talo, Carpo, Auxo, Acme, Anatole, Disis," +
+                "Existem mais nove Horas que são guardiãs da ordem natural, do\n" +
+                " ciclo anual de crescimento da vegetação e das estações\n" +
+                " climaticas anuais. (Talo, Carpo, Auxo, Acme, Anatole, Disis,\n" +
                 " Dicéia, Eupória, Gimnásia).");
     }
 }
