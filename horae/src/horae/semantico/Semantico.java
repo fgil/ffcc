@@ -7,7 +7,7 @@
  * and open the template in the editor.
  */
 
-package semantico;
+package horae.semantico;
 
 import java.io.FileOutputStream;
 import horae.util.Simbolo;

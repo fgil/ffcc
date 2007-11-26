@@ -11,7 +11,7 @@ package horae.maquinas;
 
 import horae.Token;
 import horae.util.*;
-import semantico.Semantico;
+import horae.semantico.Semantico;
 
 /**
  *
