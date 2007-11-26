@@ -12,6 +12,8 @@ package horae.maquinas;
 import horae.Token;
 import horae.util.Fila;
 import horae.util.Maquina;
+import horae.util.Simbolo;
+import horae.util.TabelaSimbolos;
 import horae.util.Transicao;
 
 /**
@@ -28,6 +30,7 @@ public class DeclaracaoFuncao {
     public Token restoToken;
     private String maquinaNome = "DeclaracaoFuncao";
     private String escopo;
+    private Simbolo novoSimbolo;
     
     /** Creates a new instance of Declaracao
      * Lembrando:
@@ -39,7 +42,8 @@ public class DeclaracaoFuncao {
         maquina = new Maquina(16);
         estadoAtual = 0;
         consome = false;
-
+        novoSimbolo = new Simbolo();
+        
         //Cria transicoes do estado 0
         maquina.criaTransicoes(0,1);
         maquina.setTransicao(0,0,"FUNCAO",1,0,false);
@@ -117,31 +121,6 @@ public class DeclaracaoFuncao {
         maquina.setTransicao(15,1,"CHAR",6,maquina.A_Declaracao,true);
         maquina.setTransicao(15,2,"BOOLEAN",6,maquina.A_Declaracao,true);
 
-
-        
-        
-//        
-//        maquina.criaTransicoes(2,2);
-//        maquina.setTransicao(2,0,";",3,0,true);
-//        maquina.setTransicao(2,1,"[",4,0,false);
-//        
-//        maquina.criaTransicoes(3,0);
-////        maquina.setTransicao(2,0,";",3,0,true);
-////        maquina.setTransicao(2,1,"[",4,0,false);
-//        
-//
-//        maquina.criaTransicoes(5,1);
-//        maquina.setTransicao(5,0,"]",6,0,false);
-//        
-//        maquina.criaTransicoes(6,2);
-//        maquina.setTransicao(6,0,";",3,0,true);
-//        maquina.setTransicao(6,1,"[",7,0,false);
-//        
-//        maquina.criaTransicoes(7,1);
-//        maquina.setTransicao(7,0,"numero",8,0,false);
-//        
-//       maquina.criaTransicoes(8,1);
-//        maquina.setTransicao(8,0,"]",3,0,false);
         
     }
     
@@ -209,6 +188,7 @@ public class DeclaracaoFuncao {
                     
                 case 5://Maquina Expressao
                     Expressao maquinaExpressao = new Expressao(filaLida);
+                    maquinaExpressao.escopo = this.escopo;
                     System.out.println(filaLida.getTamanho());
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
                     if (transicao.consome) {
@@ -259,8 +239,17 @@ public class DeclaracaoFuncao {
     private void analiseSemanticaPos(int estadoAtual, int proximoEstado,
             Token token){
         if (estadoAtual == 0) {
+            
+        } else if (estadoAtual == 1) {
+            novoSimbolo.tipoDeDado = token.getType();//Pega o tipo de retorno
+            novoSimbolo.tipoDeSimbolo = "FUNCAO";
+            novoSimbolo.escopo = "PROGRAMA";
         } else if (estadoAtual == 2) {
-            this.escopo = token.getWord();
+            this.escopo = token.getWord();//Pega o nome da funcao
+            novoSimbolo.identificador = this.escopo;
+            TabelaSimbolos tSimbolos = TabelaSimbolos.getInstance();
+            tSimbolos.adicionaSimbolo(novoSimbolo);
+            
         }
     }
     

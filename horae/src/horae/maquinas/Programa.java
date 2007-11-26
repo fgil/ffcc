@@ -11,6 +11,7 @@ package horae.maquinas;
 
 import horae.Token;
 import horae.util.*;
+import semantico.Semantico;
 
 /**
  *
@@ -22,6 +23,7 @@ public class Programa {
     private Maquina maquina;
     public int estadoAtual;
     private String maquinaNome = "Programa";
+    private Semantico aSemantica;
     
     /** Creates a new instance of Programa */
     public Programa(Fila filaLida) {
@@ -89,6 +91,8 @@ public class Programa {
         System.out.println(maquinaNome + " - " + token.getType() + " - Estado Atual: " + estadoAtual);
         System.out.println("Proximo Estado: " + transicao.proximoEstado);
         Token proximoToken = null;
+        
+        analiseSemanticaPre(estadoAtual, transicao.proximoEstado,token);
 
         if (transicao.proximaMaquina > 0) {
             switch(transicao.proximaMaquina) {
@@ -176,9 +180,41 @@ public class Programa {
             }
         }
         
+        analiseSemanticaPos(estadoAtual, transicao.proximoEstado,token);
         //Seta o estado de retorno
         estadoAtual = transicao.proximoEstado;
         return proximoToken;
         }
     
+    
+    
+    private void analiseSemanticaPos(int estadoAtual, int proximoEstado,
+            Token token){
+        if (estadoAtual == 0) {
+            if (proximoEstado == 1) {
+                aSemantica = Semantico.getInstance("fonte.horae");
+            }
+            
+        } else if (estadoAtual == 1) {
+            if (proximoEstado == 7) {
+                aSemantica.closeFile();
+            }
+        } else if (estadoAtual == 3) {
+            if (proximoEstado == 7) {
+                aSemantica.closeFile();
+            }
+        } else if (estadoAtual == 5) {
+            if (proximoEstado == 7) {
+                aSemantica.closeFile();
+            }
+        }
+    }
+    
+    
+   private void analiseSemanticaPre(int estadoAtual, int proximoEstado,
+            Token token){
+       //Pro Enquanto Nada
+    }
+   
+   
 }

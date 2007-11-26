@@ -11,6 +11,7 @@ package horae.maquinas;
 
 import horae.Token;
 import horae.util.*;
+import semantico.Semantico;
 
 /**
  *
@@ -25,9 +26,9 @@ public class Declaracao {
     public boolean consome;
     public Token restoToken;
     private String maquinaNome = "Declaração";
-    private Variavel variavelTemporaria = new Variavel();
-    public Object variavel;
+    private Simbolo simboloTemporario = new Simbolo();
     public String escopo;
+    private Semantico aSemantica = Semantico.getInstance("");
     
     /** Creates a new instance of Declaracao
      * Lembrando:
@@ -39,6 +40,7 @@ public class Declaracao {
         maquina = new Maquina(9);
         estadoAtual = 0;
         consome = false;
+        
 
         //Cria transicoes do estado 0
         maquina.criaTransicoes(0,3);
@@ -117,34 +119,38 @@ public class Declaracao {
             Token token){
         if (estadoAtual == 0) {
             if(proximoEstado == 1) {
-                variavelTemporaria.escopo = this.escopo;
-                variavelTemporaria.tipoDeDado = token.getType();
+                simboloTemporario.escopo = this.escopo;
+                simboloTemporario.tipoDeDado = token.getType();
             }
         } else if (estadoAtual == 1) {
-            variavelTemporaria.identificador = token.getWord();
+            simboloTemporario.identificador = token.getWord();
         } else if (estadoAtual == 2) {
             if(proximoEstado == 3) {//Era soh variavel
                //Aqui tenho que colocar a logica pra devolver o ponteiro pra variavel...
-                TabelaVariaveis variaveis = TabelaVariaveis.getInstance();
-                variavelTemporaria.tipoDeVariavel = "VARIAVEL";
-                variaveis.adicionaVariavel(variavelTemporaria);
+                TabelaSimbolos tSimbolos = TabelaSimbolos.getInstance();
+                simboloTemporario.tipoDeSimbolo = "VARIAVEL";
+                tSimbolos.adicionaSimbolo(simboloTemporario);
+                
+                aSemantica.addVariavel(simboloTemporario);
             } else if (proximoEstado == 4) {//Eh vetor ou matriz... nada agora
             }
         } else if (estadoAtual == 4) {
-            variavelTemporaria.dimensaoX = Integer.valueOf(token.getWord()).intValue();
+            simboloTemporario.dimensaoX = Integer.valueOf(token.getWord()).intValue();
         } else if (estadoAtual == 6) {
             if(proximoEstado == 3) {//Era soh vetor...
-                TabelaVariaveis variaveis = TabelaVariaveis.getInstance();
-                variavelTemporaria.tipoDeVariavel = "VETOR";
-                variaveis.adicionaVariavel(variavelTemporaria);
+                TabelaSimbolos tSimbolos = TabelaSimbolos.getInstance();
+                simboloTemporario.tipoDeSimbolo = "VETOR";
+                tSimbolos.adicionaSimbolo(simboloTemporario);
+                aSemantica.addVariavel(simboloTemporario);
                 //Aqui tenho que colocar a logica pra devolver o ponteiro pro vetor...
             } else if (proximoEstado == 7) {//Era matriz... nada agora
             }
         } else if (estadoAtual == 7) {
-            variavelTemporaria.dimensaoY = Integer.valueOf(token.getWord()).intValue();
-            TabelaVariaveis variaveis = TabelaVariaveis.getInstance();
-            variavelTemporaria.tipoDeVariavel = "MATRIZ";
-            variaveis.adicionaVariavel(variavelTemporaria);
+            simboloTemporario.dimensaoY = Integer.valueOf(token.getWord()).intValue();
+            TabelaSimbolos tSimbolos = TabelaSimbolos.getInstance();
+            simboloTemporario.tipoDeSimbolo = "MATRIZ";
+            tSimbolos.adicionaSimbolo(simboloTemporario);
+            aSemantica.addVariavel(simboloTemporario);
             //devolver a matriz
         }
     }

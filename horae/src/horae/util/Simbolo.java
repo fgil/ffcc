@@ -1,5 +1,5 @@
 /*
- * Variavel.java
+ * Simbolo.java
  *
  * Created on November 24, 2007, 2:52 PM
  *
@@ -13,9 +13,9 @@ package horae.util;
  *
  * @author Fernando
  */
-public class Variavel {
+public class Simbolo {
     
-    public String tipoDeVariavel;
+    public String tipoDeSimbolo;
     public String identificador;
     public String tipoDeDado;
     public int posicaoMemoria;
@@ -23,8 +23,10 @@ public class Variavel {
     public int dimensaoX;
     public int dimensaoY;
     
-    /** Creates a new instance of Variavel */
-    public Variavel() {
+    /**
+     * Creates a new instance of Simbolo
+     */
+    public Simbolo() {
     }
     
 }

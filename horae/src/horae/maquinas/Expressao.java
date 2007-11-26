@@ -25,6 +25,8 @@ public class Expressao {
     public boolean consome;
     public Token restoToken;
     private String maquinaNome = "Expressão";
+    public TabelaSimbolos tSimbolos;
+    public String escopo;
     
     /** Creates a new instance of Expressao */
     public Expressao(Fila filaLida) {
@@ -33,6 +35,7 @@ public class Expressao {
         estadoAtual = 0;
         consome = false;
         System.out.println("Nasci");
+        tSimbolos = TabelaSimbolos.getInstance();
 
         //Cria transicoes do estado 0
         maquina.criaTransicoes(0,6);
@@ -221,6 +224,8 @@ public class Expressao {
         System.out.println(maquinaNome + " - " + token.getType() + " - Estado Atual: " + estadoAtual);
         System.out.println("Proximo Estado: " + transicao.proximoEstado);
         
+        analiseSemanticaPre(estadoAtual,transicao.proximoEstado,token);
+        
         Token proximoToken = null;
         if (transicao.consome) proximoToken = token;
         
@@ -242,22 +247,16 @@ public class Expressao {
                             proximoToken = (Token) filaLida.remover();
                         }
                     }
-                    //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
-                    //Como anteriormente, mas agora ao sair do loop
-//                    if (maquinaExpressao.consome) {
-//                        //proximoToken = proximoToken;
-//                        System.out.println("Proximo token (n): " + proximoToken.getType());
-//                    } else {
-                        consome = maquinaExpressao.consome;
-                        proximoToken = maquinaExpressao.restoToken;
-//                        //System.out.println("Proximo token (s): " + proximoToken.getType());
-//                    }
+                    consome = maquinaExpressao.consome;
+                    proximoToken = maquinaExpressao.restoToken;
                     break;
                 default:
                     //Ainda nao implementado
 
             }
         }
+        
+        analiseSemanticaPos(estadoAtual,transicao.proximoEstado,token);
         consome = transicao.consome;
         estadoAtual = transicao.proximoEstado;
         restoToken = proximoToken;
@@ -279,4 +278,25 @@ public class Expressao {
         }
     }
 
+    
+        private void analiseSemanticaPos(int estadoAtual, int proximoEstado,
+            Token token){
+        if (estadoAtual == 0) {
+            if (proximoEstado == 7) {
+                tSimbolos.procuraSimbolo(this.escopo,token.getWord());
+            }
+            
+        } else if (estadoAtual == 1) {
+
+        } else if (estadoAtual == 2) {
+
+            
+        }
+    }
+    
+    
+   private void analiseSemanticaPre(int estadoAtual, int proximoEstado,
+            Token token){
+       //Pro Enquanto Nada
+    }
 }

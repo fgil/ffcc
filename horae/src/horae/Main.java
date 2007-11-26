@@ -11,7 +11,7 @@ package horae;
 
 import horae.maquinas.Programa;
 import horae.util.Fila;
-import horae.util.TabelaVariaveis;
+import horae.util.TabelaSimbolos;
 import java.util.logging.ConsoleHandler;
 
 /**
@@ -32,7 +32,7 @@ public class Main {
         info();
         Token token = new Token();
         Fila filaLida = new Fila();
-        TabelaVariaveis variaveis = TabelaVariaveis.getInstance();
+        TabelaSimbolos variaveis = TabelaSimbolos.getInstance();
 
         
         String fileName = "fonte.horae";
@@ -56,7 +56,7 @@ public class Main {
                 token = programa.processaToken(token);
             }
         }
-        
+        System.out.println(variaveis.toSring());
         System.out.println("FIM");
         
         
