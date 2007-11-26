@@ -10,6 +10,7 @@
 package horae.maquinas;
 
 import horae.Token;
+import horae.semantico.PilhaEA;
 import horae.util.Fila;
 import horae.util.Maquina;
 import horae.util.Simbolo;
@@ -31,6 +32,7 @@ public class DeclaracaoFuncao {
     private String maquinaNome = "DeclaracaoFuncao";
     private String escopo;
     private Simbolo novoSimbolo;
+    private PilhaEA pilhaEA;
     
     /** Creates a new instance of Declaracao
      * Lembrando:
@@ -250,6 +252,10 @@ public class DeclaracaoFuncao {
             TabelaSimbolos tSimbolos = TabelaSimbolos.getInstance();
             tSimbolos.adicionaSimbolo(novoSimbolo);
             
+        } else if (estadoAtual == 11) {
+            if (proximoEstado == 12) {
+                System.out.println(pilhaEA.toString());
+            }
         }
     }
     
@@ -257,6 +263,13 @@ public class DeclaracaoFuncao {
    private void analiseSemanticaPre(int estadoAtual, int proximoEstado,
             Token token){
        //Pro Enquanto Nada
+       
+       if (estadoAtual == 11) {
+            if (proximoEstado == 12) {
+                pilhaEA = PilhaEA.getInstance();
+                pilhaEA.limpaPilha();
+            }
+        }
     }
     
 }

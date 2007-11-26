@@ -32,7 +32,11 @@ public class Token {
     }
 
     public String getWord() {
-        return word;
+        if (word == null){
+            return type;
+        } else {
+            return word;
+        }
     }
 
     public String getType() {

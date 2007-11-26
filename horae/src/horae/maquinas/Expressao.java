@@ -9,6 +9,7 @@
 
 package horae.maquinas;
 
+import horae.semantico.PilhaEA;
 import horae.util.*;
 import horae.Token;
 
@@ -27,6 +28,7 @@ public class Expressao {
     private String maquinaNome = "Expressão";
     public TabelaSimbolos tSimbolos;
     public String escopo;
+    private PilhaEA pilhaEA;
     
     /** Creates a new instance of Expressao */
     public Expressao(Fila filaLida) {
@@ -36,7 +38,7 @@ public class Expressao {
         consome = false;
         System.out.println("Nasci");
         tSimbolos = TabelaSimbolos.getInstance();
-
+        
         //Cria transicoes do estado 0
         maquina.criaTransicoes(0,6);
         maquina.setTransicao(0,0,"-",1,0,false);
@@ -284,10 +286,22 @@ public class Expressao {
         if (estadoAtual == 0) {
             if (proximoEstado == 7) {
                 tSimbolos.procuraSimbolo(this.escopo,token.getWord());
+            } else if (proximoEstado == 9 ||
+                    proximoEstado == 4) {
+                pilhaEA = PilhaEA.getInstance();
+                pilhaEA.adiciona(token.getWord());
             }
             
-        } else if (estadoAtual == 1) {
-
+        } else if (estadoAtual == 9) {
+            if (proximoEstado == 10) {
+                pilhaEA = PilhaEA.getInstance();
+                pilhaEA.adiciona(token.getWord());
+            }
+        } else if (estadoAtual == 5) {
+            if (proximoEstado == 6) {
+                pilhaEA = PilhaEA.getInstance();
+                pilhaEA.adiciona(token.getWord());
+            }
         } else if (estadoAtual == 2) {
 
             
