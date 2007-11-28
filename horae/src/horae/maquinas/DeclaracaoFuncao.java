@@ -104,8 +104,8 @@ public class DeclaracaoFuncao {
         
         
         maquina.criaTransicoes(11,6);
-        //maquina.setTransicao(11,0,"EXP",12,0,false);//Aqui nao implementado
-        maquina.setTransicao(11,0,"-",12,1,true);
+        //maquina.setTransicao(11,X,"EXP",12,0,false);
+        maquina.setTransicao(11,0,"-",12,maquina.A_Expressao,true);
         maquina.setTransicao(11,1,"(",12,maquina.A_Expressao,true);
         maquina.setTransicao(11,2,"identificador",12,maquina.A_Expressao,true);
         maquina.setTransicao(11,3,"TRUE",12,maquina.A_Expressao,true);
@@ -243,12 +243,12 @@ public class DeclaracaoFuncao {
         if (estadoAtual == 0) {
             
         } else if (estadoAtual == 1) {
-            novoSimbolo.tipoDeDado = token.getType();//Pega o tipo de retorno
-            novoSimbolo.tipoDeSimbolo = "FUNCAO";
-            novoSimbolo.escopo = "PROGRAMA";
+            novoSimbolo.setTipoDeDado(token.getType());//Pega o tipo de retorno
+            novoSimbolo.setTipoDeSimbolo("FUNCAO");
+            novoSimbolo.setEscopo("PROGRAMA");
         } else if (estadoAtual == 2) {
             this.escopo = token.getWord();//Pega o nome da funcao
-            novoSimbolo.identificador = this.escopo;
+            novoSimbolo.setIdentificador(this.escopo);
             TabelaSimbolos tSimbolos = TabelaSimbolos.getInstance();
             tSimbolos.adicionaSimbolo(novoSimbolo);
             

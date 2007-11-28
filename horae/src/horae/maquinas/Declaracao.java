@@ -119,36 +119,36 @@ public class Declaracao {
             Token token){
         if (estadoAtual == 0) {
             if(proximoEstado == 1) {
-                simboloTemporario.escopo = this.escopo;
-                simboloTemporario.tipoDeDado = token.getType();
+                simboloTemporario.setEscopo(this.escopo);
+                simboloTemporario.setTipoDeDado(token.getType());
             }
         } else if (estadoAtual == 1) {
-            simboloTemporario.identificador = token.getWord();
+            simboloTemporario.setIdentificador(token.getWord());
         } else if (estadoAtual == 2) {
             if(proximoEstado == 3) {//Era soh variavel
                //Aqui tenho que colocar a logica pra devolver o ponteiro pra variavel...
                 TabelaSimbolos tSimbolos = TabelaSimbolos.getInstance();
-                simboloTemporario.tipoDeSimbolo = "VARIAVEL";
+                simboloTemporario.setTipoDeSimbolo("VARIAVEL");
                 tSimbolos.adicionaSimbolo(simboloTemporario);
                 
                 aSemantica.addVariavel(simboloTemporario);
             } else if (proximoEstado == 4) {//Eh vetor ou matriz... nada agora
             }
         } else if (estadoAtual == 4) {
-            simboloTemporario.dimensaoX = Integer.valueOf(token.getWord()).intValue();
+            simboloTemporario.setDimensaoX(Integer.valueOf(token.getWord()).intValue());
         } else if (estadoAtual == 6) {
             if(proximoEstado == 3) {//Era soh vetor...
                 TabelaSimbolos tSimbolos = TabelaSimbolos.getInstance();
-                simboloTemporario.tipoDeSimbolo = "VETOR";
+                simboloTemporario.setTipoDeSimbolo("VETOR");
                 tSimbolos.adicionaSimbolo(simboloTemporario);
                 aSemantica.addVariavel(simboloTemporario);
                 //Aqui tenho que colocar a logica pra devolver o ponteiro pro vetor...
             } else if (proximoEstado == 7) {//Era matriz... nada agora
             }
         } else if (estadoAtual == 7) {
-            simboloTemporario.dimensaoY = Integer.valueOf(token.getWord()).intValue();
+            simboloTemporario.setDimensaoY(Integer.valueOf(token.getWord()).intValue());
             TabelaSimbolos tSimbolos = TabelaSimbolos.getInstance();
-            simboloTemporario.tipoDeSimbolo = "MATRIZ";
+            simboloTemporario.setTipoDeSimbolo("MATRIZ");
             tSimbolos.adicionaSimbolo(simboloTemporario);
             aSemantica.addVariavel(simboloTemporario);
             //devolver a matriz

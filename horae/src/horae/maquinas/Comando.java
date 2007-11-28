@@ -273,8 +273,8 @@ public class Comando {
                     proximoToken = maquinaComando.restoToken;
                     break;
 
-                case 6://Maquina ExpressaoAritmetica
-                    ExpressaoAritmetica maquinaExpAritmetica = new ExpressaoAritmetica(filaLida);
+                case 6://Maquina Comparacao
+                    Comparacao maquinaExpAritmetica = new Comparacao(filaLida);
                     System.out.println(filaLida.getTamanho());
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
                     if (transicao.consome) {

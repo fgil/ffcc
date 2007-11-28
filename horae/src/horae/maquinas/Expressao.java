@@ -58,7 +58,7 @@ public class Expressao {
 
         
         maquina.criaTransicoes(2,5);
-        maquina.setTransicao(2,0,";",3,0,false);
+        maquina.setTransicao(2,0,";",3,0,true);
         maquina.setTransicao(2,1,"+",10,0,false);
         maquina.setTransicao(2,2,"-",10,0,false);
         maquina.setTransicao(2,3,"*",10,0,false);
@@ -78,7 +78,7 @@ public class Expressao {
         maquina.setTransicao(5,0,")",6,0,false);
         
         maquina.criaTransicoes(6,7);
-        maquina.setTransicao(6,0,";",3,0,false);
+        maquina.setTransicao(6,0,";",3,0,true);
         maquina.setTransicao(6,1,"+",10,0,false);
         maquina.setTransicao(6,2,"-",10,0,false);
         maquina.setTransicao(6,3,"*",10,0,false);
@@ -266,6 +266,8 @@ public class Expressao {
         // Aqui deverá verificar se o estado é aceito e se podemos retornar
         if (transicao.proximoEstado == this.estadoAceito) {
             System.out.println("Morri");
+            pilhaEA = PilhaEA.getInstance();
+            System.out.println(pilhaEA.toString());
             return 1;
         } else {
             return 0;
@@ -284,23 +286,40 @@ public class Expressao {
         private void analiseSemanticaPos(int estadoAtual, int proximoEstado,
             Token token){
         if (estadoAtual == 0) {
-            if (proximoEstado == 7) {
-                tSimbolos.procuraSimbolo(this.escopo,token.getWord());
-            } else if (proximoEstado == 9 ||
-                    proximoEstado == 4) {
+            if (proximoEstado == 1) {
+                pilhaEA = PilhaEA.getInstance();//Adicionar "0 - "
+                acaoOperadores(0,token);
+            } else if (proximoEstado == 4) {
                 pilhaEA = PilhaEA.getInstance();
-                pilhaEA.adiciona(token.getWord());
+                acaoOperadores(0,token);
+            } else if (proximoEstado == 7) {
+                acaoOperadores(3,token);
+            } else if (proximoEstado == 8) {
+                acaoOperadores(2,token);
+            } else if (proximoEstado == 9) {
+                acaoOperadores(4,token);
+             } else if (proximoEstado == 4) { 
+                pilhaEA = PilhaEA.getInstance();
+                pilhaEA.adicionaOperador(token.getWord());                
             }
             
+        } else if (estadoAtual == 2) {
+            if (proximoEstado == 10) {
+                if (token.getWord() == "+" && token.getWord() == "-") {
+                    
+                } else {
+                    
+                }
+            }
         } else if (estadoAtual == 9) {
             if (proximoEstado == 10) {
                 pilhaEA = PilhaEA.getInstance();
-                pilhaEA.adiciona(token.getWord());
+                pilhaEA.adicionaOperador(token.getWord());
             }
         } else if (estadoAtual == 5) {
             if (proximoEstado == 6) {
                 pilhaEA = PilhaEA.getInstance();
-                pilhaEA.adiciona(token.getWord());
+                pilhaEA.adicionaOperador(token.getWord());
             }
         } else if (estadoAtual == 2) {
 
@@ -313,4 +332,29 @@ public class Expressao {
             Token token){
        //Pro Enquanto Nada
     }
+   
+   
+   private void acaoOperadores(int acao, Token token) {
+       pilhaEA = PilhaEA.getInstance();
+       tSimbolos = TabelaSimbolos.getInstance();
+       switch(acao) {
+           case 0:// Usado para - XX
+               pilhaEA.adicionaOperando("INT","0");
+               pilhaEA.adicionaOperador(token.getWord());
+               break;
+           case 1://Empilhar ( - Como se começasse pilha nova
+               pilhaEA.adicionaOperador(token.getWord());
+               break;
+           case 2:
+               pilhaEA.adicionaOperando("BOOLEAN",token.getWord());
+           case 3:
+               //buscar o tipo do identificador
+               Simbolo simbolo = tSimbolos.procuraSimbolo(this.escopo,token.getWord());
+               pilhaEA.adicionaOperando(simbolo.getTipoDeDado(),token.getWord());
+          case 4:
+               pilhaEA.adicionaOperando("INT",token.getWord());
+           default:
+
+       }
+   }
 }

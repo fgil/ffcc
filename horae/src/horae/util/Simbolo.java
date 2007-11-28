@@ -15,18 +15,75 @@ package horae.util;
  */
 public class Simbolo {
     
-    public String tipoDeSimbolo;
-    public String identificador;
-    public String tipoDeDado;
-    public int posicaoMemoria;
-    public String escopo;
-    public int dimensaoX;
-    public int dimensaoY;
+    private String tipoDeSimbolo;
+    private String identificador;
+    private String tipoDeDado;
+    private int posicaoMemoria;
+    private String escopo;
+    private int dimensaoX;
+    private int dimensaoY;
     
     /**
      * Creates a new instance of Simbolo
      */
     public Simbolo() {
     }
+
+    public String getTipoDeSimbolo() {
+        return tipoDeSimbolo;
+    }
+
+    public void setTipoDeSimbolo(String tipoDeSimbolo) {
+        this.tipoDeSimbolo = tipoDeSimbolo;
+    }
+
+    public String getIdentificador() {
+        return identificador;
+    }
+
+    public void setIdentificador(String identificador) {
+        this.identificador = identificador;
+    }
+
+    public String getTipoDeDado() {
+        return tipoDeDado;
+    }
+
+    public void setTipoDeDado(String tipoDeDado) {
+        this.tipoDeDado = tipoDeDado;
+    }
+
+    public int getPosicaoMemoria() {
+        return posicaoMemoria;
+    }
+
+    public void setPosicaoMemoria(int posicaoMemoria) {
+        this.posicaoMemoria = posicaoMemoria;
+    }
+
+    public String getEscopo() {
+        return escopo;
+    }
+
+    public void setEscopo(String escopo) {
+        this.escopo = escopo;
+    }
+
+    public int getDimensaoX() {
+        return dimensaoX;
+    }
+
+    public void setDimensaoX(int dimensaoX) {
+        this.dimensaoX = dimensaoX;
+    }
+
+    public int getDimensaoY() {
+        return dimensaoY;
+    }
+
+    public void setDimensaoY(int dimensaoY) {
+        this.dimensaoY = dimensaoY;
+    }
+    
     
 }

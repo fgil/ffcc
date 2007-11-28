@@ -16,7 +16,7 @@ import horae.Token;
  *
  * @author fernando
  */
-public class ExpressaoAritmetica {
+public class Comparacao {
     
     public Fila filaLida;
     private Maquina maquina;
@@ -24,10 +24,10 @@ public class ExpressaoAritmetica {
     public int estadoAceito = 12;
     public boolean consome;
     public Token restoToken;
-    private String maquinaNome = "EAritmetica";
+    private String maquinaNome = "Comparacao";
     
     /** Creates a new instance of Expressao */
-    public ExpressaoAritmetica(Fila filaLida) {
+    public Comparacao(Fila filaLida) {
                 this.filaLida = filaLida;
         maquina = new Maquina(39);
         estadoAtual = 0;
@@ -145,8 +145,8 @@ public class ExpressaoAritmetica {
 //                      
                 break;
                 
-                case 6://Maquina ExpressaoAritmetica
-                    ExpressaoAritmetica maquinaExpAritmetica = new ExpressaoAritmetica(filaLida);
+                case 6://Maquina Comparacao
+                    Comparacao maquinaExpAritmetica = new Comparacao(filaLida);
                     System.out.println(filaLida.getTamanho());
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
                     if (transicao.consome) {

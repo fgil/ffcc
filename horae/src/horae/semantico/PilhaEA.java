@@ -23,7 +23,7 @@ public class PilhaEA {
     private static PilhaEA aPilhaEA;
     
     public Pilha pOperandos;
-//    public Pilha pOperadores;
+    public Pilha pOperadores;
     
     public static PilhaEA getInstance(){
        if (aPilhaEA == null) {
@@ -37,14 +37,22 @@ public class PilhaEA {
         pOperandos = new Pilha();
     }
     
-    public void limpaPilha() {
+    public void limpaPilha() {//Suposto de não ser usada
         pOperandos = new Pilha();
+        pOperadores = new Pilha();
     }
 
-    public void adiciona(String novo){
+    public void adicionaOperando(String tipo, String valor){
         Operando operando = new Operando();
-        operando.nome = novo;
+        operando.tipo = tipo;
+        operando.valor = valor;
         pOperandos.adicionar(operando);
+    }
+    
+    public void adicionaOperador(String nome){
+        Operador operador = new Operador();
+        operador.nome = nome;
+        pOperadores.adicionar(operador);
     }
 
     
@@ -55,14 +63,14 @@ public class PilhaEA {
         temp = "Operandos:\nTOPO\n";
         for (int i = 0; i< pOperandos.getTamanho(); i++) {
             operando = (Operando)pOperandos.consultar(i);
-            temp = temp + operando.nome + "\n";
+            temp = temp + operando.valor + "\n";
         }
         
-//       temp = "Operandores:\nTOPO\n";
-//        for (int i = 0; i< pOperadores.getTamanho(); i++) {
-//            operando = (Operando)pOperandos.consultar(i);
-//            temp = operando.nome + "\n";
-//        }
+       temp = temp + "Operandores:\nTOPO\n";
+        for (int i = 0; i< pOperadores.getTamanho(); i++) {
+            operador = (Operador)pOperadores.consultar(i);
+            temp = temp + operador.nome + "\n";
+        }
             
         return temp;
     }

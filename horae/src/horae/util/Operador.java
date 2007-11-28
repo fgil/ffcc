@@ -15,8 +15,7 @@ package horae.util;
  */
 public class Operador {
     
-    public String tipo;//numero, variavel...
-    public String valor;//valor ou posição de memoria...
+    public String nome;
     
     /** Creates a new instance of Operador */
     public Operador() {

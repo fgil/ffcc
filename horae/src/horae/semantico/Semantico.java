@@ -69,7 +69,7 @@ public class Semantico {
     
     
     public void addVariavel(Simbolo sTemp){
-        String temp = sTemp.identificador + " K /0000";
+        String temp = sTemp.getIdentificador() + " K /0000";
         writetoFile(temp);
     }
     

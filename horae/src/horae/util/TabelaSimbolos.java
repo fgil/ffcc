@@ -39,8 +39,8 @@ public class TabelaSimbolos {
         boolean inclui = true;
         for(Iterator it = tabela.iterator(); it.hasNext();) {
             Simbolo temp = (Simbolo)it.next();
-            if (temp.escopo.equals(novoSimbolo.escopo)) {
-                    if (temp.identificador.equals(novoSimbolo.identificador)) {
+            if (temp.getEscopo().equals(novoSimbolo.getEscopo())) {
+                    if (temp.getIdentificador().equals(novoSimbolo.getIdentificador())) {
                 System.out.println("OPS!! Foi inserida uma variavel repetida. ERRO");
                 inclui = false;
                 //(Simbolo)novoSimbolo;
@@ -56,9 +56,9 @@ public class TabelaSimbolos {
         String stemp = new String();
         for(Iterator it = tabela.iterator(); it.hasNext();) {
             Simbolo temp = (Simbolo)it.next();
-            stemp = stemp + "\n" + temp.tipoDeSimbolo +
-                    " - " + temp.tipoDeDado +" - " + temp.identificador +" - "
-                    + temp.escopo +";";
+            stemp = stemp + "\n" + temp.getTipoDeSimbolo() +
+                    " - " + temp.getTipoDeDado() +" - " + temp.getIdentificador() +" - "
+                    + temp.getEscopo() +";";
         }
         return stemp;
     }
@@ -66,8 +66,8 @@ public class TabelaSimbolos {
     public Simbolo procuraSimbolo(String escopo, String identificador) {
         for(Iterator it = tabela.iterator(); it.hasNext();) {
             Simbolo temp = (Simbolo)it.next();
-            if (temp.escopo.equals(escopo)) {
-                if (temp.identificador.equals(identificador)) {
+            if (temp.getEscopo().equals(escopo)) {
+                if (temp.getIdentificador().equals(identificador)) {
                     System.out.println("AE!! Foi encontrada a variavel");
                     return temp;
                 }

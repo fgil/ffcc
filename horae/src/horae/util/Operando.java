@@ -15,7 +15,8 @@ package horae.util;
  */
 public class Operando {
     
-    public String nome;
+    public String tipo;//numero, variavel...
+    public String valor;//valor ou posição de memoria...
     
     /** Creates a new instance of Operando */
     public Operando() {
