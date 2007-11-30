@@ -34,6 +34,12 @@ public class Maquina {
         this.estados[estado].setTransicao(indiceRota, tokenEsperado,
                 proximoEstado, proximaMaquina, consome);
     }
+    
+    public void setTransicao(int estado, int indiceRota, String tokenEsperado,
+            int proximoEstado, int proximaMaquina, boolean consome, int caso){
+        this.estados[estado].setTransicao(indiceRota, tokenEsperado,
+                proximoEstado, proximaMaquina, consome, caso);
+    }
 
     public void criaTransicoes (int estado, int qtdTransicoes) {
         this.estados[estado] = new Estado(qtdTransicoes);

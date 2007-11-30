@@ -24,6 +24,8 @@ public class Transicao {
     public int proximaMaquina;
 
     public boolean consome;
+    
+    public int caso;
     /**
      * Creates a new instance of Transicao
      */

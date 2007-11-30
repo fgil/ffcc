@@ -127,7 +127,7 @@ public class DeclaracaoFuncao {
     }
     
     public int processaToken(Token token) {
-        System.out.println(filaLida.getTamanho());
+        //System.out.println(filaLida.getTamanho());
         try {
         Transicao transicao =
                 maquina.estados[estadoAtual].proximoEstado(token.getType());
@@ -142,7 +142,7 @@ public class DeclaracaoFuncao {
                 case 2:
                     Declaracao maquinaDeclaracao = new Declaracao(filaLida);
                     maquinaDeclaracao.escopo = this.escopo;
-                    System.out.println(filaLida.getTamanho());
+                    //System.out.println(filaLida.getTamanho());
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
                     if (transicao.consome) {
                         proximoToken = token;                        
@@ -169,7 +169,7 @@ public class DeclaracaoFuncao {
                     
                 case 4://Maquina Comando
                     Comando maquinaComando = new Comando(filaLida);
-                    System.out.println(filaLida.getTamanho());
+                    //System.out.println(filaLida.getTamanho());
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
                     if (transicao.consome) {
                         proximoToken = token;                        
@@ -191,7 +191,7 @@ public class DeclaracaoFuncao {
                 case 5://Maquina Expressao
                     Expressao maquinaExpressao = new Expressao(filaLida);
                     maquinaExpressao.escopo = this.escopo;
-                    System.out.println(filaLida.getTamanho());
+                    //System.out.println(filaLida.getTamanho());
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
                     if (transicao.consome) {
                         proximoToken = token;                        

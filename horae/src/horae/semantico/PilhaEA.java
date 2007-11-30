@@ -35,6 +35,7 @@ public class PilhaEA {
     /** Creates a new instance of PilhaEA */
     private PilhaEA() {
         pOperandos = new Pilha();
+        pOperadores = new Pilha();
     }
     
     public void limpaPilha() {//Suposto de não ser usada
@@ -46,7 +47,7 @@ public class PilhaEA {
         Operando operando = new Operando();
         operando.tipo = tipo;
         operando.valor = valor;
-        pOperandos.adicionar(operando);
+        adicionaOperando(operando);
     }
     
     public void adicionaOperador(String nome){
@@ -55,6 +56,13 @@ public class PilhaEA {
         pOperadores.adicionar(operador);
     }
 
+    public Operando removeOperando() {
+        return (Operando) pOperandos.remover();
+    }
+
+    public Operador removeOperador() {
+        return (Operador) pOperadores.remover();
+    }
     
     public String toString() {
         String temp = new String();
@@ -73,5 +81,19 @@ public class PilhaEA {
         }
             
         return temp;
+    }
+
+    public String operadorTopo() {
+        if (pOperadores.getTamanho() != 0) {
+            Operador operador = (Operador) pOperadores.consultar(0);
+            return operador.nome;
+        } else {
+            return null;
+        }
+        
+    }
+
+    public void adicionaOperando(Operando operando) {
+        pOperandos.adicionar(operando);
     }
 }

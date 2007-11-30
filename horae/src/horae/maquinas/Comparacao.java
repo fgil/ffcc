@@ -24,6 +24,7 @@ public class Comparacao {
     public int estadoAceito = 12;
     public boolean consome;
     public Token restoToken;
+    public String escopo;
     private String maquinaNome = "Comparacao";
     
     /** Creates a new instance of Expressao */

@@ -32,13 +32,18 @@ public class Estado {
         return null;//Se ele retornou null, siginifica que nao tem rota pra esse token... panico!!!
     }
     
-    
     public void setTransicao(int indice, String tokenEsperado, int proximoEstado,
             int proximaMaquina, boolean consome){
+        setTransicao(indice, tokenEsperado, proximoEstado, proximaMaquina, consome, 0);
+    }
+    
+    public void setTransicao(int indice, String tokenEsperado, int proximoEstado,
+            int proximaMaquina, boolean consome, int caso){
         transicoes[indice] = new Transicao();
         transicoes[indice].tokenEsperado = tokenEsperado;
         transicoes[indice].proximaMaquina = proximaMaquina;
         transicoes[indice].proximoEstado = proximoEstado;
         transicoes[indice].consome = consome;
+        transicoes[indice].caso = caso;
     }
 }

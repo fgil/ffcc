@@ -29,6 +29,7 @@ public class Expressao {
     public TabelaSimbolos tSimbolos;
     public String escopo;
     private PilhaEA pilhaEA;
+    int caso;
     
     /** Creates a new instance of Expressao */
     public Expressao(Fila filaLida) {
@@ -36,18 +37,17 @@ public class Expressao {
         maquina = new Maquina(22);
         estadoAtual = 0;
         consome = false;
-        System.out.println("Nasci");
+        //System.out.println("Nasci");
         tSimbolos = TabelaSimbolos.getInstance();
         
         //Cria transicoes do estado 0
         maquina.criaTransicoes(0,6);
-        maquina.setTransicao(0,0,"-",1,0,false);
-        maquina.setTransicao(0,1,"(",4,0,false);
-        maquina.setTransicao(0,2,"identificador",7,0,false);
-        maquina.setTransicao(0,3,"TRUE",8,0,false);
-        maquina.setTransicao(0,4,"FALSE",8,0,false);
-        maquina.setTransicao(0,5,"NUMERO",9,0,false);
-
+        maquina.setTransicao(0,0,"-",1,0,false,1);
+        maquina.setTransicao(0,1,"(",4,0,false,2);
+        maquina.setTransicao(0,2,"identificador",7,0,false,4);
+        maquina.setTransicao(0,3,"TRUE",8,0,false,3);
+        maquina.setTransicao(0,4,"FALSE",8,0,false,3);
+        maquina.setTransicao(0,5,"NUMERO",9,0,false,5);
 
         maquina.criaTransicoes(1,5);
         maquina.setTransicao(1,0,"(",2,maquina.A_Expressao,true);
@@ -55,17 +55,15 @@ public class Expressao {
         maquina.setTransicao(1,2,"TRUE",2,maquina.A_Expressao,true);
         maquina.setTransicao(1,3,"FALSE",2,maquina.A_Expressao,true);
         maquina.setTransicao(1,4,"NUMERO",2,maquina.A_Expressao,true);
-
         
         maquina.criaTransicoes(2,5);
-        maquina.setTransicao(2,0,";",3,0,true);
-        maquina.setTransicao(2,1,"+",10,0,false);
-        maquina.setTransicao(2,2,"-",10,0,false);
-        maquina.setTransicao(2,3,"*",10,0,false);
-        maquina.setTransicao(2,4,"/",10,0,false);
+        maquina.setTransicao(2,0,";",3,0,true,8);
+        maquina.setTransicao(2,1,"+",10,0,false,6);
+        maquina.setTransicao(2,2,"-",10,0,false,6);
+        maquina.setTransicao(2,3,"*",10,0,false,7);
+        maquina.setTransicao(2,4,"/",10,0,false,7);
         
         maquina.criaTransicoes(3,1);
-        maquina.setTransicao(3,0,"(",4,0,false);
         
         maquina.criaTransicoes(4,5);
         maquina.setTransicao(4,0,"(",5,maquina.A_Expressao,true);
@@ -75,45 +73,45 @@ public class Expressao {
         maquina.setTransicao(4,4,"NUMERO",5,maquina.A_Expressao,true);
         
         maquina.criaTransicoes(5,1);
-        maquina.setTransicao(5,0,")",6,0,false);
+        maquina.setTransicao(5,0,")",6,0,false,9);
         
         maquina.criaTransicoes(6,7);
-        maquina.setTransicao(6,0,";",3,0,true);
-        maquina.setTransicao(6,1,"+",10,0,false);
-        maquina.setTransicao(6,2,"-",10,0,false);
-        maquina.setTransicao(6,3,"*",10,0,false);
-        maquina.setTransicao(6,4,"/",10,0,false);
-        maquina.setTransicao(6,5,"]",3,0,true);
-        maquina.setTransicao(6,6,")",3,0,true);
+        maquina.setTransicao(6,0,";",3,0,true,8);
+        maquina.setTransicao(6,1,"+",10,0,false,6);
+        maquina.setTransicao(6,2,"-",10,0,false,6);
+        maquina.setTransicao(6,3,"*",10,0,false,7);
+        maquina.setTransicao(6,4,"/",10,0,false,7);
+        maquina.setTransicao(6,5,"]",3,0,true,8);
+        maquina.setTransicao(6,6,")",3,0,true,8);
         
         maquina.criaTransicoes(7,14);//esse vai ser o mais chato
-        maquina.setTransicao(7,0,";",3,0,true);
-        maquina.setTransicao(7,1,")",3,0,true);
+        maquina.setTransicao(7,0,";",3,0,true,8);
+        maquina.setTransicao(7,1,")",3,0,true,8);
         maquina.setTransicao(7,2,"(",12,0,false);
-        maquina.setTransicao(7,3,"+",10,0,false);
-        maquina.setTransicao(7,4,"-",10,0,false);
-        maquina.setTransicao(7,5,"/",10,0,false);
-        maquina.setTransicao(7,6,"*",10,0,false);
+        maquina.setTransicao(7,3,"+",10,0,false,6);
+        maquina.setTransicao(7,4,"-",10,0,false,6);
+        maquina.setTransicao(7,5,"/",10,0,false,7);
+        maquina.setTransicao(7,6,"*",10,0,false,7);
         maquina.setTransicao(7,7,"[",16,0,false);
-        maquina.setTransicao(7,8,"]",3,0,true);
-        maquina.setTransicao(7,9,"<=",3,0,true);
-        maquina.setTransicao(7,10,"<",3,0,true);
-        maquina.setTransicao(7,11,">=",3,0,true);
-        maquina.setTransicao(7,12,"==",3,0,true);
-        maquina.setTransicao(7,13,"!=",3,0,true);
+        maquina.setTransicao(7,8,"]",3,0,true,8);
+        maquina.setTransicao(7,9,"<=",3,0,true,8);
+        maquina.setTransicao(7,10,"<",3,0,true,8);
+        maquina.setTransicao(7,11,">=",3,0,true,8);
+        maquina.setTransicao(7,12,"==",3,0,true,8);
+        maquina.setTransicao(7,13,"!=",3,0,true,8);
         
         maquina.criaTransicoes(8,2);
-        maquina.setTransicao(8,0,";",3,0,true);
-        maquina.setTransicao(8,1,")",3,0,true);
+        maquina.setTransicao(8,0,";",3,0,true,8);
+        maquina.setTransicao(8,1,")",3,0,true,8);
 
         maquina.criaTransicoes(9,7);
-        maquina.setTransicao(9,0,";",3,0,true);
-        maquina.setTransicao(9,5,")",3,0,true);
-        maquina.setTransicao(9,1,"+",10,0,false);
-        maquina.setTransicao(9,2,"-",10,0,false);
-        maquina.setTransicao(9,3,"*",10,0,false);
-        maquina.setTransicao(9,4,"/",10,0,false);
-        maquina.setTransicao(9,6,"]",3,0,true);
+        maquina.setTransicao(9,0,";",3,0,true,8);
+        maquina.setTransicao(9,5,")",3,0,true,8);
+        maquina.setTransicao(9,1,"+",10,0,false,6);
+        maquina.setTransicao(9,2,"-",10,0,false,6);
+        maquina.setTransicao(9,3,"*",10,0,false,7);
+        maquina.setTransicao(9,4,"/",10,0,false,7);
+        maquina.setTransicao(9,6,"]",3,0,true,8);
         
         maquina.criaTransicoes(10,5);
         maquina.setTransicao(10,0,"(",11,maquina.A_Expressao,true);
@@ -123,9 +121,9 @@ public class Expressao {
         maquina.setTransicao(10,4,"NUMERO",11,maquina.A_Expressao,true);
         
         maquina.criaTransicoes(11,3);
-        maquina.setTransicao(11,0,";",3,0,true);
-        maquina.setTransicao(11,1,")",3,0,true);
-        maquina.setTransicao(11,2,"]",3,0,true);
+        maquina.setTransicao(11,0,";",3,0,true,8);
+        maquina.setTransicao(11,1,")",3,0,true,8);
+        maquina.setTransicao(11,2,"]",3,0,true,8);
         
         maquina.criaTransicoes(12,7);
         maquina.setTransicao(12,0,"(",14,maquina.A_Expressao,true);
@@ -143,24 +141,23 @@ public class Expressao {
         maquina.setTransicao(13,4,"NUMERO",14,maquina.A_Expressao,true);
         maquina.setTransicao(13,0,"-",14,maquina.A_Expressao,true);
         
-        
         maquina.criaTransicoes(14,2);
         maquina.setTransicao(14,0,",",13,0,false);
         maquina.setTransicao(14,0,")",15,0,false);
         
         maquina.criaTransicoes(15,12);
-        maquina.setTransicao(15,0,";",3,0,true);
-        maquina.setTransicao(15,1,")",3,0,true);
-        maquina.setTransicao(15,2,"+",10,0,false);
-        maquina.setTransicao(15,3,"-",10,0,false);
-        maquina.setTransicao(15,4,"/",10,0,false);
-        maquina.setTransicao(15,5,"*",10,0,false);
-        maquina.setTransicao(15,6,"]",3,0,true);
-        maquina.setTransicao(15,7,"<=",3,0,true);
-        maquina.setTransicao(15,8,"<",3,0,true);
-        maquina.setTransicao(15,9,">=",3,0,true);
-        maquina.setTransicao(15,10,"==",3,0,true);
-        maquina.setTransicao(15,11,"!=",3,0,true);
+        maquina.setTransicao(15,0,";",3,0,true,8);
+        maquina.setTransicao(15,1,")",3,0,true,8);
+        maquina.setTransicao(15,2,"+",10,0,false,6);
+        maquina.setTransicao(15,3,"-",10,0,false,6);
+        maquina.setTransicao(15,4,"/",10,0,false,7);
+        maquina.setTransicao(15,5,"*",10,0,false,7);
+        maquina.setTransicao(15,6,"]",3,0,true,8);
+        maquina.setTransicao(15,7,"<=",3,0,true,8);
+        maquina.setTransicao(15,8,"<",3,0,true,8);
+        maquina.setTransicao(15,9,">=",3,0,true,8);
+        maquina.setTransicao(15,10,"==",3,0,true,8);
+        maquina.setTransicao(15,11,"!=",3,0,true,8);
         
         maquina.criaTransicoes(16,4);
         maquina.setTransicao(16,0,"identificador",17,maquina.A_Expressao,true);
@@ -172,20 +169,19 @@ public class Expressao {
         maquina.setTransicao(17,0,"]",18,0,false);
         
         maquina.criaTransicoes(18,13);
-        maquina.setTransicao(18,0,";",3,0,true);
-        maquina.setTransicao(18,1,")",3,0,true);
-        maquina.setTransicao(18,2,"+",10,0,false);
-        maquina.setTransicao(18,3,"-",10,0,false);
-        maquina.setTransicao(18,4,"/",10,0,false);
-        maquina.setTransicao(18,5,"*",10,0,false);
+        maquina.setTransicao(18,0,";",3,0,true,8);
+        maquina.setTransicao(18,1,")",3,0,true,8);
+        maquina.setTransicao(18,2,"+",10,0,false,6);
+        maquina.setTransicao(18,3,"-",10,0,false,6);
+        maquina.setTransicao(18,4,"/",10,0,false,7);
+        maquina.setTransicao(18,5,"*",10,0,false,7);
         maquina.setTransicao(18,6,"[",19,0,false);
-        maquina.setTransicao(18,8,"]",3,0,true);
-        maquina.setTransicao(18,9,"<=",3,0,true);
-        maquina.setTransicao(18,10,"<",3,0,true);
-        maquina.setTransicao(18,11,">=",3,0,true);
-        maquina.setTransicao(18,12,"==",3,0,true);
-        maquina.setTransicao(18,7,"!=",3,0,true);
-        
+        maquina.setTransicao(18,8,"]",3,0,true,8);
+        maquina.setTransicao(18,9,"<=",3,0,true,8);
+        maquina.setTransicao(18,10,"<",3,0,true,8);
+        maquina.setTransicao(18,11,">=",3,0,true,8);
+        maquina.setTransicao(18,12,"==",3,0,true,8);
+        maquina.setTransicao(18,7,"!=",3,0,true,8);
         
         maquina.criaTransicoes(19,4);
         maquina.setTransicao(19,0,"identificador",20,maquina.A_Expressao,true);
@@ -199,22 +195,17 @@ public class Expressao {
         maquina.criaTransicoes(21,12);
         maquina.setTransicao(21,0,";",3,0,true);
         maquina.setTransicao(21,1,")",3,0,true);
-        maquina.setTransicao(21,2,"+",10,0,false);
-        maquina.setTransicao(21,3,"-",10,0,false);
-        maquina.setTransicao(21,4,"/",10,0,false);
-        maquina.setTransicao(21,5,"*",10,0,false);
+        maquina.setTransicao(21,2,"+",10,0,false,6);
+        maquina.setTransicao(21,3,"-",10,0,false,6);
+        maquina.setTransicao(21,4,"/",10,0,false,7);
+        maquina.setTransicao(21,5,"*",10,0,false,7);
         maquina.setTransicao(21,6,"]",3,0,true);
         maquina.setTransicao(21,7,"<=",3,0,true);
         maquina.setTransicao(21,8,"<",3,0,true);
         maquina.setTransicao(21,9,">=",3,0,true);
         maquina.setTransicao(21,10,"==",3,0,true);
         maquina.setTransicao(21,11,"!=",3,0,true);
-        
-        
-//
-//        maquina.criaTransicoes(13,2);
-//        maquina.setTransicao(13,0,"COMMANDO",9,maquina.A_Comando,false);//Aqui nao implementado
-//        maquina.setTransicao(13,1,"RETURN",8,0,false);
+
     }
     
         
@@ -225,8 +216,8 @@ public class Expressao {
                 maquina.estados[estadoAtual].proximoEstado(token.getType());
         System.out.println(maquinaNome + " - " + token.getType() + " - Estado Atual: " + estadoAtual);
         System.out.println("Proximo Estado: " + transicao.proximoEstado);
-        
-        analiseSemanticaPre(estadoAtual,transicao.proximoEstado,token);
+        caso = transicao.caso;
+        analiseSemanticaPre(estadoAtual,transicao.proximoEstado,token,caso);
         
         Token proximoToken = null;
         if (transicao.consome) proximoToken = token;
@@ -235,6 +226,7 @@ public class Expressao {
             switch(transicao.proximaMaquina) {
                 case 5://Maquina Expressao
                     Expressao maquinaExpressao = new Expressao(filaLida);
+                    maquinaExpressao.escopo = this.escopo;
                     System.out.println(filaLida.getTamanho());
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
                     if (transicao.consome) {
@@ -258,14 +250,14 @@ public class Expressao {
             }
         }
         
-        analiseSemanticaPos(estadoAtual,transicao.proximoEstado,token);
+        analiseSemanticaPos(estadoAtual,transicao.proximoEstado,token,caso);
         consome = transicao.consome;
         estadoAtual = transicao.proximoEstado;
         restoToken = proximoToken;
         
         // Aqui deverá verificar se o estado é aceito e se podemos retornar
         if (transicao.proximoEstado == this.estadoAceito) {
-            System.out.println("Morri");
+            //System.out.println("Morri");
             pilhaEA = PilhaEA.getInstance();
             System.out.println(pilhaEA.toString());
             return 1;
@@ -284,52 +276,47 @@ public class Expressao {
 
     
         private void analiseSemanticaPos(int estadoAtual, int proximoEstado,
-            Token token){
-        if (estadoAtual == 0) {
-            if (proximoEstado == 1) {
-                pilhaEA = PilhaEA.getInstance();//Adicionar "0 - "
-                acaoOperadores(0,token);
-            } else if (proximoEstado == 4) {
-                pilhaEA = PilhaEA.getInstance();
-                acaoOperadores(0,token);
-            } else if (proximoEstado == 7) {
-                acaoOperadores(3,token);
-            } else if (proximoEstado == 8) {
-                acaoOperadores(2,token);
-            } else if (proximoEstado == 9) {
-                acaoOperadores(4,token);
-             } else if (proximoEstado == 4) { 
-                pilhaEA = PilhaEA.getInstance();
-                pilhaEA.adicionaOperador(token.getWord());                
+            Token token, int caso){
+            System.out.println("Caso:" + caso);
+            switch (caso) {
+                case 0:
+                    break;
+                case 1:
+                    acaoOperadores(1,token);
+                    break;
+                case 2:
+                    acaoOperadores(2,token);
+                    break;
+                case 3:
+                    acaoOperadores(3,token);
+                    break;
+                case 4:
+                    acaoOperadores(4,token);
+                    break;
+                case 5:
+                    acaoOperadores(5,token);
+                    break;
+                case 6:
+                    acaoOperadores(6,token);
+                    break;
+                case 7:
+                    acaoOperadores(7,token);
+                    break;
+                case 8:
+                    acaoOperadores(8,token);
+                    break;
+                
+                default:
+                    System.out.println("Ainda Nao Implementado");
+                    break;
             }
-            
-        } else if (estadoAtual == 2) {
-            if (proximoEstado == 10) {
-                if (token.getWord() == "+" && token.getWord() == "-") {
-                    
-                } else {
-                    
-                }
-            }
-        } else if (estadoAtual == 9) {
-            if (proximoEstado == 10) {
-                pilhaEA = PilhaEA.getInstance();
-                pilhaEA.adicionaOperador(token.getWord());
-            }
-        } else if (estadoAtual == 5) {
-            if (proximoEstado == 6) {
-                pilhaEA = PilhaEA.getInstance();
-                pilhaEA.adicionaOperador(token.getWord());
-            }
-        } else if (estadoAtual == 2) {
 
-            
-        }
+
     }
     
     
    private void analiseSemanticaPre(int estadoAtual, int proximoEstado,
-            Token token){
+            Token token, int caso){
        //Pro Enquanto Nada
     }
    
@@ -338,23 +325,71 @@ public class Expressao {
        pilhaEA = PilhaEA.getInstance();
        tSimbolos = TabelaSimbolos.getInstance();
        switch(acao) {
-           case 0:// Usado para - XX
+           case 1:// Usado para - XX
                pilhaEA.adicionaOperando("INT","0");
                pilhaEA.adicionaOperador(token.getWord());
                break;
-           case 1://Empilhar ( - Como se começasse pilha nova
+           case 2://Empilhar ( - Como se começasse pilha nova
                pilhaEA.adicionaOperador(token.getWord());
                break;
-           case 2:
-               pilhaEA.adicionaOperando("BOOLEAN",token.getWord());
            case 3:
+               pilhaEA.adicionaOperando("BOOLEAN",token.getWord());
+               break;
+           case 4:
                //buscar o tipo do identificador
                Simbolo simbolo = tSimbolos.procuraSimbolo(this.escopo,token.getWord());
                pilhaEA.adicionaOperando(simbolo.getTipoDeDado(),token.getWord());
-          case 4:
+               break;
+           case 5:
                pilhaEA.adicionaOperando("INT",token.getWord());
+               break;
+           case 6:
+               if (pilhaEA.operadorTopo() == null ||
+                       pilhaEA.operadorTopo() == "(") {
+                   System.out.println("Temos que pindurar");
+                   pilhaEA.adicionaOperador(token.getWord());
+               } else {
+                   System.out.println("Ja temos alguma coisa lah que podemos desempilhar");
+                   pilhaEA.adicionaOperando(executaOperacao());//Aqui ele desempilha e executa a operação
+                   pilhaEA.adicionaOperador(token.getWord());
+               }
+               break;
+           case 7:
+               if (pilhaEA.operadorTopo() != null && (pilhaEA.operadorTopo() == "*" ||
+                       pilhaEA.operadorTopo() == "/")) {
+                   System.out.println("Ja temos alguma coisa lah que podemos desempilhar");
+                   pilhaEA.adicionaOperando(executaOperacao());//Aqui ele desempilha e executa a operação
+                   pilhaEA.adicionaOperador(token.getWord());
+               } else {
+                   System.out.println("Temos que pindurar");
+                   pilhaEA.adicionaOperador(token.getWord());
+               }
+               break;
+
+           case 8:
+                   System.out.println("Ja temos alguma coisa lah que devemos desempilhar");
+                   while (pilhaEA.operadorTopo() != null && pilhaEA.operadorTopo()!= "(") {
+                        pilhaEA.adicionaOperando(executaOperacao());//Aqui ele desempilha e executa a operação
+                   }
+                   if (pilhaEA.operadorTopo() == "(") {
+                       //Remove soh o (
+                       pilhaEA.removeOperador();
+                   }
+               break;
            default:
 
        }
    }
+   
+   private Operando executaOperacao(){
+       Operando resultado = new Operando();
+       Operando tmpB = pilhaEA.removeOperando();
+       Operando tmpA = pilhaEA.removeOperando();//Ainda nao estamos adicionando...
+       Operador operador = pilhaEA.removeOperador();
+       System.out.println("Operaçao: " + tmpA.valor + operador.nome + tmpB.valor);
+       resultado.tipo = tmpA.tipo;
+       resultado.valor = "BOH";
+       return resultado;
+   }
 }
+

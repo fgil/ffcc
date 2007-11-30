@@ -64,6 +64,7 @@ public class TabelaSimbolos {
     }
     
     public Simbolo procuraSimbolo(String escopo, String identificador) {
+        System.out.println("ESCOPO: " + escopo + ", " + identificador);
         for(Iterator it = tabela.iterator(); it.hasNext();) {
             Simbolo temp = (Simbolo)it.next();
             if (temp.getEscopo().equals(escopo)) {

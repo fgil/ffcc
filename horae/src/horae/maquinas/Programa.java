@@ -99,7 +99,7 @@ public class Programa {
 
                 case 2:
                     Declaracao maquinaDeclaracao = new Declaracao(filaLida);
-                    maquinaDeclaracao.escopo = "Programa";
+                    maquinaDeclaracao.escopo = "main";
                     //System.out.println(filaLida.getTamanho());
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
                     if (transicao.consome) {
@@ -154,6 +154,7 @@ public class Programa {
 
                 case 4://Maquina Comando
                     Comando maquinaComando = new Comando(filaLida);
+                    maquinaComando.escopo = "main";
                     System.out.println(filaLida.getTamanho());
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
                     if (transicao.consome) {

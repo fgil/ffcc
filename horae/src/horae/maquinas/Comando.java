@@ -24,6 +24,7 @@ public class Comando {
     public int estadoAceito = 10;
     public boolean consome;
     public Token restoToken;
+    public String escopo;
     private String maquinaNome = "Comando";
     
     /** Creates a new instance of Expressao */
@@ -233,6 +234,7 @@ public class Comando {
             switch(transicao.proximaMaquina) {
                 case 5://Maquina Expressao
                     Expressao maquinaExpressao = new Expressao(filaLida);
+                    maquinaExpressao.escopo = this.escopo;
                     System.out.println(filaLida.getTamanho());
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
                     if (transicao.consome) {
@@ -254,6 +256,7 @@ public class Comando {
                 
                 case 4://Maquina Comando
                     Comando maquinaComando = new Comando(filaLida);
+                    maquinaComando.escopo = this.escopo;
                     System.out.println(filaLida.getTamanho());
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
                     if (transicao.consome) {
