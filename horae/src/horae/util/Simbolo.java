@@ -18,7 +18,7 @@ public class Simbolo {
     private String tipoDeSimbolo;
     private String identificador;
     private String tipoDeDado;
-    private int posicaoMemoria;
+    private String valorInicial;
     private String escopo;
     private int dimensaoX;
     private int dimensaoY;
@@ -53,12 +53,12 @@ public class Simbolo {
         this.tipoDeDado = tipoDeDado;
     }
 
-    public int getPosicaoMemoria() {
-        return posicaoMemoria;
+    public String getValorInicial() {
+        return valorInicial;
     }
 
-    public void setPosicaoMemoria(int posicaoMemoria) {
-        this.posicaoMemoria = posicaoMemoria;
+    public void setValorInicial(String posicaoMemoria) {
+        this.valorInicial = posicaoMemoria;
     }
 
     public String getEscopo() {

@@ -18,15 +18,30 @@ public class Contadores {
     private int eacont;
     
     /** Creates a new instance of Contadores */
-    public Contadores() {
+    private Contadores() {
+        eacont = 0;
     }
 
-    public int getEacont() {
-        return eacont;
+    private static Contadores oContador;
+    
+    public Pilha pOperandos;
+    public Pilha pOperadores;
+    
+    public static Contadores getInstance(){
+       if (oContador == null) {
+            oContador = new Contadores();
+        }
+        return oContador;
+    }
+
+    
+    
+    public String getEacont() {
+        return eacont + "_EA";
     }
     
-    public int nextEacont() {
+    public String nextEacont() {
         eacont++;
-        return eacont;
+        return eacont + "_EA";
     }
 }

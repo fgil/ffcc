@@ -52,6 +52,16 @@ public class TabelaSimbolos {
         
     }
     
+    public void adicionaSimbolo(String escopo,String tipo, String id, String valor ) {
+        Simbolo temp = new Simbolo();
+        temp.setEscopo(escopo);
+        temp.setTipoDeDado(tipo);
+        temp.setTipoDeSimbolo("CONSTANTE");
+        temp.setIdentificador(id);
+        temp.setValorInicial(valor);
+        adicionaSimbolo(temp);
+    }
+    
     public String toSring() {
         String stemp = new String();
         for(Iterator it = tabela.iterator(); it.hasNext();) {

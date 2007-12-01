@@ -73,7 +73,12 @@ public class Semantico {
         writetoFile(temp);
     }
     
-    
+    public void addAtribuicao(String origem, String destino){
+        String temp = "LD " + origem;
+        writetoFile(temp);
+        temp = "MM " + destino;
+        writetoFile(temp);
+    }
     
     
     

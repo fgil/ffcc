@@ -33,7 +33,7 @@ public class Expressao {
     
     /** Creates a new instance of Expressao */
     public Expressao(Fila filaLida) {
-                this.filaLida = filaLida;
+        this.filaLida = filaLida;
         maquina = new Maquina(22);
         estadoAtual = 0;
         consome = false;
@@ -48,7 +48,7 @@ public class Expressao {
         maquina.setTransicao(0,3,"TRUE",8,0,false,3);
         maquina.setTransicao(0,4,"FALSE",8,0,false,3);
         maquina.setTransicao(0,5,"NUMERO",9,0,false,5);
-
+        
         maquina.criaTransicoes(1,5);
         maquina.setTransicao(1,0,"(",2,maquina.A_Expressao,true);
         maquina.setTransicao(1,1,"identificador",2,maquina.A_Expressao,true);
@@ -103,7 +103,7 @@ public class Expressao {
         maquina.criaTransicoes(8,2);
         maquina.setTransicao(8,0,";",3,0,true,8);
         maquina.setTransicao(8,1,")",3,0,true,8);
-
+        
         maquina.criaTransicoes(9,7);
         maquina.setTransicao(9,0,";",3,0,true,8);
         maquina.setTransicao(9,5,")",3,0,true,8);
@@ -205,191 +205,203 @@ public class Expressao {
         maquina.setTransicao(21,9,">=",3,0,true);
         maquina.setTransicao(21,10,"==",3,0,true);
         maquina.setTransicao(21,11,"!=",3,0,true);
-
+        
     }
     
-        
+    
     public int processaToken(Token token) {
         System.out.println(filaLida.getTamanho());
         try {
-        Transicao transicao =
-                maquina.estados[estadoAtual].proximoEstado(token.getType());
-        System.out.println(maquinaNome + " - " + token.getType() + " - Estado Atual: " + estadoAtual);
-        System.out.println("Proximo Estado: " + transicao.proximoEstado);
-        caso = transicao.caso;
-        analiseSemanticaPre(estadoAtual,transicao.proximoEstado,token,caso);
-        
-        Token proximoToken = null;
-        if (transicao.consome) proximoToken = token;
-        
-        if (transicao.proximaMaquina > 0) {
-            switch(transicao.proximaMaquina) {
-                case 5://Maquina Expressao
-                    Expressao maquinaExpressao = new Expressao(filaLida);
-                    maquinaExpressao.escopo = this.escopo;
-                    System.out.println(filaLida.getTamanho());
-                    //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
-                    if (transicao.consome) {
-                        proximoToken = token;                        
-                    } else {
-                        proximoToken = (Token) filaLida.remover();
-                    }
-                    while(maquinaExpressao.processaToken(proximoToken) == 0){
-                        if (maquinaExpressao.consome) {
-                            proximoToken = maquinaExpressao.restoToken;                          
+            Transicao transicao =
+                    maquina.estados[estadoAtual].proximoEstado(token.getType());
+            System.out.println(maquinaNome + " - " + token.getType() + " - Estado Atual: " + estadoAtual);
+            System.out.println("Proximo Estado: " + transicao.proximoEstado);
+            caso = transicao.caso;
+            analiseSemanticaPre(estadoAtual,transicao.proximoEstado,token,caso);
+            
+            Token proximoToken = null;
+            if (transicao.consome) proximoToken = token;
+            
+            if (transicao.proximaMaquina > 0) {
+                switch(transicao.proximaMaquina) {
+                    case 5://Maquina Expressao
+                        Expressao maquinaExpressao = new Expressao(filaLida);
+                        maquinaExpressao.escopo = this.escopo;
+                        System.out.println(filaLida.getTamanho());
+                        //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
+                        if (transicao.consome) {
+                            proximoToken = token;
                         } else {
                             proximoToken = (Token) filaLida.remover();
                         }
-                    }
-                    consome = maquinaExpressao.consome;
-                    proximoToken = maquinaExpressao.restoToken;
-                    break;
-                default:
-                    //Ainda nao implementado
-
+                        while(maquinaExpressao.processaToken(proximoToken) == 0){
+                            if (maquinaExpressao.consome) {
+                                proximoToken = maquinaExpressao.restoToken;
+                            } else {
+                                proximoToken = (Token) filaLida.remover();
+                            }
+                        }
+                        consome = maquinaExpressao.consome;
+                        proximoToken = maquinaExpressao.restoToken;
+                        break;
+                    default:
+                        //Ainda nao implementado
+                        
+                }
             }
-        }
-        
-        analiseSemanticaPos(estadoAtual,transicao.proximoEstado,token,caso);
-        consome = transicao.consome;
-        estadoAtual = transicao.proximoEstado;
-        restoToken = proximoToken;
-        
-        // Aqui deverá verificar se o estado é aceito e se podemos retornar
-        if (transicao.proximoEstado == this.estadoAceito) {
-            //System.out.println("Morri");
-            pilhaEA = PilhaEA.getInstance();
-            System.out.println(pilhaEA.toString());
-            return 1;
-        } else {
-            return 0;
-        }
-
+            
+            analiseSemanticaPos(estadoAtual,transicao.proximoEstado,token,caso);
+            consome = transicao.consome;
+            estadoAtual = transicao.proximoEstado;
+            restoToken = proximoToken;
+            
+            // Aqui deverá verificar se o estado é aceito e se podemos retornar
+            if (transicao.proximoEstado == this.estadoAceito) {
+                //System.out.println("Morri");
+                pilhaEA = PilhaEA.getInstance();
+                System.out.println(pilhaEA.toString());
+                return 1;
+            } else {
+                return 0;
+            }
+            
         } catch(Exception e) {
-        System.out.println(maquinaNome + " - " + token.getType() + " - Estado Atual: " + estadoAtual + 
-                " Transicao nao encontrada: ");
+            System.out.println(maquinaNome + " - " + token.getType() + " - Estado Atual: " + estadoAtual +
+                    " Transicao nao encontrada: ");
             
             return 0;
-
+            
         }
     }
-
     
-        private void analiseSemanticaPos(int estadoAtual, int proximoEstado,
+    
+    private void analiseSemanticaPos(int estadoAtual, int proximoEstado,
             Token token, int caso){
-            System.out.println("Caso:" + caso);
-            switch (caso) {
-                case 0:
-                    break;
-                case 1:
-                    acaoOperadores(1,token);
-                    break;
-                case 2:
-                    acaoOperadores(2,token);
-                    break;
-                case 3:
-                    acaoOperadores(3,token);
-                    break;
-                case 4:
-                    acaoOperadores(4,token);
-                    break;
-                case 5:
-                    acaoOperadores(5,token);
-                    break;
-                case 6:
-                    acaoOperadores(6,token);
-                    break;
-                case 7:
-                    acaoOperadores(7,token);
-                    break;
-                case 8:
-                    acaoOperadores(8,token);
-                    break;
+        System.out.println("Caso:" + caso);
+        switch (caso) {
+            case 0:
+                break;
+            case 1:
+                acaoOperadores(1,token);
+                break;
+            case 2:
+                acaoOperadores(2,token);
+                break;
+            case 3:
+                acaoOperadores(3,token);
+                break;
+            case 4:
+                acaoOperadores(4,token);
+                break;
+            case 5:
+                acaoOperadores(5,token);
+                break;
+            case 6:
+                acaoOperadores(6,token);
+                break;
+            case 7:
+                acaoOperadores(7,token);
+                break;
+            case 8:
+                acaoOperadores(8,token);
+                break;
                 
-                default:
-                    System.out.println("Ainda Nao Implementado");
-                    break;
-            }
-
-
+            default:
+                System.out.println("Ainda Nao Implementado");
+                break;
+        }
+        
+        
     }
     
     
-   private void analiseSemanticaPre(int estadoAtual, int proximoEstado,
+    private void analiseSemanticaPre(int estadoAtual, int proximoEstado,
             Token token, int caso){
-       //Pro Enquanto Nada
+        //Pro Enquanto Nada
     }
-   
-   
-   private void acaoOperadores(int acao, Token token) {
-       pilhaEA = PilhaEA.getInstance();
-       tSimbolos = TabelaSimbolos.getInstance();
-       switch(acao) {
-           case 1:// Usado para - XX
-               pilhaEA.adicionaOperando("INT","0");
-               pilhaEA.adicionaOperador(token.getWord());
-               break;
-           case 2://Empilhar ( - Como se começasse pilha nova
-               pilhaEA.adicionaOperador(token.getWord());
-               break;
-           case 3:
-               pilhaEA.adicionaOperando("BOOLEAN",token.getWord());
-               break;
-           case 4:
-               //buscar o tipo do identificador
-               Simbolo simbolo = tSimbolos.procuraSimbolo(this.escopo,token.getWord());
-               pilhaEA.adicionaOperando(simbolo.getTipoDeDado(),token.getWord());
-               break;
-           case 5:
-               pilhaEA.adicionaOperando("INT",token.getWord());
-               break;
-           case 6:
-               if (pilhaEA.operadorTopo() == null ||
-                       pilhaEA.operadorTopo() == "(") {
-                   System.out.println("Temos que pindurar");
-                   pilhaEA.adicionaOperador(token.getWord());
-               } else {
-                   System.out.println("Ja temos alguma coisa lah que podemos desempilhar");
-                   pilhaEA.adicionaOperando(executaOperacao());//Aqui ele desempilha e executa a operação
-                   pilhaEA.adicionaOperador(token.getWord());
-               }
-               break;
-           case 7:
-               if (pilhaEA.operadorTopo() != null && (pilhaEA.operadorTopo() == "*" ||
-                       pilhaEA.operadorTopo() == "/")) {
-                   System.out.println("Ja temos alguma coisa lah que podemos desempilhar");
-                   pilhaEA.adicionaOperando(executaOperacao());//Aqui ele desempilha e executa a operação
-                   pilhaEA.adicionaOperador(token.getWord());
-               } else {
-                   System.out.println("Temos que pindurar");
-                   pilhaEA.adicionaOperador(token.getWord());
-               }
-               break;
-
-           case 8:
-                   System.out.println("Ja temos alguma coisa lah que devemos desempilhar");
-                   while (pilhaEA.operadorTopo() != null && pilhaEA.operadorTopo()!= "(") {
-                        pilhaEA.adicionaOperando(executaOperacao());//Aqui ele desempilha e executa a operação
-                   }
-                   if (pilhaEA.operadorTopo() == "(") {
-                       //Remove soh o (
-                       pilhaEA.removeOperador();
-                   }
-               break;
-           default:
-
-       }
-   }
-   
-   private Operando executaOperacao(){
-       Operando resultado = new Operando();
-       Operando tmpB = pilhaEA.removeOperando();
-       Operando tmpA = pilhaEA.removeOperando();//Ainda nao estamos adicionando...
-       Operador operador = pilhaEA.removeOperador();
-       System.out.println("Operaçao: " + tmpA.valor + operador.nome + tmpB.valor);
-       resultado.tipo = tmpA.tipo;
-       resultado.valor = "BOH";
-       return resultado;
-   }
+    
+    
+    private void acaoOperadores(int acao, Token token) {
+        pilhaEA = PilhaEA.getInstance();
+        tSimbolos = TabelaSimbolos.getInstance();
+        Contadores contador = Contadores.getInstance();
+        String novaVar;
+        switch(acao) {
+            case 1:// Usado para - XX
+                novaVar = contador.nextEacont();
+                pilhaEA.adicionaOperando("INT",novaVar);
+                tSimbolos.adicionaSimbolo(this.escopo, "INT", novaVar,"0");
+                pilhaEA.adicionaOperador(token.getWord());
+                break;
+            case 2://Empilhar ( - Como se começasse pilha nova
+                pilhaEA.adicionaOperador(token.getWord());
+                break;
+            case 3:
+                novaVar = contador.nextEacont();
+                pilhaEA.adicionaOperando("BOOLEAN",novaVar);
+                tSimbolos.adicionaSimbolo(this.escopo, "BOOLEAN", novaVar, token.getWord());
+                break;
+            case 4:
+                //buscar o tipo do identificador
+                Simbolo simbolo = tSimbolos.procuraSimbolo(this.escopo, token.getWord());
+                pilhaEA.adicionaOperando(simbolo.getTipoDeDado(),token.getWord());
+                break;
+            case 5:
+                novaVar = contador.nextEacont();
+                tSimbolos.adicionaSimbolo(this.escopo, "INT", novaVar, token.getWord());
+                pilhaEA.adicionaOperando("INT",novaVar);
+                break;
+            case 6:
+                if (pilhaEA.operadorTopo() == null ||
+                        pilhaEA.operadorTopo() == "(") {
+                    System.out.println("Temos que pindurar");
+                    pilhaEA.adicionaOperador(token.getWord());
+                } else {
+                    System.out.println("Ja temos alguma coisa lah que podemos desempilhar");
+                    pilhaEA.adicionaOperando(executaOperacao());//Aqui ele desempilha e executa a operação
+                    pilhaEA.adicionaOperador(token.getWord());
+                }
+                break;
+            case 7:
+                if (pilhaEA.operadorTopo() != null && (pilhaEA.operadorTopo() == "*" ||
+                        pilhaEA.operadorTopo() == "/")) {
+                    System.out.println("Ja temos alguma coisa lah que podemos desempilhar");
+                    pilhaEA.adicionaOperando(executaOperacao());//Aqui ele desempilha e executa a operação
+                    pilhaEA.adicionaOperador(token.getWord());
+                } else {
+                    System.out.println("Temos que pindurar");
+                    pilhaEA.adicionaOperador(token.getWord());
+                }
+                break;
+                
+            case 8:
+                System.out.println("Ja temos alguma coisa lah que devemos desempilhar");
+                while (pilhaEA.operadorTopo() != null && pilhaEA.operadorTopo()!= "(") {
+                    pilhaEA.adicionaOperando(executaOperacao());//Aqui ele desempilha e executa a operação
+                }
+                if (pilhaEA.operadorTopo() == "(") {
+                    //Remove soh o (
+                    pilhaEA.removeOperador();
+                }
+                break;
+            default:
+                
+        }
+    }
+    
+    private Operando executaOperacao(){
+        tSimbolos = TabelaSimbolos.getInstance();
+        Contadores contador = Contadores.getInstance();
+        String novaVar = contador.nextEacont();
+        
+        Operando resultado = new Operando();
+        Operando tmpB = pilhaEA.removeOperando();
+        Operando tmpA = pilhaEA.removeOperando();//Ainda nao estamos adicionando...
+        Operador operador = pilhaEA.removeOperador();
+        System.out.println("Operaçao: " + tmpA.valor + operador.nome + tmpB.valor);
+        resultado.tipo = tmpA.tipo;
+        resultado.valor = novaVar;
+        tSimbolos.adicionaSimbolo(this.escopo,resultado.tipo,novaVar,"0");
+        return resultado;
+    }
 }
-
