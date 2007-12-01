@@ -22,6 +22,7 @@ public class Simbolo {
     private String escopo;
     private int dimensaoX;
     private int dimensaoY;
+    private boolean declarado = false;
     
     /**
      * Creates a new instance of Simbolo
@@ -85,5 +86,11 @@ public class Simbolo {
         this.dimensaoY = dimensaoY;
     }
     
+    public void setDeclarado(boolean declarado){
+        this.declarado = declarado;
+    }
     
+    public boolean isDeclarado(){
+        return declarado;
+    }
 }

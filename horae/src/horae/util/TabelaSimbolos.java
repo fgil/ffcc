@@ -20,7 +20,7 @@ public class TabelaSimbolos {
     
     private static TabelaSimbolos tSimbolos;
     
-    public ArrayList tabela = new ArrayList(); 
+    public ArrayList tabela = new ArrayList();
     
     private TabelaSimbolos() {}
     
@@ -30,7 +30,7 @@ public class TabelaSimbolos {
         }
         return tSimbolos;
     }
-
+    
     public void adicionaSimbolo(Simbolo novoSimbolo) {
 //        for (Iterator it = names.iterator(); it.hasNext(); ) {
 //          String name = (String)it.next();
@@ -40,13 +40,13 @@ public class TabelaSimbolos {
         for(Iterator it = tabela.iterator(); it.hasNext();) {
             Simbolo temp = (Simbolo)it.next();
             if (temp.getEscopo().equals(novoSimbolo.getEscopo())) {
-                    if (temp.getIdentificador().equals(novoSimbolo.getIdentificador())) {
-                System.out.println("OPS!! Foi inserida uma variavel repetida. ERRO");
-                inclui = false;
-                //(Simbolo)novoSimbolo;
+                if (temp.getIdentificador().equals(novoSimbolo.getIdentificador())) {
+                    System.out.println("OPS!! Foi inserida uma variavel repetida. ERRO");
+                    inclui = false;
+                    //(Simbolo)novoSimbolo;
                 }
             }
- 
+            
         }
         if (inclui) tabela.add(novoSimbolo);
         

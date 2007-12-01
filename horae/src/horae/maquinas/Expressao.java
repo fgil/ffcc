@@ -10,6 +10,7 @@
 package horae.maquinas;
 
 import horae.semantico.PilhaEA;
+import horae.semantico.Semantico;
 import horae.util.*;
 import horae.Token;
 
@@ -324,10 +325,11 @@ public class Expressao {
     
     
     private void acaoOperadores(int acao, Token token) {
-        pilhaEA = PilhaEA.getInstance();
-        tSimbolos = TabelaSimbolos.getInstance();
+        pilhaEA    = PilhaEA.getInstance();
+        tSimbolos  = TabelaSimbolos.getInstance();
         Contadores contador = Contadores.getInstance();
-        String novaVar;
+        String     novaVar;
+        
         switch(acao) {
             case 1:// Usado para - XX
                 novaVar = contador.nextEacont();
@@ -395,15 +397,19 @@ public class Expressao {
         tSimbolos = TabelaSimbolos.getInstance();
         Contadores contador = Contadores.getInstance();
         String novaVar = contador.nextEacont();
+        Semantico aSemantica = Semantico.getInstance("fonte.horae");
         
         Operando resultado = new Operando();
         Operando tmpB = pilhaEA.removeOperando();
-        Operando tmpA = pilhaEA.removeOperando();//Ainda nao estamos adicionando...
+        Operando tmpA = pilhaEA.removeOperando();
         Operador operador = pilhaEA.removeOperador();
         System.out.println("Operaçao: " + tmpA.valor + operador.nome + tmpB.valor);
         resultado.tipo = tmpA.tipo;
         resultado.valor = novaVar;
         tSimbolos.adicionaSimbolo(this.escopo,resultado.tipo,novaVar,"0");
+        
+        aSemantica.addOperacao(tmpA.valor, tmpB.valor, operador.nome, resultado.valor);
+        
         return resultado;
     }
 }

@@ -9,8 +9,11 @@
 
 package horae.semantico;
 
+import horae.util.TabelaSimbolos;
 import java.io.FileOutputStream;
 import horae.util.Simbolo;
+import horae.util.Util;
+import java.util.Iterator;
 
 /**
  *
@@ -54,11 +57,23 @@ public class Semantico {
     
 
     public void closeFile(){
-        try {
-            fileStream.write(("HM /00" + (char)10).getBytes());
+        try {           
+            writetoFile("HM /00");
+            
+            TabelaSimbolos tSimbolos = TabelaSimbolos.getInstance();
+            
+            //Declara o que ainda não foi declarado
+            for (Iterator simbolos = tSimbolos.tabela.iterator(); simbolos.hasNext();) {
+                Simbolo simbolo = (Simbolo) simbolos.next();
+                
+                if(!simbolo.isDeclarado()){
+                    addVariavel(simbolo);
+                }
+            }
+                        
             //String declaracao = (String)declaracoes.removeTop();
 //            while(declaracao!=null){
-//                fileStream.write((declaracao + (char)10 + (char)13).getBytes());
+//                writetoFile(declaracao);
 //                declaracao = (String)declaracoes.removeTop();
 //            }
             fileStream.close();
@@ -67,22 +82,35 @@ public class Semantico {
         }
     }
     
-    
     public void addVariavel(Simbolo sTemp){
-        String temp = sTemp.getIdentificador() + " K /0000";
+        String temp = sTemp.getIdentificador() + " K /" + Util.decimalToHex3(sTemp.getValorInicial());
+        writetoFile(temp);
+        sTemp.setDeclarado(true);
+    }
+    
+    public void addLoad(String origem){
+        String temp = "LD " + origem;
+        writetoFile(temp);
+    }
+    
+    public void addStore(String destino){
+        String temp = "MM " + destino;
         writetoFile(temp);
     }
     
     public void addAtribuicao(String origem, String destino){
-        String temp = "LD " + origem;
-        writetoFile(temp);
-        temp = "MM " + destino;
-        writetoFile(temp);
+        addLoad(origem);
+        addStore(destino);
     }
     
-    
-    
-    
+    public void addOperacao(String operando1, String operando2, String operador, String resultado){
+        addLoad(operando1);
+        
+        String temp = operador + "  " + operando2;
+        writetoFile(temp);
+        
+        addStore(resultado);
+    }
     
     //Funçao que escreve no arquivo de saida
     private void writetoFile(String msg){
