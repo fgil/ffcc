@@ -48,69 +48,69 @@ public class DeclaracaoFuncao {
         
         //Cria transicoes do estado 0
         maquina.criaTransicoes(0,1);
-        maquina.setTransicao(0,0,"FUNCAO",1,0,false);
+        maquina.setTransicao(0, 0, "FUNCAO", 1, 0, false);
 
 
         maquina.criaTransicoes(1,3);
-        maquina.setTransicao(1,0,"INT",2,0,false);
-        maquina.setTransicao(1,1,"CHAR",2,0,false);
-        maquina.setTransicao(1,2,"BOOLEAN",2,0,false);
+        maquina.setTransicao(1, 0, "INT",     2, 0, false);
+        maquina.setTransicao(1, 1, "CHAR",    2, 0, false);
+        maquina.setTransicao(1, 2, "BOOLEAN", 2, 0, false);
 
         
         maquina.criaTransicoes(2,1);
-        maquina.setTransicao(2,0,"identificador",3,0,false);
+        maquina.setTransicao(2, 0, "identificador", 3, 0, false);
         
         maquina.criaTransicoes(3,1);
-        maquina.setTransicao(3,0,"(",4,0,false);
+        maquina.setTransicao(3, 0, "(", 4, 0, false);
         
         maquina.criaTransicoes(4,4);
-        maquina.setTransicao(4,0,")",5,0,false);
-        maquina.setTransicao(4,1,"INT",6,maquina.A_Declaracao,true);
-        maquina.setTransicao(4,2,"CHAR",6,maquina.A_Declaracao,true);
-        maquina.setTransicao(4,3,"BOOLEAN",6,maquina.A_Declaracao,true);
+        maquina.setTransicao(4, 0, ")",       5, 0,                    false);
+        maquina.setTransicao(4, 1, "INT",     6, maquina.A_Declaracao, true);
+        maquina.setTransicao(4, 2, "CHAR",    6, maquina.A_Declaracao, true);
+        maquina.setTransicao(4, 3, "BOOLEAN", 6, maquina.A_Declaracao, true);
         
         maquina.criaTransicoes(5,1);
-        maquina.setTransicao(5,0,"{",7,0,false);
+        maquina.setTransicao(5, 0, "{", 7, 0, false);
         
         maquina.criaTransicoes(6,2);
-        maquina.setTransicao(6,0,",",15,0,false);
-        maquina.setTransicao(6,1,")",5,0,false);
+        maquina.setTransicao(6, 0, ",", 15, 0, false);
+        maquina.setTransicao(6, 1, ")", 5,  0, false);
         
         maquina.criaTransicoes(7,9);
-        maquina.setTransicao(7,0,"RETURN",11,0,false);
-        maquina.setTransicao(7,1,"INT",8,maquina.A_Declaracao,true);
-        maquina.setTransicao(7,2,"CHAR",8,maquina.A_Declaracao,true);
-        maquina.setTransicao(7,3,"BOOLEAN",8,maquina.A_Declaracao,true);
-        maquina.setTransicao(7,4,"identificador",10,maquina.A_Comando,true);
-        maquina.setTransicao(7,5,"INPUT",10,maquina.A_Comando,true);
-        maquina.setTransicao(7,6,"OUTPUT",10,maquina.A_Comando,true);
-        maquina.setTransicao(7,7,"IF",10,maquina.A_Comando,true);
-        maquina.setTransicao(7,8,"WHILE",10,maquina.A_Comando,true);
+        maquina.setTransicao(7, 0, "RETURN",        11, 0,false);
+        maquina.setTransicao(7, 1, "INT",           8,  maquina.A_Declaracao, true);
+        maquina.setTransicao(7, 2, "CHAR",          8,  maquina.A_Declaracao, true);
+        maquina.setTransicao(7, 3, "BOOLEAN",       8,  maquina.A_Declaracao, true);
+        maquina.setTransicao(7, 4, "identificador", 10, maquina.A_Comando,    true);
+        maquina.setTransicao(7, 5, "INPUT",         10, maquina.A_Comando,    true);
+        maquina.setTransicao(7, 6, "OUTPUT",        10, maquina.A_Comando,    true);
+        maquina.setTransicao(7, 7, "IF",            10, maquina.A_Comando,    true);
+        maquina.setTransicao(7, 8, "WHILE",         10, maquina.A_Comando,    true);
         
         
         maquina.criaTransicoes(8,1);
-        maquina.setTransicao(8,0,";",7,0,false);
+        maquina.setTransicao(8, 0, ";", 7, 0, false);
         
         maquina.criaTransicoes(9,6);
-        maquina.setTransicao(9,0,"RETURN",11,0,false);
-        maquina.setTransicao(9,1,"identificador",10,maquina.A_Comando,true);
-        maquina.setTransicao(9,2,"INPUT",10,maquina.A_Comando,true);
-        maquina.setTransicao(9,3,"OUTPUT",10,maquina.A_Comando,true);
-        maquina.setTransicao(9,4,"IF",10,maquina.A_Comando,true);
-        maquina.setTransicao(9,5,"WHILE",10,maquina.A_Comando,true);
+        maquina.setTransicao(9, 0, "RETURN",        11, 0,                 false);
+        maquina.setTransicao(9, 1, "identificador", 10, maquina.A_Comando, true);
+        maquina.setTransicao(9, 2, "INPUT",         10, maquina.A_Comando, true);
+        maquina.setTransicao(9, 3, "OUTPUT",        10, maquina.A_Comando, true);
+        maquina.setTransicao(9, 4, "IF",            10, maquina.A_Comando, true);
+        maquina.setTransicao(9, 5, "WHILE",         10, maquina.A_Comando, true);
         
         maquina.criaTransicoes(10,1);
-        maquina.setTransicao(10,0,";",9,0,false);
+        maquina.setTransicao(10, 0, ";", 9, 0, false);
         
         
         maquina.criaTransicoes(11,6);
         //maquina.setTransicao(11,X,"EXP",12,0,false);
-        maquina.setTransicao(11,0,"-",12,maquina.A_Expressao,true);
-        maquina.setTransicao(11,1,"(",12,maquina.A_Expressao,true);
-        maquina.setTransicao(11,2,"identificador",12,maquina.A_Expressao,true);
-        maquina.setTransicao(11,3,"TRUE",12,maquina.A_Expressao,true);
-        maquina.setTransicao(11,4,"FALSE",12,maquina.A_Expressao,true);
-        maquina.setTransicao(11,5,"NUMERO",12,maquina.A_Expressao,true);
+        maquina.setTransicao(11, 0, "-",             12, maquina.A_Expressao, true);
+        maquina.setTransicao(11, 1, "(",             12, maquina.A_Expressao, true);
+        maquina.setTransicao(11, 2, "identificador", 12, maquina.A_Expressao, true);
+        maquina.setTransicao(11, 3, "TRUE",          12, maquina.A_Expressao, true);
+        maquina.setTransicao(11, 4, "FALSE",         12, maquina.A_Expressao, true);
+        maquina.setTransicao(11, 5, "NUMERO",        12, maquina.A_Expressao, true);
         
         maquina.criaTransicoes(12,1);
         maquina.setTransicao(12,0,";",13,0,false);
@@ -119,9 +119,9 @@ public class DeclaracaoFuncao {
         maquina.setTransicao(13,0,"}",14,0,false);
         
         maquina.criaTransicoes(15,3);
-        maquina.setTransicao(15,0,"INT",6,maquina.A_Declaracao,true);
-        maquina.setTransicao(15,1,"CHAR",6,maquina.A_Declaracao,true);
-        maquina.setTransicao(15,2,"BOOLEAN",6,maquina.A_Declaracao,true);
+        maquina.setTransicao(15, 0, "INT",     6, maquina.A_Declaracao, true);
+        maquina.setTransicao(15, 1, "CHAR",    6, maquina.A_Declaracao, true);
+        maquina.setTransicao(15, 2, "BOOLEAN", 6, maquina.A_Declaracao, true);
 
         
     }

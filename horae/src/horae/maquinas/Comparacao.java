@@ -36,77 +36,77 @@ public class Comparacao {
 
         //Cria transicoes do estado 0
         maquina.criaTransicoes(0,6);
-        maquina.setTransicao(0,0,"(",4,0,false);
-        maquina.setTransicao(0,1,"identificador",1,maquina.A_Expressao,true);
-        maquina.setTransicao(0,2,"NUMERO",1,maquina.A_Expressao,true);
-        maquina.setTransicao(0,3,"-",1,maquina.A_Expressao,true);
-        maquina.setTransicao(0,4,"TRUE",10,0,false);
-        maquina.setTransicao(0,5,"FALSE",11,0,false);
+        maquina.setTransicao(0, 0, "(",             4,  0,                   false);
+        maquina.setTransicao(0, 1, "identificador", 1,  maquina.A_Expressao, true);
+        maquina.setTransicao(0, 2, "NUMERO",        1,  maquina.A_Expressao, true);
+        maquina.setTransicao(0, 3, "-",             1,  maquina.A_Expressao, true);
+        maquina.setTransicao(0, 4, "TRUE",          10, 0,                   false);
+        maquina.setTransicao(0, 5, "FALSE",         11, 0,                   false);
 
         maquina.criaTransicoes(1,9);
-        maquina.setTransicao(1,0,")",12,0,true);
-        maquina.setTransicao(1,1,"==",2,0,false);
-        maquina.setTransicao(1,2,"<=",2,0,false);
-        maquina.setTransicao(1,3,">=",2,0,false);
-        maquina.setTransicao(1,4,"!=",2,0,false);
-        maquina.setTransicao(1,5,"<",2,0,false);
-        maquina.setTransicao(1,6,">",2,0,false);
-        maquina.setTransicao(1,7,"OR",0,0,false);
-        maquina.setTransicao(1,8,"AND",0,0,false);
+        maquina.setTransicao(1, 0, ")",   12, 0, true);
+        maquina.setTransicao(1, 1, "==",  2,  0, false);
+        maquina.setTransicao(1, 2, "<=",  2,  0, false);
+        maquina.setTransicao(1, 3, ">=",  2,  0, false);
+        maquina.setTransicao(1, 4, "!=",  2,  0, false);
+        maquina.setTransicao(1, 5, "<",   2,  0, false);
+        maquina.setTransicao(1, 6, ">",   2,  0, false);
+        maquina.setTransicao(1, 7, "OR",  0,  0, false);
+        maquina.setTransicao(1, 8, "AND", 0,  0, false);
         
         maquina.criaTransicoes(2,6);
-        maquina.setTransicao(2,0,"(",3,maquina.A_Expressao,true);
-        maquina.setTransicao(2,1,"identificador",3,maquina.A_Expressao,true);
-        maquina.setTransicao(2,2,"TRUE",3,maquina.A_Expressao,true);
-        maquina.setTransicao(2,3,"FALSE",3,maquina.A_Expressao,true);
-        maquina.setTransicao(2,4,"NUMERO",3,maquina.A_Expressao,true);
-        maquina.setTransicao(2,5,"-",3,maquina.A_Expressao,true);        
+        maquina.setTransicao(2, 0, "(",             3, maquina.A_Expressao, true);
+        maquina.setTransicao(2, 1, "identificador", 3, maquina.A_Expressao, true);
+        maquina.setTransicao(2, 2, "TRUE",          3, maquina.A_Expressao, true);
+        maquina.setTransicao(2, 3, "FALSE",         3, maquina.A_Expressao, true);
+        maquina.setTransicao(2, 4, "NUMERO",        3, maquina.A_Expressao, true);
+        maquina.setTransicao(2, 5, "-",             3, maquina.A_Expressao, true);
 
         maquina.criaTransicoes(3,3);
-        maquina.setTransicao(3,0,")",12,0,true);
-        maquina.setTransicao(3,1,"OR",0,0,false);
-        maquina.setTransicao(3,2,"AND",0,0,false);
+        maquina.setTransicao(3, 0, ")",   12, 0, true);
+        maquina.setTransicao(3, 1, "OR",  0,  0, false);
+        maquina.setTransicao(3, 2, "AND", 0,  0, false);
         
         maquina.criaTransicoes(4,7);
-        maquina.setTransicao(4,0,"(",5,maquina.A_ExpAritmetica,true);
-        maquina.setTransicao(4,1,"identificador",5,maquina.A_ExpAritmetica,true);
-        maquina.setTransicao(4,2,"TRUE",5,maquina.A_ExpAritmetica,true);
-        maquina.setTransicao(4,3,"FALSE",5,maquina.A_ExpAritmetica,true);
-        maquina.setTransicao(4,4,"NUMERO",5,maquina.A_ExpAritmetica,true);
-        maquina.setTransicao(4,5,"NOT",5,maquina.A_ExpAritmetica,true);
-        maquina.setTransicao(4,6,"-",5,maquina.A_ExpAritmetica,true);  
+        maquina.setTransicao(4, 0, "(",             5, maquina.A_ExpAritmetica, true);
+        maquina.setTransicao(4, 1, "identificador", 5, maquina.A_ExpAritmetica, true);
+        maquina.setTransicao(4, 2, "TRUE",          5, maquina.A_ExpAritmetica, true);
+        maquina.setTransicao(4, 3, "FALSE",         5, maquina.A_ExpAritmetica, true);
+        maquina.setTransicao(4, 4, "NUMERO",        5, maquina.A_ExpAritmetica, true);
+        maquina.setTransicao(4, 5, "NOT",           5, maquina.A_ExpAritmetica, true);
+        maquina.setTransicao(4, 6, "-",             5, maquina.A_ExpAritmetica, true);  
         
         maquina.criaTransicoes(5,1);
-        maquina.setTransicao(5,0,")",6,0,false);
+        maquina.setTransicao(5, 0, ")", 6, 0, false);
         
         maquina.criaTransicoes(6,3);
-        maquina.setTransicao(6,0,")",12,0,true);
-        maquina.setTransicao(6,1,"OR",0,0,false);
-        maquina.setTransicao(6,2,"AND",0,0,false);
+        maquina.setTransicao(6, 0, ")",   12, 0, true);
+        maquina.setTransicao(6, 1, "OR",  0,  0, false);
+        maquina.setTransicao(6, 2, "AND", 0,  0, false);
 
-        maquina.criaTransicoes(7,2);
-        maquina.setTransicao(7,0,"TRUE",8,0,false);
-        maquina.setTransicao(7,1,"FALSE",9,0,false);
+        maquina.criaTransicoes(7,2); //sem uso
+        maquina.setTransicao(7, 0, "TRUE",  8, 0, false);
+        maquina.setTransicao(7, 1, "FALSE", 9, 0, false);
         
-        maquina.criaTransicoes(8,3);
-        maquina.setTransicao(8,0,")",12,0,true);
-        maquina.setTransicao(8,1,"OR",0,0,false);
-        maquina.setTransicao(8,2,"AND",0,0,false);      
+        maquina.criaTransicoes(8,3); //sem uso
+        maquina.setTransicao(8, 0, ")",   12, 0, true);
+        maquina.setTransicao(8, 1, "OR",  0,  0, false);
+        maquina.setTransicao(8, 2, "AND", 0,  0, false);      
 
-        maquina.criaTransicoes(9,3);
-        maquina.setTransicao(9,0,")",12,0,true);
-        maquina.setTransicao(9,1,"OR",0,0,false);
-        maquina.setTransicao(9,2,"AND",0,0,false);
+        maquina.criaTransicoes(9,3); //sem uso
+        maquina.setTransicao(9, 0, ")",   12, 0, true);
+        maquina.setTransicao(9, 1, "OR",  0,  0, false);
+        maquina.setTransicao(9, 2, "AND", 0,  0, false);
         
         maquina.criaTransicoes(10,3);
-        maquina.setTransicao(10,0,")",12,0,true);
-        maquina.setTransicao(10,1,"OR",0,0,false);
-        maquina.setTransicao(10,2,"AND",0,0,false);      
+        maquina.setTransicao(10, 0, ")",   12, 0, true);
+        maquina.setTransicao(10, 1, "OR",  0,  0, false);
+        maquina.setTransicao(10, 2, "AND", 0,  0, false);      
 
         maquina.criaTransicoes(11,3);
-        maquina.setTransicao(11,0,")",12,0,true);
-        maquina.setTransicao(11,1,"OR",0,0,false);
-        maquina.setTransicao(11,2,"AND",0,0,false); 
+        maquina.setTransicao(11, 0, ")",   12, 0, true);
+        maquina.setTransicao(11, 1, "OR",  0,  0, false);
+        maquina.setTransicao(11, 2, "AND", 0,  0, false); 
         
 
     }

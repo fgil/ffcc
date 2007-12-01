@@ -33,34 +33,34 @@ public class Programa {
         
         //Cria transicoes do estado 0
         maquina.criaTransicoes(0,1);
-        maquina.setTransicao(0,0,"START",1,0,false);
+        maquina.setTransicao(0, 0, "START", 1, 0, false);
 
         //Cria transicoes do estado 1
         maquina.criaTransicoes(1,10);
-        maquina.setTransicao(1,0,"INT",2,maquina.A_Declaracao,true);
-        maquina.setTransicao(1,1,"CHAR",2,maquina.A_Declaracao,true);
-        maquina.setTransicao(1,2,"BOOLEAN",2,maquina.A_Declaracao,true);
-        maquina.setTransicao(1,3,"FUNCAO",4,maquina.A_DeclaracaoFuncao,true);
-        maquina.setTransicao(1,4,"identificador",6,maquina.A_Comando,true);
-        maquina.setTransicao(1,5,"INPUT",6,maquina.A_Comando,true);
-        maquina.setTransicao(1,6,"OUTPUT",6,maquina.A_Comando,true);
-        maquina.setTransicao(1,7,"IF",6,maquina.A_Comando,true);
-        maquina.setTransicao(1,8,"WHILE",6,maquina.A_Comando,true);
-        maquina.setTransicao(1,9,"END",7,0,false);
+        maquina.setTransicao(1, 0, "INT",           2, maquina.A_Declaracao,       true);
+        maquina.setTransicao(1, 1, "CHAR",          2, maquina.A_Declaracao,       true);
+        maquina.setTransicao(1, 2, "BOOLEAN",       2, maquina.A_Declaracao,       true);
+        maquina.setTransicao(1, 3, "FUNCAO",        4, maquina.A_DeclaracaoFuncao, true);
+        maquina.setTransicao(1, 4, "identificador", 6, maquina.A_Comando,          true);
+        maquina.setTransicao(1, 5, "INPUT",         6, maquina.A_Comando,          true);
+        maquina.setTransicao(1, 6, "OUTPUT",        6, maquina.A_Comando,          true);
+        maquina.setTransicao(1, 7, "IF",            6, maquina.A_Comando,          true);
+        maquina.setTransicao(1, 8, "WHILE",         6, maquina.A_Comando,          true);
+        maquina.setTransicao(1, 9, "END",           7, 0,                          false);
 
         //Cria transicoes do estado 2
         maquina.criaTransicoes(2,1);
-        maquina.setTransicao(2,0,";",1,0,false);
+        maquina.setTransicao(2, 0, ";", 1, 0, false);
 
         //Cria transicoes do estado 3
         maquina.criaTransicoes(3,7);
-        maquina.setTransicao(3,0,"FUNCAO",4,maquina.A_DeclaracaoFuncao,true);
-        maquina.setTransicao(3,1,"identificador",6,maquina.A_Comando,true);
-        maquina.setTransicao(3,2,"INPUT",6,maquina.A_Comando,true);
-        maquina.setTransicao(3,3,"OUTPUT",6,maquina.A_Comando,true);
-        maquina.setTransicao(3,4,"IF",6,maquina.A_Comando,true);
-        maquina.setTransicao(3,5,"WHILE",6,maquina.A_Comando,true);
-        maquina.setTransicao(3,6,"END",7,0,false);
+        maquina.setTransicao(3, 0, "FUNCAO",        4, maquina.A_DeclaracaoFuncao, true);
+        maquina.setTransicao(3, 1, "identificador", 6, maquina.A_Comando,          true);
+        maquina.setTransicao(3, 2, "INPUT",         6, maquina.A_Comando,          true);
+        maquina.setTransicao(3, 3, "OUTPUT",        6, maquina.A_Comando,          true);
+        maquina.setTransicao(3, 4, "IF",            6, maquina.A_Comando,          true);
+        maquina.setTransicao(3, 5, "WHILE",         6, maquina.A_Comando,          true);
+        maquina.setTransicao(3, 6, "END",           7, 0,                          false);
 
         //Cria transicoes do estado 4
         maquina.criaTransicoes(4,1);
@@ -68,12 +68,12 @@ public class Programa {
 
         //Cria transicoes do estado 5
         maquina.criaTransicoes(5,6);
-        maquina.setTransicao(5,0,"identificador",6,maquina.A_Comando,true);
-        maquina.setTransicao(5,1,"INPUT",6,maquina.A_Comando,true);
-        maquina.setTransicao(5,2,"OUTPUT",6,maquina.A_Comando,true);
-        maquina.setTransicao(5,3,"IF",6,maquina.A_Comando,true);
-        maquina.setTransicao(5,4,"WHILE",6,maquina.A_Comando,true);
-        maquina.setTransicao(5,5,"END",7,0,false);
+        maquina.setTransicao(5, 0, "identificador", 6, maquina.A_Comando, true);
+        maquina.setTransicao(5, 1, "INPUT",         6, maquina.A_Comando, true);
+        maquina.setTransicao(5, 2, "OUTPUT",        6, maquina.A_Comando, true);
+        maquina.setTransicao(5, 3, "IF",            6, maquina.A_Comando, true);
+        maquina.setTransicao(5, 4, "WHILE",         6, maquina.A_Comando, true);
+        maquina.setTransicao(5, 5, "END",           7, 0,                 false);
 
         //Cria transicoes do estado 6
         maquina.criaTransicoes(6,1);

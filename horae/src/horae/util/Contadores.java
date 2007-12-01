@@ -15,7 +15,7 @@ package horae.util;
  */
 public class Contadores {
     
-    private int eacont;
+    private int eacont = 0;
     
     /** Creates a new instance of Contadores */
     private Contadores() {

@@ -42,169 +42,171 @@ public class Expressao {
         
         //Cria transicoes do estado 0
         maquina.criaTransicoes(0,6);
-        maquina.setTransicao(0,0,"-",1,0,false,1);
-        maquina.setTransicao(0,1,"(",4,0,false,2);
-        maquina.setTransicao(0,2,"identificador",7,0,false,4);
-        maquina.setTransicao(0,3,"TRUE",8,0,false,3);
-        maquina.setTransicao(0,4,"FALSE",8,0,false,3);
-        maquina.setTransicao(0,5,"NUMERO",9,0,false,5);
+        maquina.setTransicao(0, 0, "-",             1, 0, false, 1);
+        maquina.setTransicao(0, 1, "(",             4, 0, false, 2);
+        maquina.setTransicao(0, 2, "identificador", 7, 0, false, 4);
+        maquina.setTransicao(0, 3, "TRUE",          8, 0, false, 3);
+        maquina.setTransicao(0, 4, "FALSE",         8, 0, false, 3);
+        maquina.setTransicao(0, 5, "NUMERO",        9, 0, false, 5);
         
         maquina.criaTransicoes(1,5);
-        maquina.setTransicao(1,0,"(",2,maquina.A_Expressao,true);
-        maquina.setTransicao(1,1,"identificador",2,maquina.A_Expressao,true);
-        maquina.setTransicao(1,2,"TRUE",2,maquina.A_Expressao,true);
-        maquina.setTransicao(1,3,"FALSE",2,maquina.A_Expressao,true);
-        maquina.setTransicao(1,4,"NUMERO",2,maquina.A_Expressao,true);
+        maquina.setTransicao(1, 0, "(",             2, maquina.A_Expressao, true);
+        maquina.setTransicao(1, 1, "identificador", 2, maquina.A_Expressao, true);
+        maquina.setTransicao(1, 2, "TRUE",          2, maquina.A_Expressao, true);
+        maquina.setTransicao(1, 3, "FALSE",         2, maquina.A_Expressao, true);
+        maquina.setTransicao(1, 4, "NUMERO",        2, maquina.A_Expressao, true);
         
         maquina.criaTransicoes(2,5);
-        maquina.setTransicao(2,0,";",3,0,true,8);
-        maquina.setTransicao(2,1,"+",10,0,false,6);
-        maquina.setTransicao(2,2,"-",10,0,false,6);
-        maquina.setTransicao(2,3,"*",10,0,false,7);
-        maquina.setTransicao(2,4,"/",10,0,false,7);
+        maquina.setTransicao(2, 0, ";", 3,  0, true,  8);
+        maquina.setTransicao(2, 1, "+", 10, 0, false, 6);
+        maquina.setTransicao(2, 2, "-", 10, 0, false, 6);
+        maquina.setTransicao(2, 3, "*", 10, 0, false, 7);
+        maquina.setTransicao(2, 4, "/", 10, 0, false, 7);
         
         maquina.criaTransicoes(3,1);
         
         maquina.criaTransicoes(4,5);
-        maquina.setTransicao(4,0,"(",5,maquina.A_Expressao,true);
-        maquina.setTransicao(4,1,"identificador",5,maquina.A_Expressao,true);
-        maquina.setTransicao(4,2,"TRUE",5,maquina.A_Expressao,true);
-        maquina.setTransicao(4,3,"FALSE",5,maquina.A_Expressao,true);
-        maquina.setTransicao(4,4,"NUMERO",5,maquina.A_Expressao,true);
+        maquina.setTransicao(4, 0, "(",             5, maquina.A_Expressao, true);
+        maquina.setTransicao(4, 1, "identificador", 5, maquina.A_Expressao, true);
+        maquina.setTransicao(4, 2, "TRUE",          5, maquina.A_Expressao, true);
+        maquina.setTransicao(4, 3, "FALSE",         5, maquina.A_Expressao, true);
+        maquina.setTransicao(4, 4, "NUMERO",        5, maquina.A_Expressao, true);
         
         maquina.criaTransicoes(5,1);
-        maquina.setTransicao(5,0,")",6,0,false,9);
+        maquina.setTransicao(5, 0, ")", 6, 0, false, 9);
         
         maquina.criaTransicoes(6,7);
-        maquina.setTransicao(6,0,";",3,0,true,8);
-        maquina.setTransicao(6,1,"+",10,0,false,6);
-        maquina.setTransicao(6,2,"-",10,0,false,6);
-        maquina.setTransicao(6,3,"*",10,0,false,7);
-        maquina.setTransicao(6,4,"/",10,0,false,7);
-        maquina.setTransicao(6,5,"]",3,0,true,8);
-        maquina.setTransicao(6,6,")",3,0,true,8);
+        maquina.setTransicao(6, 0, ";", 3,  0, true,  8);
+        maquina.setTransicao(6, 1, "+", 10, 0, false, 6);
+        maquina.setTransicao(6, 2, "-", 10, 0, false, 6);
+        maquina.setTransicao(6, 3, "*", 10, 0, false, 7);
+        maquina.setTransicao(6, 4, "/", 10, 0, false, 7);
+        maquina.setTransicao(6, 5, "]", 3,  0, true,  8);
+        maquina.setTransicao(6, 6, ")", 3,  0, true,  8);
         
         maquina.criaTransicoes(7,14);//esse vai ser o mais chato
-        maquina.setTransicao(7,0,";",3,0,true,8);
-        maquina.setTransicao(7,1,")",3,0,true,8);
-        maquina.setTransicao(7,2,"(",12,0,false);
-        maquina.setTransicao(7,3,"+",10,0,false,6);
-        maquina.setTransicao(7,4,"-",10,0,false,6);
-        maquina.setTransicao(7,5,"/",10,0,false,7);
-        maquina.setTransicao(7,6,"*",10,0,false,7);
-        maquina.setTransicao(7,7,"[",16,0,false);
-        maquina.setTransicao(7,8,"]",3,0,true,8);
-        maquina.setTransicao(7,9,"<=",3,0,true,8);
-        maquina.setTransicao(7,10,"<",3,0,true,8);
-        maquina.setTransicao(7,11,">=",3,0,true,8);
-        maquina.setTransicao(7,12,"==",3,0,true,8);
-        maquina.setTransicao(7,13,"!=",3,0,true,8);
+        maquina.setTransicao(7, 0,  ";",  3,  0, true,  8);
+        maquina.setTransicao(7, 1,  ")",  3,  0, true,  8);
+        maquina.setTransicao(7, 2,  "(",  12, 0, false);
+        maquina.setTransicao(7, 3,  "+",  10, 0, false, 6);
+        maquina.setTransicao(7, 4,  "-",  10, 0, false, 6);
+        maquina.setTransicao(7, 5,  "/",  10, 0, false, 7);
+        maquina.setTransicao(7, 6,  "*",  10, 0, false, 7);
+        maquina.setTransicao(7, 7,  "[",  16, 0, false);
+        maquina.setTransicao(7, 8,  "]",  3,  0, true,  8);
+        maquina.setTransicao(7, 9,  "<=", 3,  0, true,  8);
+        maquina.setTransicao(7, 10, "<",  3,  0, true,  8);
+        maquina.setTransicao(7, 10, ">",  3,  0, true,  8); //Tinha faltado essa
+        maquina.setTransicao(7, 11, ">=", 3,  0, true,  8);
+        maquina.setTransicao(7, 12, "==", 3,  0, true,  8);
+        maquina.setTransicao(7, 13, "!=", 3,  0, true,  8);
         
         maquina.criaTransicoes(8,2);
-        maquina.setTransicao(8,0,";",3,0,true,8);
-        maquina.setTransicao(8,1,")",3,0,true,8);
+        maquina.setTransicao(8, 0, ";", 3, 0, true, 8);
+        maquina.setTransicao(8, 1, ")", 3, 0, true, 8);
         
-        maquina.criaTransicoes(9,7);
-        maquina.setTransicao(9,0,";",3,0,true,8);
-        maquina.setTransicao(9,5,")",3,0,true,8);
-        maquina.setTransicao(9,1,"+",10,0,false,6);
-        maquina.setTransicao(9,2,"-",10,0,false,6);
-        maquina.setTransicao(9,3,"*",10,0,false,7);
-        maquina.setTransicao(9,4,"/",10,0,false,7);
-        maquina.setTransicao(9,6,"]",3,0,true,8);
+        maquina.criaTransicoes(9, 7);
+        maquina.setTransicao(9,   0, ";", 3,  0, true,  8);
+        maquina.setTransicao(9,   5, ")", 3,  0, true,  8);
+        maquina.setTransicao(9,   1, "+", 10, 0, false, 6);
+        maquina.setTransicao(9,   2, "-", 10, 0, false, 6);
+        maquina.setTransicao(9,   3, "*", 10, 0, false, 7);
+        maquina.setTransicao(9,   4, "/", 10, 0, false, 7);
+        maquina.setTransicao(9,   6, "]", 3,  0, true,  8);
         
         maquina.criaTransicoes(10,5);
-        maquina.setTransicao(10,0,"(",11,maquina.A_Expressao,true);
-        maquina.setTransicao(10,1,"identificador",11,maquina.A_Expressao,true);
-        maquina.setTransicao(10,2,"TRUE",11,maquina.A_Expressao,true);
-        maquina.setTransicao(10,3,"FALSE",11,maquina.A_Expressao,true);
-        maquina.setTransicao(10,4,"NUMERO",11,maquina.A_Expressao,true);
+        maquina.setTransicao(10, 0, "(",             11,maquina.A_Expressao,true);
+        maquina.setTransicao(10, 1, "identificador", 11,maquina.A_Expressao,true);
+        maquina.setTransicao(10, 2, "TRUE",          11,maquina.A_Expressao,true);
+        maquina.setTransicao(10, 3, "FALSE",         11,maquina.A_Expressao,true);
+        maquina.setTransicao(10, 4, "NUMERO",        11,maquina.A_Expressao,true);
         
         maquina.criaTransicoes(11,3);
-        maquina.setTransicao(11,0,";",3,0,true,8);
-        maquina.setTransicao(11,1,")",3,0,true,8);
-        maquina.setTransicao(11,2,"]",3,0,true,8);
+        maquina.setTransicao(11, 0, ";", 3, 0, true, 8);
+        maquina.setTransicao(11, 1, ")", 3, 0, true, 8);
+        maquina.setTransicao(11, 2, "]", 3, 0, true, 8);
         
         maquina.criaTransicoes(12,7);
-        maquina.setTransicao(12,0,"(",14,maquina.A_Expressao,true);
-        maquina.setTransicao(12,1,"identificador",14,maquina.A_Expressao,true);
-        maquina.setTransicao(12,2,"TRUE",14,maquina.A_Expressao,true);
-        maquina.setTransicao(12,3,"FALSE",14,maquina.A_Expressao,true);
-        maquina.setTransicao(12,4,"NUMERO",14,maquina.A_Expressao,true);
-        maquina.setTransicao(12,5,"-",14,maquina.A_Expressao,true);
-        maquina.setTransicao(12,6,")",15,0,true);
+        maquina.setTransicao(12, 0, "(",             14, maquina.A_Expressao, true);
+        maquina.setTransicao(12, 1, "identificador", 14, maquina.A_Expressao, true);
+        maquina.setTransicao(12, 2, "TRUE",          14, maquina.A_Expressao, true);
+        maquina.setTransicao(12, 3, "FALSE",         14, maquina.A_Expressao, true);
+        maquina.setTransicao(12, 4, "NUMERO",        14, maquina.A_Expressao, true);
+        maquina.setTransicao(12, 5, "-",             14, maquina.A_Expressao, true);
+        maquina.setTransicao(12, 6, ")",             15, 0,                   true);
         
-        maquina.criaTransicoes(13,5);
-        maquina.setTransicao(13,1,"identificador",14,maquina.A_Expressao,true);
-        maquina.setTransicao(13,2,"TRUE",14,maquina.A_Expressao,true);
-        maquina.setTransicao(13,3,"FALSE",14,maquina.A_Expressao,true);
-        maquina.setTransicao(13,4,"NUMERO",14,maquina.A_Expressao,true);
-        maquina.setTransicao(13,0,"-",14,maquina.A_Expressao,true);
+        maquina.criaTransicoes(13,5); // Sem uso
+        maquina.setTransicao(13, 1, "identificador", 14, maquina.A_Expressao, true);
+        maquina.setTransicao(13, 2, "TRUE",          14, maquina.A_Expressao, true);
+        maquina.setTransicao(13, 3, "FALSE",         14, maquina.A_Expressao, true);
+        maquina.setTransicao(13, 4, "NUMERO",        14, maquina.A_Expressao, true);
+        maquina.setTransicao(13, 0, "-",             14, maquina.A_Expressao, true);
         
         maquina.criaTransicoes(14,2);
-        maquina.setTransicao(14,0,",",13,0,false);
-        maquina.setTransicao(14,0,")",15,0,false);
+        maquina.setTransicao(14, 0, ",", 13, 0, false);
+        maquina.setTransicao(14, 0, ")", 15, 0, false);
         
         maquina.criaTransicoes(15,12);
-        maquina.setTransicao(15,0,";",3,0,true,8);
-        maquina.setTransicao(15,1,")",3,0,true,8);
-        maquina.setTransicao(15,2,"+",10,0,false,6);
-        maquina.setTransicao(15,3,"-",10,0,false,6);
-        maquina.setTransicao(15,4,"/",10,0,false,7);
-        maquina.setTransicao(15,5,"*",10,0,false,7);
-        maquina.setTransicao(15,6,"]",3,0,true,8);
-        maquina.setTransicao(15,7,"<=",3,0,true,8);
-        maquina.setTransicao(15,8,"<",3,0,true,8);
-        maquina.setTransicao(15,9,">=",3,0,true,8);
-        maquina.setTransicao(15,10,"==",3,0,true,8);
-        maquina.setTransicao(15,11,"!=",3,0,true,8);
+        maquina.setTransicao(15, 0,  ";",  3,  0, true,  8);
+        maquina.setTransicao(15, 1,  ")",  3,  0, true,  8);
+        maquina.setTransicao(15, 2,  "+",  10, 0, false, 6);
+        maquina.setTransicao(15, 3,  "-",  10, 0, false, 6);
+        maquina.setTransicao(15, 4,  "/",  10, 0, false, 7);
+        maquina.setTransicao(15, 5,  "*",  10, 0, false, 7);
+        maquina.setTransicao(15, 6,  "]",  3,  0, true,  8);
+        maquina.setTransicao(15, 7,  "<=", 3,  0, true,  8);
+        maquina.setTransicao(15, 8,  "<",  3,  0, true,  8);
+        maquina.setTransicao(15, 8,  ">",  3,  0, true,  8);
+        maquina.setTransicao(15, 9,  ">=", 3,  0, true,  8);
+        maquina.setTransicao(15, 10, "==", 3,  0, true,  8);
+        maquina.setTransicao(15, 11, "!=", 3,  0, true,  8);
         
         maquina.criaTransicoes(16,4);
-        maquina.setTransicao(16,0,"identificador",17,maquina.A_Expressao,true);
-        maquina.setTransicao(16,1,"NUMERO",17,maquina.A_Expressao,true);
-        maquina.setTransicao(16,2,"-",17,maquina.A_Expressao,true);
-        maquina.setTransicao(16,3,"(",17,maquina.A_Expressao,true);
+        maquina.setTransicao(16, 0, "identificador", 17, maquina.A_Expressao, true);
+        maquina.setTransicao(16, 1, "NUMERO",        17, maquina.A_Expressao, true);
+        maquina.setTransicao(16, 2, "-",             17, maquina.A_Expressao, true);
+        maquina.setTransicao(16, 3, "(",             17, maquina.A_Expressao, true);
         
         maquina.criaTransicoes(17,1);
-        maquina.setTransicao(17,0,"]",18,0,false);
+        maquina.setTransicao(17, 0, "]", 18, 0, false);
         
         maquina.criaTransicoes(18,13);
-        maquina.setTransicao(18,0,";",3,0,true,8);
-        maquina.setTransicao(18,1,")",3,0,true,8);
-        maquina.setTransicao(18,2,"+",10,0,false,6);
-        maquina.setTransicao(18,3,"-",10,0,false,6);
-        maquina.setTransicao(18,4,"/",10,0,false,7);
-        maquina.setTransicao(18,5,"*",10,0,false,7);
-        maquina.setTransicao(18,6,"[",19,0,false);
-        maquina.setTransicao(18,8,"]",3,0,true,8);
-        maquina.setTransicao(18,9,"<=",3,0,true,8);
-        maquina.setTransicao(18,10,"<",3,0,true,8);
-        maquina.setTransicao(18,11,">=",3,0,true,8);
-        maquina.setTransicao(18,12,"==",3,0,true,8);
-        maquina.setTransicao(18,7,"!=",3,0,true,8);
+        maquina.setTransicao(18, 0,  ";",  3,  0, true,  8);
+        maquina.setTransicao(18, 1,  ")",  3,  0, true,  8);
+        maquina.setTransicao(18, 2,  "+",  10, 0, false, 6);
+        maquina.setTransicao(18, 3,  "-",  10, 0, false, 6);
+        maquina.setTransicao(18, 4,  "/",  10, 0, false, 7);
+        maquina.setTransicao(18, 5,  "*",  10, 0, false, 7);
+        maquina.setTransicao(18, 6,  "[",  19, 0, false);
+        maquina.setTransicao(18, 8,  "]",  3,  0, true,  8);
+        maquina.setTransicao(18, 9,  "<=", 3,  0, true,  8);
+        maquina.setTransicao(18, 10, "<",  3,  0, true,  8);
+        maquina.setTransicao(18, 11, ">=", 3,  0, true,  8);
+        maquina.setTransicao(18, 12, "==", 3,  0, true,  8);
+        maquina.setTransicao(18, 7,  "!=", 3,  0, true,  8);
         
         maquina.criaTransicoes(19,4);
-        maquina.setTransicao(19,0,"identificador",20,maquina.A_Expressao,true);
-        maquina.setTransicao(19,1,"NUMERO",20,maquina.A_Expressao,true);
-        maquina.setTransicao(19,2,"-",20,maquina.A_Expressao,true);
-        maquina.setTransicao(19,3,"(",20,maquina.A_Expressao,true);
+        maquina.setTransicao(19, 0, "identificador", 20, maquina.A_Expressao, true);
+        maquina.setTransicao(19, 1, "NUMERO",        20, maquina.A_Expressao, true);
+        maquina.setTransicao(19, 2, "-",             20, maquina.A_Expressao, true);
+        maquina.setTransicao(19, 3, "(",             20, maquina.A_Expressao, true);
         
         maquina.criaTransicoes(20,1);
-        maquina.setTransicao(20,0,"]",21,0,false);
+        maquina.setTransicao(20, 0, "]", 21, 0, false);
         
         maquina.criaTransicoes(21,12);
-        maquina.setTransicao(21,0,";",3,0,true);
-        maquina.setTransicao(21,1,")",3,0,true);
-        maquina.setTransicao(21,2,"+",10,0,false,6);
-        maquina.setTransicao(21,3,"-",10,0,false,6);
-        maquina.setTransicao(21,4,"/",10,0,false,7);
-        maquina.setTransicao(21,5,"*",10,0,false,7);
-        maquina.setTransicao(21,6,"]",3,0,true);
-        maquina.setTransicao(21,7,"<=",3,0,true);
-        maquina.setTransicao(21,8,"<",3,0,true);
-        maquina.setTransicao(21,9,">=",3,0,true);
-        maquina.setTransicao(21,10,"==",3,0,true);
-        maquina.setTransicao(21,11,"!=",3,0,true);
+        maquina.setTransicao(21, 0,  ";",  3,  0, true);
+        maquina.setTransicao(21, 1,  ")",  3,  0, true);
+        maquina.setTransicao(21, 2,  "+",  10, 0, false, 6);
+        maquina.setTransicao(21, 3,  "-",  10, 0, false, 6);
+        maquina.setTransicao(21, 4,  "/",  10, 0, false, 7);
+        maquina.setTransicao(21, 5,  "*",  10, 0, false, 7);
+        maquina.setTransicao(21, 6,  "]",  3,  0, true);
+        maquina.setTransicao(21, 7,  "<=", 3,  0, true);
+        maquina.setTransicao(21, 8,  "<",  3,  0, true);
+        maquina.setTransicao(21, 9,  ">=", 3,  0, true);
+        maquina.setTransicao(21, 10, "==", 3,  0, true);
+        maquina.setTransicao(21, 11, "!=", 3,  0, true);
         
     }
     

@@ -44,40 +44,40 @@ public class Declaracao {
 
         //Cria transicoes do estado 0
         maquina.criaTransicoes(0,3);
-        maquina.setTransicao(0,0,"INT",1,0,false);
-        maquina.setTransicao(0,1,"CHAR",1,0,false);
-        maquina.setTransicao(0,2,"BOOLEAN",1,0,false);
+        maquina.setTransicao(0, 0, "INT",     1, 0, false);
+        maquina.setTransicao(0, 1, "CHAR",    1, 0, false);
+        maquina.setTransicao(0, 2, "BOOLEAN", 1, 0, false);
 
         
         maquina.criaTransicoes(1,1);
-        maquina.setTransicao(1,0,"identificador",2,0,false);
+        maquina.setTransicao(1, 0, "identificador", 2, 0, false);
         
         
         maquina.criaTransicoes(2,4);
-        maquina.setTransicao(2,0,";",3,0,true);
-        maquina.setTransicao(2,1,",",3,0,true);
-        maquina.setTransicao(2,3,")",3,0,true);
-        maquina.setTransicao(2,2,"[",4,0,false);
+        maquina.setTransicao(2, 0, ";", 3, 0, true);
+        maquina.setTransicao(2, 1, ",", 3, 0, true);
+        maquina.setTransicao(2, 3, ")", 3, 0, true);
+        maquina.setTransicao(2, 2, "[", 4, 0, false);
         
         maquina.criaTransicoes(3,0);//Aceitaçao, desnecessario
         
         maquina.criaTransicoes(4,1);
-        maquina.setTransicao(4,0,"NUMERO",5,0,false);
+        maquina.setTransicao(4, 0, "NUMERO", 5, 0, false);
 
         maquina.criaTransicoes(5,1);
-        maquina.setTransicao(5,0,"]",6,0,false);
+        maquina.setTransicao(5, 0, "]", 6, 0, false);
         
         maquina.criaTransicoes(6,4);
-        maquina.setTransicao(6,0,";",3,0,true);
-        maquina.setTransicao(6,1,",",3,0,true);
-        maquina.setTransicao(6,3,")",3,0,true);
-        maquina.setTransicao(6,2,"[",7,0,false);
+        maquina.setTransicao(6, 0, ";", 3, 0, true);
+        maquina.setTransicao(6, 1, ",", 3, 0, true);
+        maquina.setTransicao(6, 3, ")", 3, 0, true);
+        maquina.setTransicao(6, 2, "[", 7, 0, false);
         
         maquina.criaTransicoes(7,1);
-        maquina.setTransicao(7,0,"NUMERO",8,0,false);
+        maquina.setTransicao(7, 0, "NUMERO", 8, 0, false);
         
        maquina.criaTransicoes(8,1);
-        maquina.setTransicao(8,0,"]",3,0,false);
+        maquina.setTransicao(8, 0, "]", 3, 0, false);
         
     }
     
