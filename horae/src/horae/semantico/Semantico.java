@@ -112,6 +112,20 @@ public class Semantico {
         addStore(resultado);
     }
     
+    public void addComparacao(String operando1, String operando2, String operador, String resultado){
+        addLoad(operando1);
+        String comando = "HM";
+        if (operador == "OR") {
+            comando = "*";
+        } else if (operador == "OR") {
+            comando = "+";
+        }
+        String temp = comando + "  " + operando2;
+        writetoFile(temp);
+        
+        addStore(resultado);
+    }
+    
     public void addJump(String label){
         writetoFile("JP " + label);
     }

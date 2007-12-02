@@ -261,8 +261,8 @@ public class Expressao {
             // Aqui deverá verificar se o estado é aceito e se podemos retornar
             if (transicao.proximoEstado == this.estadoAceito) {
                 //System.out.println("Morri");
-                pilhaEA = PilhaEA.getInstance();
-                System.out.println(pilhaEA.toString());
+                //pilhaEA = PilhaEA.getInstance();
+                //System.out.println(pilhaEA.toString());
                 return 1;
             } else {
                 return 0;

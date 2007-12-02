@@ -288,23 +288,24 @@ public class Comando {
                         break;
                         
                     case 6://Maquina Comparacao
-                        Comparacao maquinaExpAritmetica = new Comparacao(filaLida);
+                        Comparacao maquinaComparacao = new Comparacao(filaLida);
                         System.out.println(filaLida.getTamanho());
+                        maquinaComparacao.escopo = this.escopo;
                         //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
                         if (transicao.consome) {
                             proximoToken = token;
                         } else {
                             proximoToken = (Token) filaLida.remover();
                         }
-                        while(maquinaExpAritmetica.processaToken(proximoToken) == 0){
-                            if (maquinaExpAritmetica.consome) {
-                                proximoToken = maquinaExpAritmetica.restoToken;
+                        while(maquinaComparacao.processaToken(proximoToken) == 0){
+                            if (maquinaComparacao.consome) {
+                                proximoToken = maquinaComparacao.restoToken;
                             } else {
                                 proximoToken = (Token) filaLida.remover();
                             }
                         }
-                        consome = maquinaExpAritmetica.consome;
-                        proximoToken = maquinaExpAritmetica.restoToken;
+                        consome = maquinaComparacao.consome;
+                        proximoToken = maquinaComparacao.restoToken;
 //
                         break;
                         

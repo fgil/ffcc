@@ -16,6 +16,7 @@ package horae.util;
 public class Contadores {
     
     private int eacont = 0;
+    private int cocont = 0;
     private int ifcont = 0;
     private int wcont = 0;
     
@@ -24,6 +25,7 @@ public class Contadores {
         eacont = 0;
         ifcont = 0;
         wcont = 0;
+        cocont = 0;
     }
 
     private static Contadores oContador;
@@ -63,5 +65,14 @@ public class Contadores {
     public String nextWcont() {
         wcont++;
         return "W_" + wcont;
+    }
+    
+    public String getCocont() {
+        return "CO_" + cocont;
+    }
+    
+    public String nextCocont() {
+        wcont++;
+        return "CO_" + cocont;
     }
 }

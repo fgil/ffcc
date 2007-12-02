@@ -9,6 +9,9 @@
 
 package horae.maquinas;
 
+import horae.semantico.PilhaCO;
+import horae.semantico.PilhaEA;
+import horae.semantico.Semantico;
 import horae.util.*;
 import horae.Token;
 
@@ -26,6 +29,10 @@ public class Comparacao {
     public Token restoToken;
     public String escopo;
     private String maquinaNome = "Comparacao";
+    public TabelaSimbolos tSimbolos;
+    private PilhaEA pilhaEA;
+    private PilhaCO pilhaCO;
+    int caso;
     
     /** Creates a new instance of Expressao */
     public Comparacao(Fila filaLida) {
@@ -33,6 +40,7 @@ public class Comparacao {
         maquina = new Maquina(39);
         estadoAtual = 0;
         consome = false;
+        tSimbolos = TabelaSimbolos.getInstance();
 
         //Cria transicoes do estado 0
         maquina.criaTransicoes(0,6);
@@ -40,8 +48,8 @@ public class Comparacao {
         maquina.setTransicao(0, 1, "identificador", 1,  maquina.A_Expressao, true);
         maquina.setTransicao(0, 2, "NUMERO",        1,  maquina.A_Expressao, true);
         maquina.setTransicao(0, 3, "-",             1,  maquina.A_Expressao, true);
-        maquina.setTransicao(0, 4, "TRUE",          10, 0,                   false);
-        maquina.setTransicao(0, 5, "FALSE",         11, 0,                   false);
+        maquina.setTransicao(0, 4, "TRUE",          10, 0,                   false,1);
+        maquina.setTransicao(0, 5, "FALSE",         11, 0,                   false,1);
 
         maquina.criaTransicoes(1,9);
         maquina.setTransicao(1, 0, ")",   12, 0, true);
@@ -80,9 +88,9 @@ public class Comparacao {
         maquina.setTransicao(5, 0, ")", 6, 0, false);
         
         maquina.criaTransicoes(6,3);
-        maquina.setTransicao(6, 0, ")",   12, 0, true);
-        maquina.setTransicao(6, 1, "OR",  0,  0, false);
-        maquina.setTransicao(6, 2, "AND", 0,  0, false);
+        maquina.setTransicao(6, 0, ")",   12, 0, true,2);
+        maquina.setTransicao(6, 1, "OR",  0,  0, false,3);
+        maquina.setTransicao(6, 2, "AND", 0,  0, false,3);
 
         maquina.criaTransicoes(7,2); //sem uso
         maquina.setTransicao(7, 0, "TRUE",  8, 0, false);
@@ -99,14 +107,14 @@ public class Comparacao {
         maquina.setTransicao(9, 2, "AND", 0,  0, false);
         
         maquina.criaTransicoes(10,3);
-        maquina.setTransicao(10, 0, ")",   12, 0, true);
-        maquina.setTransicao(10, 1, "OR",  0,  0, false);
-        maquina.setTransicao(10, 2, "AND", 0,  0, false);      
+        maquina.setTransicao(10, 0, ")",   12, 0, true,2);
+        maquina.setTransicao(10, 1, "OR",  0,  0, false,3);
+        maquina.setTransicao(10, 2, "AND", 0,  0, false,3);      
 
         maquina.criaTransicoes(11,3);
-        maquina.setTransicao(11, 0, ")",   12, 0, true);
-        maquina.setTransicao(11, 1, "OR",  0,  0, false);
-        maquina.setTransicao(11, 2, "AND", 0,  0, false); 
+        maquina.setTransicao(11, 0, ")",   12, 0, true,2);
+        maquina.setTransicao(11, 1, "OR",  0,  0, false,3);
+        maquina.setTransicao(11, 2, "AND", 0,  0, false,3); 
         
 
     }
@@ -119,6 +127,8 @@ public class Comparacao {
                 maquina.estados[estadoAtual].proximoEstado(token.getType());
         System.out.println(maquinaNome + " - " + token.getType() + " - Estado Atual: " + estadoAtual);
         System.out.println("Proximo Estado: " + transicao.proximoEstado);
+        caso = transicao.caso;
+        analiseSemanticaPre(estadoAtual,transicao.proximoEstado,token,caso);
         
         Token proximoToken = null;
         if (transicao.consome) proximoToken = token;
@@ -128,6 +138,7 @@ public class Comparacao {
                 case 5://Maquina Expressao
                     Expressao maquinaExpressao = new Expressao(filaLida);
                     System.out.println(filaLida.getTamanho());
+                    maquinaExpressao.escopo = this.escopo;
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
                     if (transicao.consome) {
                         proximoToken = token;                        
@@ -147,23 +158,24 @@ public class Comparacao {
                 break;
                 
                 case 6://Maquina Comparacao
-                    Comparacao maquinaExpAritmetica = new Comparacao(filaLida);
+                    Comparacao maquinaComparacao = new Comparacao(filaLida);
                     System.out.println(filaLida.getTamanho());
+                    maquinaComparacao.escopo = this.escopo;
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
                     if (transicao.consome) {
                         proximoToken = token;                        
                     } else {
                         proximoToken = (Token) filaLida.remover();
                     }
-                    while(maquinaExpAritmetica.processaToken(proximoToken) == 0){
-                        if (maquinaExpAritmetica.consome) {
-                            proximoToken = maquinaExpAritmetica.restoToken;                          
+                    while(maquinaComparacao.processaToken(proximoToken) == 0){
+                        if (maquinaComparacao.consome) {
+                            proximoToken = maquinaComparacao.restoToken;                          
                         } else {
                             proximoToken = (Token) filaLida.remover();
                         }
                     }
-                        consome = maquinaExpAritmetica.consome;
-                        proximoToken = maquinaExpAritmetica.restoToken;
+                        consome = maquinaComparacao.consome;
+                        proximoToken = maquinaComparacao.restoToken;
 //                      
                 break;
                 
@@ -172,12 +184,16 @@ public class Comparacao {
 
             }
         }
+        
+        analiseSemanticaPos(estadoAtual,transicao.proximoEstado,token,caso);
+        
         consome = transicao.consome;
         estadoAtual = transicao.proximoEstado;
         restoToken = proximoToken;
         
         // Aqui deverá verificar se o estado é aceito e se podemos retornar
         if (transicao.proximoEstado == this.estadoAceito) {
+            System.out.println(pilhaCO.toString());
             return 1;
         } else {
             return 0;
@@ -190,6 +206,146 @@ public class Comparacao {
             return 0;
 
         }
+    }
+    
+        private void analiseSemanticaPos(int estadoAtual, int proximoEstado,
+            Token token, int caso){
+        System.out.println("Caso:" + caso);
+        switch (caso) {
+            case 0:
+                break;
+            case 1:
+                acaoOperadores(1,token);
+                break;
+            case 2:
+                acaoOperadores(2,token);
+                break;
+            case 3:
+                acaoOperadores(3,token);
+                break;
+            case 4:
+                acaoOperadores(4,token);
+                break;
+            case 5:
+                acaoOperadores(5,token);
+                break;
+            case 6:
+                acaoOperadores(6,token);
+                break;
+            case 7:
+                acaoOperadores(7,token);
+                break;
+            case 8:
+                acaoOperadores(8,token);
+                break;
+                
+            default:
+                System.out.println("Ainda Nao Implementado");
+                break;
+        }
+        
+        
+    }
+    
+    
+    private void analiseSemanticaPre(int estadoAtual, int proximoEstado,
+            Token token, int caso){
+        //Pro Enquanto Nada
+    }
+    
+    private void acaoOperadores(int acao, Token token) {
+        pilhaEA    = PilhaEA.getInstance();
+        pilhaCO    = PilhaCO.getInstance();
+        tSimbolos  = TabelaSimbolos.getInstance();
+        Contadores contador = Contadores.getInstance();
+        String     novaVar;
+        
+        switch(acao) {
+            case 1:// Usado para - XX
+                novaVar = contador.nextEacont();
+                pilhaCO.adicionaOperando("BOOLEAN",novaVar);
+                tSimbolos.adicionaSimbolo(this.escopo, "BOOLEAN", novaVar,"0");
+                break;
+            case 2://Vai esvaziar a pilha, fazendo os calculos
+                System.out.println("Ja temos alguma coisa lah que devemos desempilhar");
+                while (pilhaCO.operadorTopo() != null && pilhaCO.operadorTopo()!= "(") {
+                    pilhaCO.adicionaOperando(executaOperacao());//Aqui ele desempilha e executa a operação
+                }
+                if (pilhaCO.operadorTopo() == "(") {
+                    //Remove soh o (
+                    pilhaCO.removeOperador();
+                }
+                break;
+            case 3:
+                pilhaCO.adicionaOperador(token.getWord());
+                break;
+//            case 4:
+//                //buscar o tipo do identificador
+//                Simbolo simbolo = tSimbolos.procuraSimbolo(this.escopo, token.getWord());
+//                pilhaEA.adicionaOperando(simbolo.getTipoDeDado(),token.getWord());
+//                break;
+//            case 5:
+//                novaVar = contador.nextEacont();
+//                tSimbolos.adicionaSimbolo(this.escopo, "INT", novaVar, token.getWord());
+//                pilhaEA.adicionaOperando("INT",novaVar);
+//                break;
+//            case 6:
+//                if (pilhaEA.operadorTopo() == null ||
+//                        pilhaEA.operadorTopo() == "(") {
+//                    System.out.println("Temos que pindurar");
+//                    pilhaEA.adicionaOperador(token.getWord());
+//                } else {
+//                    System.out.println("Ja temos alguma coisa lah que podemos desempilhar");
+//                    pilhaEA.adicionaOperando(executaOperacao());//Aqui ele desempilha e executa a operação
+//                    pilhaEA.adicionaOperador(token.getWord());
+//                }
+//                break;
+//            case 7:
+//                if (pilhaEA.operadorTopo() != null && (pilhaEA.operadorTopo() == "*" ||
+//                        pilhaEA.operadorTopo() == "/")) {
+//                    System.out.println("Ja temos alguma coisa lah que podemos desempilhar");
+//                    pilhaEA.adicionaOperando(executaOperacao());//Aqui ele desempilha e executa a operação
+//                    pilhaEA.adicionaOperador(token.getWord());
+//                } else {
+//                    System.out.println("Temos que pindurar");
+//                    pilhaEA.adicionaOperador(token.getWord());
+//                }
+//                break;
+//                
+//            case 8:
+//                System.out.println("Ja temos alguma coisa lah que devemos desempilhar");
+//                while (pilhaEA.operadorTopo() != null && pilhaEA.operadorTopo()!= "(") {
+//                    pilhaEA.adicionaOperando(executaOperacao());//Aqui ele desempilha e executa a operação
+//                }
+//                if (pilhaEA.operadorTopo() == "(") {
+//                    //Remove soh o (
+//                    pilhaEA.removeOperador();
+//                }
+//                break;
+            default:
+                System.out.println("Nao implementado");
+                break;
+        }
+    }
+    
+    private Operando executaOperacao(){
+        tSimbolos = TabelaSimbolos.getInstance();
+        Contadores contador = Contadores.getInstance();
+        String novaVar = contador.nextCocont();
+        Semantico aSemantica = Semantico.getInstance("fonte.horae");
+        
+        Operando resultado = new Operando();
+        Operando tmpB = pilhaCO.removeOperando();
+        Operando tmpA = pilhaCO.removeOperando();
+        Operador operador = pilhaCO.removeOperador();
+        System.out.println("Operaçao: " + tmpA.valor + operador.nome + tmpB.valor);
+        resultado.tipo = tmpA.tipo;
+        resultado.valor = novaVar;
+        tSimbolos.adicionaSimbolo(this.escopo,resultado.tipo,novaVar,"0");
+        
+        aSemantica.addComparacao(tmpA.valor, tmpB.valor, operador.nome, resultado.valor);
+        
+        return resultado;
     }
 
 }
