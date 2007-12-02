@@ -52,7 +52,7 @@ public class Comparacao {
         maquina.setTransicao(0, 5, "FALSE",         11, 0,                   false,1);
 
         maquina.criaTransicoes(1,9);
-        maquina.setTransicao(1, 0, ")",   12, 0, true,2);
+        maquina.setTransicao(1, 0, ")",   12, 0, true);
         maquina.setTransicao(1, 1, "==",  2,  0, false,3);
         maquina.setTransicao(1, 2, "<=",  2,  0, false,3);
         maquina.setTransicao(1, 3, ">=",  2,  0, false,3);
@@ -71,18 +71,18 @@ public class Comparacao {
         maquina.setTransicao(2, 5, "-",             3, maquina.A_Expressao, true,5);
 
         maquina.criaTransicoes(3,3);
-        maquina.setTransicao(3, 0, ")",   12, 0, true,2);
+        maquina.setTransicao(3, 0, ")",   12, 0, true);
         maquina.setTransicao(3, 1, "OR",  0,  0, false,3);
         maquina.setTransicao(3, 2, "AND", 0,  0, false,3);
         
         maquina.criaTransicoes(4,7);
-        maquina.setTransicao(4, 0, "(",             5, maquina.A_Condicao, true,5);
-        maquina.setTransicao(4, 1, "identificador", 5, maquina.A_Condicao, true,5);
-        maquina.setTransicao(4, 2, "TRUE",          5, maquina.A_Condicao, true,5);
-        maquina.setTransicao(4, 3, "FALSE",         5, maquina.A_Condicao, true,5);
-        maquina.setTransicao(4, 4, "NUMERO",        5, maquina.A_Condicao, true,5);
-        maquina.setTransicao(4, 5, "NOT",           5, maquina.A_Condicao, true,5);
-        maquina.setTransicao(4, 6, "-",             5, maquina.A_Condicao, true,5);  
+        maquina.setTransicao(4, 0, "(",             5, maquina.A_Condicao, true);
+        maquina.setTransicao(4, 1, "identificador", 5, maquina.A_Condicao, true);
+        maquina.setTransicao(4, 2, "TRUE",          5, maquina.A_Condicao, true);
+        maquina.setTransicao(4, 3, "FALSE",         5, maquina.A_Condicao, true);
+        maquina.setTransicao(4, 4, "NUMERO",        5, maquina.A_Condicao, true);
+        maquina.setTransicao(4, 5, "NOT",           5, maquina.A_Condicao, true);
+        maquina.setTransicao(4, 6, "-",             5, maquina.A_Condicao, true);  
         
         maquina.criaTransicoes(5,1);
         maquina.setTransicao(5, 0, ")", 6, 0, false);
@@ -123,6 +123,9 @@ public class Comparacao {
     public int processaToken(Token token) {
         System.out.println(filaLida.getTamanho());
         try {
+            if (token == null) {
+                caso = 0;
+            }
         Transicao transicao =
                 maquina.estados[estadoAtual].proximoEstado(token.getType());
         System.out.println(maquinaNome + " - " + token.getType() + " - Estado Atual: " + estadoAtual);
@@ -200,7 +203,7 @@ public class Comparacao {
         }
 
         } catch(Exception e) {
-        System.out.println(maquinaNome + " - " + token.getType() + " - Estado Atual: " + estadoAtual + 
+        System.out.println(maquinaNome + " - " + token.getType() + " - " + token.getWord() + " - Estado Atual: " + estadoAtual + 
                 " Transicao nao encontrada: ");
             
             return 0;
@@ -269,7 +272,7 @@ public class Comparacao {
             case 2://Vai esvaziar a pilha, fazendo os calculos
                 System.out.println("Ja temos alguma coisa lah que devemos desempilhar");
                 while (pilhaCO.operadorTopo() != null && pilhaCO.operadorTopo()!= "(") {
-                    pilhaCO.adicionaOperando(executaOperacao());//Aqui ele desempilha e executa a operação
+                    pilhaCO.adicionaOperando(executaOperacaoCO());//Aqui ele desempilha e executa a operação
                 }
                 if (pilhaCO.operadorTopo() == "(") {
                     //Remove soh o (
@@ -284,26 +287,31 @@ public class Comparacao {
                 pilhaCO.adicionaOperador(token.getWord());
                 break;
             case 5://Copia o conteudo da pilha de EA para a pilha de CO
-                novaVar = pilhaEA.removeOperando().valor;
-                //tSimbolos.adicionaSimbolo(this.escopo, "INT", novaVar,"0");
-                pilhaCO.adicionaOperando("INT",novaVar);
+            case 6://Deve tentar calcular o que tem na pilhaEA
+                //Depois copia isso pra pilhaCO
+                System.out.println("Ja temos alguma coisa lah que devemos desempilhar");
+                while (pilhaEA.operadorTopo() != null && pilhaEA.operadorTopo()!= "(") {
+                    pilhaEA.adicionaOperando(executaOperacaoEA());//Aqui ele desempilha e executa a operação
+                }
+                if (pilhaEA.operadorTopo() == "(") {
+                    //Remove soh o (
+                    pilhaEA.removeOperador();
+                }
+                pilhaCO.adicionaOperando(pilhaEA.removeOperando());
+                //Agora tenta resolver as coisas pendentes na pilhaCO
+                while (pilhaCO.operadorTopo() != null && pilhaCO.operadorTopo()!= "(") {
+                    pilhaCO.adicionaOperando(executaOperacaoCO());//Aqui ele desempilha e executa a operação
+                }
+                if (pilhaCO.operadorTopo() == "(") {
+                    //Remove soh o (
+                    pilhaCO.removeOperador();
+                }                
                 break;
-//            case 6:
-//                if (pilhaEA.operadorTopo() == null ||
-//                        pilhaEA.operadorTopo() == "(") {
-//                    System.out.println("Temos que pindurar");
-//                    pilhaEA.adicionaOperador(token.getWord());
-//                } else {
-//                    System.out.println("Ja temos alguma coisa lah que podemos desempilhar");
-//                    pilhaEA.adicionaOperando(executaOperacao());//Aqui ele desempilha e executa a operação
-//                    pilhaEA.adicionaOperador(token.getWord());
-//                }
-//                break;
 //            case 7:
 //                if (pilhaEA.operadorTopo() != null && (pilhaEA.operadorTopo() == "*" ||
 //                        pilhaEA.operadorTopo() == "/")) {
 //                    System.out.println("Ja temos alguma coisa lah que podemos desempilhar");
-//                    pilhaEA.adicionaOperando(executaOperacao());//Aqui ele desempilha e executa a operação
+//                    pilhaEA.adicionaOperando(executaOperacaoCO());//Aqui ele desempilha e executa a operação
 //                    pilhaEA.adicionaOperador(token.getWord());
 //                } else {
 //                    System.out.println("Temos que pindurar");
@@ -314,7 +322,7 @@ public class Comparacao {
 //            case 8:
 //                System.out.println("Ja temos alguma coisa lah que devemos desempilhar");
 //                while (pilhaEA.operadorTopo() != null && pilhaEA.operadorTopo()!= "(") {
-//                    pilhaEA.adicionaOperando(executaOperacao());//Aqui ele desempilha e executa a operação
+//                    pilhaEA.adicionaOperando(executaOperacaoCO());//Aqui ele desempilha e executa a operação
 //                }
 //                if (pilhaEA.operadorTopo() == "(") {
 //                    //Remove soh o (
@@ -327,7 +335,7 @@ public class Comparacao {
         }
     }
     
-    private Operando executaOperacao(){
+    private Operando executaOperacaoCO(){
         tSimbolos = TabelaSimbolos.getInstance();
         Contadores contador = Contadores.getInstance();
         String novaVar = contador.nextCocont();
@@ -337,6 +345,26 @@ public class Comparacao {
         Operando tmpB = pilhaCO.removeOperando();
         Operando tmpA = pilhaCO.removeOperando();
         Operador operador = pilhaCO.removeOperador();
+        System.out.println("Operaçao: " + tmpA.valor + operador.nome + tmpB.valor);
+        resultado.tipo = tmpA.tipo;
+        resultado.valor = novaVar;
+        tSimbolos.adicionaSimbolo(this.escopo,resultado.tipo,novaVar,"0");
+        
+        aSemantica.addComparacao(tmpA.valor, tmpB.valor, operador.nome, resultado.valor);
+        
+        return resultado;
+    }
+    
+        private Operando executaOperacaoEA(){
+        tSimbolos = TabelaSimbolos.getInstance();
+        Contadores contador = Contadores.getInstance();
+        String novaVar = contador.nextEacont();
+        Semantico aSemantica = Semantico.getInstance("fonte.horae");
+        
+        Operando resultado = new Operando();
+        Operando tmpB = pilhaEA.removeOperando();
+        Operando tmpA = pilhaEA.removeOperando();
+        Operador operador = pilhaEA.removeOperador();
         System.out.println("Operaçao: " + tmpA.valor + operador.nome + tmpB.valor);
         resultado.tipo = tmpA.tipo;
         resultado.valor = novaVar;
