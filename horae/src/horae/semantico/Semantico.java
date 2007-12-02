@@ -134,6 +134,14 @@ public class Semantico {
         writetoFile("JZ " + label);
     }
     
+    public void addPut(){
+        writetoFile("PD /1000"); // output para o monitor
+    }
+    
+    public void addGet(){
+        writetoFile("GD /0000"); // input do teclado
+    }
+    
     public void addLabel(String label){
         try {
             fileStream.write((label + " ").getBytes());

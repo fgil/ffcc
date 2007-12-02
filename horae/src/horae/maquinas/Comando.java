@@ -429,6 +429,12 @@ public class Comando {
                 aSemantica.addLabel(blocoWhile.labelLoop);
                 break;
                 
+            //*** outros ***
+                
+            case 11: //OUTPUT
+                aSemantica.
+                break;
+                
             default:
                 System.out.println("Ainda Nao Implementado");
                 break;
