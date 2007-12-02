@@ -13,6 +13,7 @@ import horae.semantico.PilhaEA;
 import horae.semantico.Semantico;
 import horae.util.*;
 import horae.Token;
+import horae.semantico.PilhaIF;
 
 /**
  *
@@ -165,10 +166,10 @@ public class Comando {
         maquina.setTransicao(22, 5, "-",             23, maquina.A_Condicao, true);
         
         maquina.criaTransicoes(23,1);
-        maquina.setTransicao(23, 0, ")", 24, 0, false);
+        maquina.setTransicao(23, 0, ")", 24, 0, false, 3);
         
         maquina.criaTransicoes(24,1);
-        maquina.setTransicao(24, 0, "THEN", 26, 0, false);
+        maquina.setTransicao(24, 0, "THEN", 26, 0, false, 4);
         
         maquina.criaTransicoes(26,7);
         maquina.setTransicao(26, 0, "identificador", 27, maquina.A_Comando, true);
@@ -176,8 +177,8 @@ public class Comando {
         maquina.setTransicao(26, 2, "OUTPUT",        27, maquina.A_Comando, true);
         maquina.setTransicao(26, 3, "IF",            27, maquina.A_Comando, true);
         maquina.setTransicao(26, 4, "WHILE",         27, maquina.A_Comando, true);
-        maquina.setTransicao(26, 5, "ENDIF",         28, 0,                 false);
-        maquina.setTransicao(26, 6, "ELSE",          30, 0,                 false);
+        maquina.setTransicao(26, 5, "ENDIF",         28, 0,                 false, 7);
+        maquina.setTransicao(26, 6, "ELSE",          30, 0,                 false, 5);
         
         maquina.criaTransicoes(27,1);
         maquina.setTransicao(27, 0, ";", 26, 0, false);
@@ -190,8 +191,8 @@ public class Comando {
         maquina.setTransicao(30, 1, "INPUT",         31, maquina.A_Comando, true);
         maquina.setTransicao(30, 2, "OUTPUT",        31, maquina.A_Comando, true);
         maquina.setTransicao(30, 3, "IF",            31, maquina.A_Comando, true);
-        maquina.setTransicao(30, 4, "WHILE",         31, maquina.A_Comando, true); //Tava 27
-        maquina.setTransicao(30, 5, "ENDIF",         28, 0,                 false);
+        maquina.setTransicao(30, 4, "WHILE",         31, maquina.A_Comando, true);
+        maquina.setTransicao(30, 5, "ENDIF",         28, 0,                 false, 6);
         
         maquina.criaTransicoes(31,1);
         maquina.setTransicao(31, 0, ";", 30, 0, false);
@@ -336,9 +337,14 @@ public class Comando {
             Token token, int caso){
         System.out.println("Caso:" + caso);
         PilhaEA pilhaEA = PilhaEA.getInstance();
+        PilhaIF pilhaIF = PilhaIF.getInstance();
         TabelaSimbolos tSimbolos = TabelaSimbolos.getInstance();
+        Contadores contador = Contadores.getInstance();
+        aSemantica = Semantico.getInstance();
         String origem;
         //String destino;
+        String labelElse;
+        String labelEndif;
         
         switch (caso) {
             case 0:
@@ -350,24 +356,43 @@ public class Comando {
             case 2:
                 System.out.println("Gravar o resultado que esta no topo da pilha na variavelRetorno");
                 origem = pilhaEA.removeOperando().valor;
-                aSemantica = Semantico.getInstance();
                 aSemantica.addAtribuicao(origem,variavelRetorno.getIdentificador());
                 break;
                 
-            case 3: //Inicia IF
-                
+            case 3:
+                System.out.println("Condicao IF");
+                aSemantica.addLabel("cond");
                 break;
                 
-            case 4: // THEN
+            case 4: //Inicia THEN (deve ser feito após calcular a condicao)
+                System.out.println("Inicia IF " + pilhaIF.pIFs.getTamanho());
                 
+                labelElse = contador.nextIfcont();
+                labelEndif = contador.nextIfcont();
+                pilhaIF.adicionaIF(new BlocoIf(labelElse,labelEndif));
+                aSemantica.addJumpIfZero(labelElse);
                 break;
                 
-            case 5: // ELSE
+            case 5: //Acabou o THEN, começa o ELSE
+                System.out.println("ELSE " + pilhaIF.pIFs.getTamanho());
                 
+                BlocoIf blocoIF = pilhaIF.getTopo();
+                aSemantica.addJump(blocoIF.labelEndif);
+                aSemantica.addLabel(blocoIF.labelElse);
                 break;
                 
-            case 6: // ENDIF
+            case 6: // ENDIF de bloco com ELSE
+                System.out.println("ENDIF+ELSE " + pilhaIF.pIFs.getTamanho());
                 
+                labelEndif = pilhaIF.removeIF().labelEndif;
+                aSemantica.addLabel(labelEndif);
+                break;
+                
+            case 7: // ENDIF de bloco sem ELSE, nesse caso o labelElse funciona como um ENDIF
+                System.out.println("ENDIF " + pilhaIF.pIFs.getTamanho());
+                
+                labelElse = pilhaIF.removeIF().labelElse;
+                aSemantica.addLabel(labelElse);
                 break;
                 
             default:

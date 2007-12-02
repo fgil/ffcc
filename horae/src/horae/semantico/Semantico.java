@@ -112,6 +112,22 @@ public class Semantico {
         addStore(resultado);
     }
     
+    public void addJump(String label){
+        writetoFile("JP " + label);
+    }
+    
+    public void addJumpIfZero(String label){
+        writetoFile("JZ " + label);
+    }
+    
+    public void addLabel(String label){
+        try {
+            fileStream.write((label + " ").getBytes());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     //Funçao que escreve no arquivo de saida
     private void writetoFile(String msg){
         try {

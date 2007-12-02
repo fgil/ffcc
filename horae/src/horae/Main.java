@@ -42,7 +42,7 @@ public class Main {
         token = lexico.nextToken(); 
         while (token != null){
             filaLida.adicionar(token);
-            //System.out.println(token.getType() + " - " + token.getWord());
+            System.out.println(token.getType() + " - " + token.getWord());
             token = lexico.nextToken(); 
         }
         Programa programa = new Programa(filaLida);

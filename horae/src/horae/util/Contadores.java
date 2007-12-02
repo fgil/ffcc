@@ -16,10 +16,14 @@ package horae.util;
 public class Contadores {
     
     private int eacont = 0;
+    private int ifcont = 0;
+    private int wcont = 0;
     
     /** Creates a new instance of Contadores */
     private Contadores() {
         eacont = 0;
+        ifcont = 0;
+        wcont = 0;
     }
 
     private static Contadores oContador;
@@ -33,15 +37,31 @@ public class Contadores {
         }
         return oContador;
     }
-
-    
     
     public String getEacont() {
-        return eacont + "_EA";
+        return "EA_" + eacont;
     }
     
     public String nextEacont() {
         eacont++;
-        return eacont + "_EA";
+        return "EA_" + eacont;
+    }
+    
+    public String getIfcont() {
+        return "IF_" + ifcont;
+    }
+    
+    public String nextIfcont() {
+        ifcont++;
+        return "IF_" + ifcont;
+    }
+    
+    public String getWcont() {
+        return "W_" + wcont;
+    }
+    
+    public String nextWcont() {
+        wcont++;
+        return "W_" + wcont;
     }
 }

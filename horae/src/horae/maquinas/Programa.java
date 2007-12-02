@@ -12,6 +12,7 @@ package horae.maquinas;
 import horae.Token;
 import horae.util.*;
 import horae.semantico.Semantico;
+import java.nio.BufferUnderflowException;
 
 /**
  *
@@ -166,7 +167,13 @@ public class Programa {
                         if (maquinaComando.consome) {
                             proximoToken = maquinaComando.restoToken;                          
                         } else {
-                            proximoToken = (Token) filaLida.remover();
+                            try {
+                                proximoToken = (Token) filaLida.remover();
+                            } catch (BufferUnderflowException ex){
+                                System.err.println("maquinaNome: " + maquinaNome);
+                                System.err.println("token: " + token.toString());
+                                throw ex;
+                            }
                         }
                     }
                         if(maquinaComando.consome) {
