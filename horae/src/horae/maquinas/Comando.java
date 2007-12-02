@@ -10,6 +10,7 @@
 package horae.maquinas;
 
 import horae.semantico.PilhaEA;
+import horae.semantico.PilhaWH;
 import horae.semantico.Semantico;
 import horae.util.*;
 import horae.Token;
@@ -127,7 +128,7 @@ public class Comando {
         maquina.setTransicao(14, 0, "(", 22, 0, false);
         
         maquina.criaTransicoes(15,1);
-        maquina.setTransicao(15, 0, "(", 32, 0, false);
+        maquina.setTransicao(15, 0, "(", 32, 0, false, 8);
         
         maquina.criaTransicoes(16,2);
         maquina.setTransicao(16, 0, "[", 17, 0, false);
@@ -209,7 +210,7 @@ public class Comando {
         maquina.setTransicao(33, 0, ")", 34, 0, false);
         
         maquina.criaTransicoes(34,1);
-        maquina.setTransicao(34, 0, "DO", 36, 0, false);
+        maquina.setTransicao(34, 0, "DO", 36, 0, false, 9);
         
         maquina.criaTransicoes(36,7);
         maquina.setTransicao(36, 0, "identificador", 37, maquina.A_Comando, true);
@@ -217,7 +218,7 @@ public class Comando {
         maquina.setTransicao(36, 2, "OUTPUT",        37, maquina.A_Comando, true);
         maquina.setTransicao(36, 3, "IF",            37, maquina.A_Comando, true);
         maquina.setTransicao(36, 4, "WHILE",         37, maquina.A_Comando, true);
-        maquina.setTransicao(36, 5, "ENDW",          38, 0,                 false);
+        maquina.setTransicao(36, 5, "ENDW",          38, 0,                 false, 10);
         
         maquina.criaTransicoes(37,1);
         maquina.setTransicao(37, 0, ";", 36, 0, false);
@@ -338,6 +339,7 @@ public class Comando {
         System.out.println("Caso:" + caso);
         PilhaEA pilhaEA = PilhaEA.getInstance();
         PilhaIF pilhaIF = PilhaIF.getInstance();
+        PilhaWH pilhaWH = PilhaWH.getInstance();
         TabelaSimbolos tSimbolos = TabelaSimbolos.getInstance();
         Contadores contador = Contadores.getInstance();
         aSemantica = Semantico.getInstance();
@@ -345,6 +347,9 @@ public class Comando {
         //String destino;
         String labelElse;
         String labelEndif;
+        String labelCond;
+        String labelLoop;
+        BlocoWhile blocoWhile;
         
         switch (caso) {
             case 0:
@@ -359,9 +364,12 @@ public class Comando {
                 aSemantica.addAtribuicao(origem,variavelRetorno.getIdentificador());
                 break;
                 
+                
+            //*** IF ***
             case 3:
-                System.out.println("Condicao IF");
-                aSemantica.addLabel("cond");
+                // coloquei só pra ver onde apareceria a condição no código.
+                //System.out.println("Condicao IF");
+                //aSemantica.addLabel("condIF");
                 break;
                 
             case 4: //Inicia THEN (deve ser feito após calcular a condicao)
@@ -393,6 +401,31 @@ public class Comando {
                 
                 labelElse = pilhaIF.removeIF().labelElse;
                 aSemantica.addLabel(labelElse);
+                break;
+                
+                
+            //*** WHILE ***
+            case 8:
+                System.out.println("Condicao WHILE");
+                
+                labelLoop = contador.nextWcont();
+                labelCond = contador.nextWcont();
+                pilhaWH.adicionaWhile(new BlocoWhile(labelLoop,labelCond));
+                aSemantica.addLabel(labelCond);
+                break;
+                
+            case 9: //DO (deve ser feito após calcular a condicao)
+                System.out.println("Inicia DO " + pilhaWH.pWHILEs.getTamanho());
+                blocoWhile = pilhaWH.getTopo();
+                aSemantica.addJumpIfZero(blocoWhile.labelLoop);
+                break;
+                
+            case 10: //WEND
+                System.out.println("ENDW " + pilhaWH.pWHILEs.getTamanho());
+                
+                blocoWhile = pilhaWH.removeWhile();
+                aSemantica.addJump(blocoWhile.labelCond);
+                aSemantica.addLabel(blocoWhile.labelLoop);
                 break;
                 
             default:
