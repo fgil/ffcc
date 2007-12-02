@@ -157,12 +157,12 @@ public class Comando {
         
         
         maquina.criaTransicoes(22,6);//Aqui tem q ser as A_ExpAritimetica
-        maquina.setTransicao(22, 0, "TRUE",          23, maquina.A_ExpAritmetica, true);
-        maquina.setTransicao(22, 1, "FALSE",         23, maquina.A_ExpAritmetica, true);
-        maquina.setTransicao(22, 2, "(",             23, maquina.A_ExpAritmetica, true);
-        maquina.setTransicao(22, 3, "identificador", 23, maquina.A_ExpAritmetica, true);
-        maquina.setTransicao(22, 4, "NUMERO",        23, maquina.A_ExpAritmetica, true);
-        maquina.setTransicao(22, 5, "-",             23, maquina.A_ExpAritmetica, true);
+        maquina.setTransicao(22, 0, "TRUE",          23, maquina.A_Condicao, true);
+        maquina.setTransicao(22, 1, "FALSE",         23, maquina.A_Condicao, true);
+        maquina.setTransicao(22, 2, "(",             23, maquina.A_Condicao, true);
+        maquina.setTransicao(22, 3, "identificador", 23, maquina.A_Condicao, true);
+        maquina.setTransicao(22, 4, "NUMERO",        23, maquina.A_Condicao, true);
+        maquina.setTransicao(22, 5, "-",             23, maquina.A_Condicao, true);
         
         maquina.criaTransicoes(23,1);
         maquina.setTransicao(23, 0, ")", 24, 0, false);
@@ -197,12 +197,12 @@ public class Comando {
         maquina.setTransicao(31, 0, ";", 30, 0, false);
         
         maquina.criaTransicoes(32,6);//Aqui tem q ser as A_ExpAritimetica
-        maquina.setTransicao(32, 0, "TRUE",          33, maquina.A_ExpAritmetica, true);
-        maquina.setTransicao(32, 1, "FALSE",         33, maquina.A_ExpAritmetica, true);
-        maquina.setTransicao(32, 2, "(",             33, maquina.A_ExpAritmetica, true);
-        maquina.setTransicao(32, 3, "identificador", 33, maquina.A_ExpAritmetica, true);
-        maquina.setTransicao(32, 4, "NUMERO",        33, maquina.A_ExpAritmetica, true);
-        maquina.setTransicao(32, 5, "-",             33, maquina.A_ExpAritmetica, true);
+        maquina.setTransicao(32, 0, "TRUE",          33, maquina.A_Condicao, true);
+        maquina.setTransicao(32, 1, "FALSE",         33, maquina.A_Condicao, true);
+        maquina.setTransicao(32, 2, "(",             33, maquina.A_Condicao, true);
+        maquina.setTransicao(32, 3, "identificador", 33, maquina.A_Condicao, true);
+        maquina.setTransicao(32, 4, "NUMERO",        33, maquina.A_Condicao, true);
+        maquina.setTransicao(32, 5, "-",             33, maquina.A_Condicao, true);
         
         maquina.criaTransicoes(33,1);
         maquina.setTransicao(33, 0, ")", 34, 0, false);
@@ -352,6 +352,22 @@ public class Comando {
                 origem = pilhaEA.removeOperando().valor;
                 aSemantica = Semantico.getInstance();
                 aSemantica.addAtribuicao(origem,variavelRetorno.getIdentificador());
+                break;
+                
+            case 3: //Inicia IF
+                
+                break;
+                
+            case 4: // THEN
+                
+                break;
+                
+            case 5: // ELSE
+                
+                break;
+                
+            case 6: // ENDIF
+                
                 break;
                 
             default:

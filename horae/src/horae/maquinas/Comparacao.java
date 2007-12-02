@@ -68,13 +68,13 @@ public class Comparacao {
         maquina.setTransicao(3, 2, "AND", 0,  0, false);
         
         maquina.criaTransicoes(4,7);
-        maquina.setTransicao(4, 0, "(",             5, maquina.A_ExpAritmetica, true);
-        maquina.setTransicao(4, 1, "identificador", 5, maquina.A_ExpAritmetica, true);
-        maquina.setTransicao(4, 2, "TRUE",          5, maquina.A_ExpAritmetica, true);
-        maquina.setTransicao(4, 3, "FALSE",         5, maquina.A_ExpAritmetica, true);
-        maquina.setTransicao(4, 4, "NUMERO",        5, maquina.A_ExpAritmetica, true);
-        maquina.setTransicao(4, 5, "NOT",           5, maquina.A_ExpAritmetica, true);
-        maquina.setTransicao(4, 6, "-",             5, maquina.A_ExpAritmetica, true);  
+        maquina.setTransicao(4, 0, "(",             5, maquina.A_Condicao, true);
+        maquina.setTransicao(4, 1, "identificador", 5, maquina.A_Condicao, true);
+        maquina.setTransicao(4, 2, "TRUE",          5, maquina.A_Condicao, true);
+        maquina.setTransicao(4, 3, "FALSE",         5, maquina.A_Condicao, true);
+        maquina.setTransicao(4, 4, "NUMERO",        5, maquina.A_Condicao, true);
+        maquina.setTransicao(4, 5, "NOT",           5, maquina.A_Condicao, true);
+        maquina.setTransicao(4, 6, "-",             5, maquina.A_Condicao, true);  
         
         maquina.criaTransicoes(5,1);
         maquina.setTransicao(5, 0, ")", 6, 0, false);

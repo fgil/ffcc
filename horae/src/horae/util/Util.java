@@ -22,12 +22,19 @@ public class Util {
     public static String decimalToHex3(String decimal){
         
         if(decimal != null){
-        
-            String retorno = Integer.toHexString(Integer.parseInt(decimal));
-            while(retorno.length() < 4){
-                retorno = "0" + retorno;
+            String retorno;
+            
+            if(decimal.equals("TRUE")){
+                retorno = "0001";
+            } else if(decimal.equals("FALSE")) {
+                retorno = "0000";
+            } else {
+                retorno = Integer.toHexString(Integer.parseInt(decimal));
+                while(retorno.length() < 4){
+                    retorno = "0" + retorno;
+                }
             }
-
+            
             return retorno;
         } else {
             return "0000";
