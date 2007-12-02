@@ -117,7 +117,7 @@ public class Semantico {
         String comando = "HM";
         if (operador == "OR") {
             comando = "*";
-        } else if (operador == "OR") {
+        } else if (operador == "AND") {
             comando = "+";
         }
         String temp = comando + "  " + operando2;

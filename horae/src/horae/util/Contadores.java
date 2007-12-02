@@ -72,7 +72,7 @@ public class Contadores {
     }
     
     public String nextCocont() {
-        wcont++;
+        cocont++;
         return "CO_" + cocont;
     }
 }

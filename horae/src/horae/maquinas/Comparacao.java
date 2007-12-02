@@ -44,45 +44,45 @@ public class Comparacao {
 
         //Cria transicoes do estado 0
         maquina.criaTransicoes(0,6);
-        maquina.setTransicao(0, 0, "(",             4,  0,                   false);
-        maquina.setTransicao(0, 1, "identificador", 1,  maquina.A_Expressao, true);
-        maquina.setTransicao(0, 2, "NUMERO",        1,  maquina.A_Expressao, true);
-        maquina.setTransicao(0, 3, "-",             1,  maquina.A_Expressao, true);
+        maquina.setTransicao(0, 0, "(",             4,  0,                   false,4);
+        maquina.setTransicao(0, 1, "identificador", 1,  maquina.A_Expressao, true,5);
+        maquina.setTransicao(0, 2, "NUMERO",        1,  maquina.A_Expressao, true,5);
+        maquina.setTransicao(0, 3, "-",             1,  maquina.A_Expressao, true,5);
         maquina.setTransicao(0, 4, "TRUE",          10, 0,                   false,1);
         maquina.setTransicao(0, 5, "FALSE",         11, 0,                   false,1);
 
         maquina.criaTransicoes(1,9);
-        maquina.setTransicao(1, 0, ")",   12, 0, true);
-        maquina.setTransicao(1, 1, "==",  2,  0, false);
-        maquina.setTransicao(1, 2, "<=",  2,  0, false);
-        maquina.setTransicao(1, 3, ">=",  2,  0, false);
-        maquina.setTransicao(1, 4, "!=",  2,  0, false);
-        maquina.setTransicao(1, 5, "<",   2,  0, false);
-        maquina.setTransicao(1, 6, ">",   2,  0, false);
-        maquina.setTransicao(1, 7, "OR",  0,  0, false);
-        maquina.setTransicao(1, 8, "AND", 0,  0, false);
+        maquina.setTransicao(1, 0, ")",   12, 0, true,2);
+        maquina.setTransicao(1, 1, "==",  2,  0, false,3);
+        maquina.setTransicao(1, 2, "<=",  2,  0, false,3);
+        maquina.setTransicao(1, 3, ">=",  2,  0, false,3);
+        maquina.setTransicao(1, 4, "!=",  2,  0, false,3);
+        maquina.setTransicao(1, 5, "<",   2,  0, false,3);
+        maquina.setTransicao(1, 6, ">",   2,  0, false,3);
+        maquina.setTransicao(1, 7, "OR",  0,  0, false,3);
+        maquina.setTransicao(1, 8, "AND", 0,  0, false,3);
         
         maquina.criaTransicoes(2,6);
-        maquina.setTransicao(2, 0, "(",             3, maquina.A_Expressao, true);
-        maquina.setTransicao(2, 1, "identificador", 3, maquina.A_Expressao, true);
-        maquina.setTransicao(2, 2, "TRUE",          3, maquina.A_Expressao, true);
-        maquina.setTransicao(2, 3, "FALSE",         3, maquina.A_Expressao, true);
-        maquina.setTransicao(2, 4, "NUMERO",        3, maquina.A_Expressao, true);
-        maquina.setTransicao(2, 5, "-",             3, maquina.A_Expressao, true);
+        maquina.setTransicao(2, 0, "(",             3, maquina.A_Expressao, true,5);
+        maquina.setTransicao(2, 1, "identificador", 3, maquina.A_Expressao, true,5);
+        maquina.setTransicao(2, 2, "TRUE",          3, maquina.A_Expressao, true,5);
+        maquina.setTransicao(2, 3, "FALSE",         3, maquina.A_Expressao, true,5);
+        maquina.setTransicao(2, 4, "NUMERO",        3, maquina.A_Expressao, true,5);
+        maquina.setTransicao(2, 5, "-",             3, maquina.A_Expressao, true,5);
 
         maquina.criaTransicoes(3,3);
-        maquina.setTransicao(3, 0, ")",   12, 0, true);
-        maquina.setTransicao(3, 1, "OR",  0,  0, false);
-        maquina.setTransicao(3, 2, "AND", 0,  0, false);
+        maquina.setTransicao(3, 0, ")",   12, 0, true,2);
+        maquina.setTransicao(3, 1, "OR",  0,  0, false,3);
+        maquina.setTransicao(3, 2, "AND", 0,  0, false,3);
         
         maquina.criaTransicoes(4,7);
-        maquina.setTransicao(4, 0, "(",             5, maquina.A_Condicao, true);
-        maquina.setTransicao(4, 1, "identificador", 5, maquina.A_Condicao, true);
-        maquina.setTransicao(4, 2, "TRUE",          5, maquina.A_Condicao, true);
-        maquina.setTransicao(4, 3, "FALSE",         5, maquina.A_Condicao, true);
-        maquina.setTransicao(4, 4, "NUMERO",        5, maquina.A_Condicao, true);
-        maquina.setTransicao(4, 5, "NOT",           5, maquina.A_Condicao, true);
-        maquina.setTransicao(4, 6, "-",             5, maquina.A_Condicao, true);  
+        maquina.setTransicao(4, 0, "(",             5, maquina.A_Condicao, true,5);
+        maquina.setTransicao(4, 1, "identificador", 5, maquina.A_Condicao, true,5);
+        maquina.setTransicao(4, 2, "TRUE",          5, maquina.A_Condicao, true,5);
+        maquina.setTransicao(4, 3, "FALSE",         5, maquina.A_Condicao, true,5);
+        maquina.setTransicao(4, 4, "NUMERO",        5, maquina.A_Condicao, true,5);
+        maquina.setTransicao(4, 5, "NOT",           5, maquina.A_Condicao, true,5);
+        maquina.setTransicao(4, 6, "-",             5, maquina.A_Condicao, true,5);  
         
         maquina.criaTransicoes(5,1);
         maquina.setTransicao(5, 0, ")", 6, 0, false);
@@ -262,9 +262,9 @@ public class Comparacao {
         
         switch(acao) {
             case 1:// Usado para - XX
-                novaVar = contador.nextEacont();
+                novaVar = contador.nextCocont();
                 pilhaCO.adicionaOperando("BOOLEAN",novaVar);
-                tSimbolos.adicionaSimbolo(this.escopo, "BOOLEAN", novaVar,"0");
+                tSimbolos.adicionaSimbolo(this.escopo, "BOOLEAN", novaVar,token.getType());
                 break;
             case 2://Vai esvaziar a pilha, fazendo os calculos
                 System.out.println("Ja temos alguma coisa lah que devemos desempilhar");
@@ -279,16 +279,15 @@ public class Comparacao {
             case 3:
                 pilhaCO.adicionaOperador(token.getWord());
                 break;
-//            case 4:
-//                //buscar o tipo do identificador
-//                Simbolo simbolo = tSimbolos.procuraSimbolo(this.escopo, token.getWord());
-//                pilhaEA.adicionaOperando(simbolo.getTipoDeDado(),token.getWord());
-//                break;
-//            case 5:
-//                novaVar = contador.nextEacont();
-//                tSimbolos.adicionaSimbolo(this.escopo, "INT", novaVar, token.getWord());
-//                pilhaEA.adicionaOperando("INT",novaVar);
-//                break;
+            case 4:
+                //Adiciona (
+                pilhaCO.adicionaOperador(token.getWord());
+                break;
+            case 5://Copia o conteudo da pilha de EA para a pilha de CO
+                novaVar = pilhaEA.removeOperando().valor;
+                //tSimbolos.adicionaSimbolo(this.escopo, "INT", novaVar,"0");
+                pilhaCO.adicionaOperando("INT",novaVar);
+                break;
 //            case 6:
 //                if (pilhaEA.operadorTopo() == null ||
 //                        pilhaEA.operadorTopo() == "(") {
