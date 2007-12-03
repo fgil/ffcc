@@ -87,10 +87,17 @@ public class Comparacao {
         maquina.criaTransicoes(5,1);
         maquina.setTransicao(5, 0, ")", 6, 0, false);
         
-        maquina.criaTransicoes(6,3);
-        maquina.setTransicao(6, 0, ")",   12, 0, true,2);
-        maquina.setTransicao(6, 1, "OR",  0,  0, false,3);
-        maquina.setTransicao(6, 2, "AND", 0,  0, false,3);
+        maquina.criaTransicoes(6,9);
+        maquina.setTransicao(6, 0, ")"  , 12, 0, true,2);
+        maquina.setTransicao(6, 1, "OR" ,  0,  0, false,3);
+        maquina.setTransicao(6, 2, "AND",  0,  0, false,3);
+        maquina.setTransicao(6, 3, "==" ,  0,  0, false,3);
+        maquina.setTransicao(6, 4, "!=" ,  0,  0, false,3);
+        maquina.setTransicao(6, 5, "<"  ,  0,  0, false,3);
+        maquina.setTransicao(6, 6, "<=" ,  0,  0, false,3);
+        maquina.setTransicao(6, 7, ">=" ,  0,  0, false,3);
+        maquina.setTransicao(6, 8, ">"  ,  0,  0, false,3);
+        
 
         maquina.criaTransicoes(7,2); //sem uso
         maquina.setTransicao(7, 0, "TRUE",  8, 0, false);
@@ -355,7 +362,7 @@ public class Comparacao {
         return resultado;
     }
     
-        private Operando executaOperacaoEA(){
+    private Operando executaOperacaoEA(){
         tSimbolos = TabelaSimbolos.getInstance();
         Contadores contador = Contadores.getInstance();
         String novaVar = contador.nextEacont();
@@ -370,7 +377,7 @@ public class Comparacao {
         resultado.valor = novaVar;
         tSimbolos.adicionaSimbolo(this.escopo,resultado.tipo,novaVar,"0");
         
-        aSemantica.addComparacao(tmpA.valor, tmpB.valor, operador.nome, resultado.valor);
+        aSemantica.addOperacao(tmpA.valor, tmpB.valor, operador.nome, resultado.valor);
         
         return resultado;
     }

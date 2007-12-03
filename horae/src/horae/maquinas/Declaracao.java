@@ -131,7 +131,7 @@ public class Declaracao {
                 simboloTemporario.setTipoDeSimbolo("VARIAVEL");
                 tSimbolos.adicionaSimbolo(simboloTemporario);
                 
-                aSemantica.addVariavel(simboloTemporario);
+                //aSemantica.addVariavel(simboloTemporario);
             } else if (proximoEstado == 4) {//Eh vetor ou matriz... nada agora
             }
         } else if (estadoAtual == 4) {
@@ -141,7 +141,7 @@ public class Declaracao {
                 TabelaSimbolos tSimbolos = TabelaSimbolos.getInstance();
                 simboloTemporario.setTipoDeSimbolo("VETOR");
                 tSimbolos.adicionaSimbolo(simboloTemporario);
-                aSemantica.addVariavel(simboloTemporario);
+                //aSemantica.addVariavel(simboloTemporario);
                 //Aqui tenho que colocar a logica pra devolver o ponteiro pro vetor...
             } else if (proximoEstado == 7) {//Era matriz... nada agora
             }
@@ -150,7 +150,7 @@ public class Declaracao {
             TabelaSimbolos tSimbolos = TabelaSimbolos.getInstance();
             simboloTemporario.setTipoDeSimbolo("MATRIZ");
             tSimbolos.adicionaSimbolo(simboloTemporario);
-            aSemantica.addVariavel(simboloTemporario);
+            //aSemantica.addVariavel(simboloTemporario);
             //devolver a matriz
         }
     }

@@ -9,6 +9,7 @@
 
 package horae.semantico;
 
+import horae.util.Contadores;
 import horae.util.TabelaSimbolos;
 import java.io.FileOutputStream;
 import horae.util.Simbolo;
@@ -70,7 +71,11 @@ public class Semantico {
                     addVariavel(simbolo);
                 }
             }
-                        
+
+            //Declara TRUE e FALSE
+            addVariavel("TRUE",  "1");
+            addVariavel("FALSE", "0");
+            
             //String declaracao = (String)declaracoes.removeTop();
 //            while(declaracao!=null){
 //                writetoFile(declaracao);
@@ -86,6 +91,11 @@ public class Semantico {
         String temp = sTemp.getIdentificador() + " K /" + Util.decimalToHex3(sTemp.getValorInicial());
         writetoFile(temp);
         sTemp.setDeclarado(true);
+    }
+    
+    public void addVariavel(String nome, String Valor) {
+        String temp = nome + " K /" + Util.decimalToHex3(Valor);
+        writetoFile(temp);
     }
     
     public void addLoad(String origem){
@@ -113,17 +123,92 @@ public class Semantico {
     }
     
     public void addComparacao(String operando1, String operando2, String operador, String resultado){
-        addLoad(operando1);
         String comando = "HM";
+        String temp, pulaTrue, pulaFalse;
+        Contadores count = Contadores.getInstance();
         if (operador == "OR") {
+            addLoad(operando1);
             comando = "*";
+            temp = comando + "  " + operando2;
+            writetoFile(temp);
+            addStore(resultado);
         } else if (operador == "AND") {
+            addLoad(operando1);
             comando = "+";
+            temp = comando + "  " + operando2;
+            writetoFile(temp);
+            addStore(resultado);
+        } else if (operador == "==") {
+            addLoad(operando1);
+            temp = "-  " + operando2;
+            writetoFile(temp);
+            pulaTrue = count.nextCocont();
+            pulaFalse = count.nextCocont();
+            temp = "JZ " + pulaFalse;
+            writetoFile(temp);
+            temp = "LD TRUE";
+            writetoFile(temp);
+            temp = "JP " + pulaTrue;
+            writetoFile(temp);
+            temp = pulaFalse + " LD FALSE";
+            writetoFile(temp);
+            temp = pulaTrue + " MM " + resultado;
+            writetoFile(temp);
+        } else if(operador == "!=") {
+            addLoad(operando1);
+            temp = "-  " + operando2;
+            writetoFile(temp);
+            pulaFalse = count.nextCocont();
+            temp = "JZ " + pulaFalse;
+            writetoFile(temp);
+            temp = "LD TRUE";
+            writetoFile(temp);
+            temp = pulaFalse + " MM " + resultado;
+            writetoFile(temp);
+        } else if(operador == "<" || operador == "<=") {
+            addLoad(operando1);
+            temp = "-  " + operando2;
+            writetoFile(temp);
+            pulaTrue = count.nextCocont();
+
+            pulaFalse = count.nextCocont();
+            temp = "JN " + pulaTrue;
+            writetoFile(temp);
+            if (operador == "<=") {
+                temp = "JZ " + pulaTrue;
+                writetoFile(temp);
+            }
+            temp = "LD FALSE";
+            writetoFile(temp);
+            temp = "JP " + pulaFalse;
+            writetoFile(temp);
+            temp = pulaTrue + " LD TRUE";
+            writetoFile(temp);
+            temp = pulaFalse + " MM " + resultado;
+            writetoFile(temp);
+        } else if(operador == ">" || operador == ">=") {
+            addLoad(operando2);
+            temp = "-  " + operando1;
+            writetoFile(temp);
+            pulaTrue = count.nextCocont();
+
+            pulaFalse = count.nextCocont();
+            temp = "JN " + pulaTrue;
+            writetoFile(temp);
+            if (operador == ">=") {
+                temp = "JZ " + pulaTrue;
+                writetoFile(temp);
+            }
+            temp = "LD FALSE";
+            writetoFile(temp);
+            temp = "JP " + pulaFalse;
+            writetoFile(temp);
+            temp = pulaTrue + " LD TRUE";
+            writetoFile(temp);
+            temp = pulaFalse + " MM " + resultado;
+            writetoFile(temp);
         }
-        String temp = comando + "  " + operando2;
-        writetoFile(temp);
-        
-        addStore(resultado);
+         
     }
     
     public void addJump(String label){

@@ -432,7 +432,7 @@ public class Comando {
             //*** outros ***
                 
             case 11: //OUTPUT
-                aSemantica.
+                //aSemantica.
                 break;
                 
             default:
