@@ -33,10 +33,12 @@ public class Comparacao {
     private PilhaEA pilhaEA;
     private PilhaCO pilhaCO;
     int caso;
+    public String fileName;
     
     /** Creates a new instance of Expressao */
-    public Comparacao(Fila filaLida) {
-                this.filaLida = filaLida;
+    public Comparacao(Fila filaLida, String fileName) {
+        this.filaLida = filaLida;
+        this.fileName = fileName;
         maquina = new Maquina(39);
         estadoAtual = 0;
         consome = false;
@@ -146,7 +148,7 @@ public class Comparacao {
         if (transicao.proximaMaquina > 0) {
             switch(transicao.proximaMaquina) {
                 case 5://Maquina Expressao
-                    Expressao maquinaExpressao = new Expressao(filaLida);
+                    Expressao maquinaExpressao = new Expressao(filaLida, fileName);
                     System.out.println(filaLida.getTamanho());
                     maquinaExpressao.escopo = this.escopo;
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
@@ -168,7 +170,7 @@ public class Comparacao {
                 break;
                 
                 case 6://Maquina Comparacao
-                    Comparacao maquinaComparacao = new Comparacao(filaLida);
+                    Comparacao maquinaComparacao = new Comparacao(filaLida, fileName);
                     System.out.println(filaLida.getTamanho());
                     maquinaComparacao.escopo = this.escopo;
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
@@ -346,7 +348,7 @@ public class Comparacao {
         tSimbolos = TabelaSimbolos.getInstance();
         Contadores contador = Contadores.getInstance();
         String novaVar = contador.nextCocont();
-        Semantico aSemantica = Semantico.getInstance("fonte.horae");
+        Semantico aSemantica = Semantico.getInstance(this.fileName);
         
         Operando resultado = new Operando();
         Operando tmpB = pilhaCO.removeOperando();
@@ -366,7 +368,7 @@ public class Comparacao {
         tSimbolos = TabelaSimbolos.getInstance();
         Contadores contador = Contadores.getInstance();
         String novaVar = contador.nextEacont();
-        Semantico aSemantica = Semantico.getInstance("fonte.horae");
+        Semantico aSemantica = Semantico.getInstance(this.fileName);
         
         Operando resultado = new Operando();
         Operando tmpB = pilhaEA.removeOperando();

@@ -36,10 +36,13 @@ public class Comando {
     //Variaveis usadas para a atribuicao
     private Simbolo variavelRetorno;
     
+    public String fileName;
+    
     
     /** Creates a new instance of Expressao */
-    public Comando(Fila filaLida) {
+    public Comando(Fila filaLida, String fileName) {
         this.filaLida = filaLida;
+        this.fileName = fileName;
         maquina = new Maquina(39);
         estadoAtual = 0;
         consome = false;
@@ -244,7 +247,7 @@ public class Comando {
             if (transicao.proximaMaquina > 0) {
                 switch(transicao.proximaMaquina) {
                     case 5://Maquina Expressao
-                        Expressao maquinaExpressao = new Expressao(filaLida);
+                        Expressao maquinaExpressao = new Expressao(filaLida, fileName);
                         maquinaExpressao.escopo = this.escopo;
                         System.out.println(filaLida.getTamanho());
                         //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
@@ -266,7 +269,7 @@ public class Comando {
                         break;
                         
                     case 4://Maquina Comando
-                        Comando maquinaComando = new Comando(filaLida);
+                        Comando maquinaComando = new Comando(filaLida, fileName);
                         maquinaComando.escopo = this.escopo;
                         System.out.println(filaLida.getTamanho());
                         //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
@@ -288,7 +291,7 @@ public class Comando {
                         break;
                         
                     case 6://Maquina Comparacao
-                        Comparacao maquinaComparacao = new Comparacao(filaLida);
+                        Comparacao maquinaComparacao = new Comparacao(filaLida, fileName);
                         System.out.println(filaLida.getTamanho());
                         maquinaComparacao.escopo = this.escopo;
                         //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo

@@ -25,10 +25,12 @@ public class Programa {
     public int estadoAtual;
     private String maquinaNome = "Programa";
     private Semantico aSemantica;
+    public String fileName;
     
     /** Creates a new instance of Programa */
-    public Programa(Fila filaLida) {
+    public Programa(Fila filaLida, String fileName) {
         this.filaLida = filaLida;
+        this.fileName = fileName;
         maquina = new Maquina(9);
         estadoAtual = 0;
         
@@ -127,7 +129,7 @@ public class Programa {
                     break;
 
                 case 3:
-                    DeclaracaoFuncao maquinaFuncao = new DeclaracaoFuncao(filaLida);
+                    DeclaracaoFuncao maquinaFuncao = new DeclaracaoFuncao(filaLida, fileName);
                     System.out.println(filaLida.getTamanho());
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
                     if (transicao.consome) {
@@ -154,7 +156,7 @@ public class Programa {
                     break;
 
                 case 4://Maquina Comando
-                    Comando maquinaComando = new Comando(filaLida);
+                    Comando maquinaComando = new Comando(filaLida, fileName);
                     maquinaComando.escopo = "main";
                     System.out.println(filaLida.getTamanho());
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
@@ -200,7 +202,7 @@ public class Programa {
             Token token){
         if (estadoAtual == 0) {
             if (proximoEstado == 1) {
-                aSemantica = Semantico.getInstance("fonte.horae");
+                aSemantica = Semantico.getInstance(this.fileName);
             }
             
         } else if (estadoAtual == 1) {

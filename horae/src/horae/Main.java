@@ -12,7 +12,8 @@ package horae;
 import horae.maquinas.Programa;
 import horae.util.Fila;
 import horae.util.TabelaSimbolos;
-import java.util.logging.ConsoleHandler;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 /**
  *
@@ -29,35 +30,60 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        info();
-        Token token = new Token();
-        Fila filaLida = new Fila();
-        TabelaSimbolos variaveis = TabelaSimbolos.getInstance();
-
-        
-        String fileName = "fonte.horae";
-        if(args==null) fileName = "fonte.horae";
-        //else fileName = args[0];
-        Lexico lexico = new Lexico(fileName);
-        token = lexico.nextToken(); 
-        while (token != null){
-            filaLida.adicionar(token);
-            System.out.println(token.getType() + " - " + token.getWord());
-            token = lexico.nextToken(); 
-        }
-        Programa programa = new Programa(filaLida);
-        //System.out.println(programa.filaLida.getTamanho());
-
-        token = null;
-        while(filaLida.getTamanho() > 0){
-            if (token == null) {
-                token = programa.processaToken((Token) filaLida.remover());
+        if(args.length == 0) {
+            info();
+        } else {
+            boolean montar = false;
+            Token token = new Token();
+            Fila filaLida = new Fila();
+            TabelaSimbolos variaveis = TabelaSimbolos.getInstance();
+            String fileName = "fonte.horae";
+            
+            if(args.length > 1){
+                if(args[0].equals("m")) {
+                    montar = true;
+                    fileName = args[1];
+                }
             } else {
-                token = programa.processaToken(token);
+                fileName = args[0];
+            }
+            
+            Lexico lexico = new Lexico(fileName);
+            token = lexico.nextToken();
+            while (token != null){
+                filaLida.adicionar(token);
+                System.out.println(token.getType() + " - " + token.getWord());
+                token = lexico.nextToken();
+            }
+            Programa programa = new Programa(filaLida, fileName);
+            //System.out.println(programa.filaLida.getTamanho());
+            
+            token = null;
+            while(filaLida.getTamanho() > 0){
+                if (token == null) {
+                    token = programa.processaToken((Token) filaLida.remover());
+                } else {
+                    token = programa.processaToken(token);
+                }
+            }
+            System.out.println(variaveis.toSring());
+            System.out.println("FIM");
+            
+            if(montar){
+                try {
+                    System.out.println("Executando montador...");
+                    String line;
+                    Process p = Runtime.getRuntime().exec("java -jar montador.jar " + fileName.split("\\.")[0] + ".asm");
+                    BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                    while ((line = input.readLine()) != null) {
+                        System.out.println("Montador: " + line);
+                    }
+                    input.close();
+                } catch(Exception ex){
+                    ex.printStackTrace();
+                }
             }
         }
-        System.out.println(variaveis.toSring());
-        System.out.println("FIM");
         
         
     }
@@ -78,5 +104,7 @@ public class Main {
                 " ciclo anual de crescimento da vegetação e das estações\n" +
                 " climaticas anuais. (Talo, Carpo, Auxo, Acme, Anatole, Disis,\n" +
                 " Dicéia, Eupória, Gimnásia).");
+        System.out.println("");
+        System.out.println("Uso: java -jar horae.jar fonte.horae");
     }
 }

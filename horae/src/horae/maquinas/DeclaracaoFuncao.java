@@ -33,14 +33,16 @@ public class DeclaracaoFuncao {
     private String escopo;
     private Simbolo novoSimbolo;
     private PilhaEA pilhaEA;
+    public String fileName;
     
     /** Creates a new instance of Declaracao
      * Lembrando:
      * setTransicao(int estado, int indiceRota, String tokenEsperado,
      *       int proximoEstado, int proximaMaquina, boolean consome){
      */
-    public DeclaracaoFuncao(Fila filaLida) {
+    public DeclaracaoFuncao(Fila filaLida, String fileName) {
         this.filaLida = filaLida;
+        this.fileName = fileName;
         maquina = new Maquina(16);
         estadoAtual = 0;
         consome = false;
@@ -168,7 +170,7 @@ public class DeclaracaoFuncao {
                     break;
                     
                 case 4://Maquina Comando
-                    Comando maquinaComando = new Comando(filaLida);
+                    Comando maquinaComando = new Comando(filaLida, fileName);
                     //System.out.println(filaLida.getTamanho());
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
                     if (transicao.consome) {
@@ -189,7 +191,7 @@ public class DeclaracaoFuncao {
                     break;
                     
                 case 5://Maquina Expressao
-                    Expressao maquinaExpressao = new Expressao(filaLida);
+                    Expressao maquinaExpressao = new Expressao(filaLida, fileName);
                     maquinaExpressao.escopo = this.escopo;
                     //System.out.println(filaLida.getTamanho());
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo

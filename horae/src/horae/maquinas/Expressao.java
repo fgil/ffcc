@@ -31,10 +31,12 @@ public class Expressao {
     public String escopo;
     private PilhaEA pilhaEA;
     int caso;
+    public String fileName;
     
     /** Creates a new instance of Expressao */
-    public Expressao(Fila filaLida) {
+    public Expressao(Fila filaLida, String fileName) {
         this.filaLida = filaLida;
+        this.fileName = fileName;
         maquina = new Maquina(22);
         estadoAtual = 0;
         consome = false;
@@ -252,7 +254,7 @@ public class Expressao {
             if (transicao.proximaMaquina > 0) {
                 switch(transicao.proximaMaquina) {
                     case 5://Maquina Expressao
-                        Expressao maquinaExpressao = new Expressao(filaLida);
+                        Expressao maquinaExpressao = new Expressao(filaLida, fileName);
                         maquinaExpressao.escopo = this.escopo;
                         System.out.println(filaLida.getTamanho());
                         //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
@@ -421,7 +423,7 @@ public class Expressao {
         tSimbolos = TabelaSimbolos.getInstance();
         Contadores contador = Contadores.getInstance();
         String novaVar = contador.nextEacont();
-        Semantico aSemantica = Semantico.getInstance("fonte.horae");
+        Semantico aSemantica = Semantico.getInstance(this.fileName);
         
         Operando resultado = new Operando();
         Operando tmpB = pilhaEA.removeOperando();
