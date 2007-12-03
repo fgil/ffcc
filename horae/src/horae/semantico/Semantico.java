@@ -75,6 +75,7 @@ public class Semantico {
             //Declara TRUE e FALSE
             addVariavel("TRUE",  "1");
             addVariavel("FALSE", "0");
+            addVariavel("CONST_SHIFT","256");
             
             //String declaracao = (String)declaracoes.removeTop();
 //            while(declaracao!=null){
@@ -220,19 +221,16 @@ public class Semantico {
     }
     
     public void addPut(){
-        writetoFile("PD /1000"); // output para o monitor
+        writetoFile("PD /0100"); // output para o monitor
     }
     
     public void addGet(){
         writetoFile("GD /0000"); // input do teclado
+        writetoFile("/ CONST_SHIFT");
     }
     
     public void addLabel(String label){
-        try {
-            fileStream.write((label + " ").getBytes());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        writetoFile(label + " + FALSE ; NOP");
     }
     
     //Funçao que escreve no arquivo de saida

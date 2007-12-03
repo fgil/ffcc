@@ -108,9 +108,9 @@ public class Comando {
         maquina.criaTransicoes(11,6);
         maquina.setTransicao(11, 0, "(",             16, maquina.A_Expressao, true);
         maquina.setTransicao(11, 1, "identificador", 16, maquina.A_Expressao, true);
-        maquina.setTransicao(11, 2, "TRUE",          16, maquina.A_Expressao, true);
-        maquina.setTransicao(11, 3, "FALSE",         16, maquina.A_Expressao, true);
-        maquina.setTransicao(11, 4, "NUMERO",        16, maquina.A_Expressao, true);
+        //maquina.setTransicao(11, 2, "TRUE",          16, maquina.A_Expressao, true);
+        //maquina.setTransicao(11, 3, "FALSE",         16, maquina.A_Expressao, true);
+        //maquina.setTransicao(11, 4, "NUMERO",        16, maquina.A_Expressao, true);
         maquina.setTransicao(11, 5, "-",             16, maquina.A_Expressao, true);
         
         maquina.criaTransicoes(12,6);
@@ -122,7 +122,7 @@ public class Comando {
         maquina.setTransicao(12, 5, "-",             13, maquina.A_Expressao, true);
         
         maquina.criaTransicoes(13,1);
-        maquina.setTransicao(13, 0, ";", 10, 0, true);
+        maquina.setTransicao(13, 0, ";", 10, 0, true, 11);
         
         maquina.criaTransicoes(14,1);
         maquina.setTransicao(14, 0, "(", 22, 0, false);
@@ -132,7 +132,7 @@ public class Comando {
         
         maquina.criaTransicoes(16,2);
         maquina.setTransicao(16, 0, "[", 17, 0, false);
-        maquina.setTransicao(16, 1, ";", 10, 0, true);
+        maquina.setTransicao(16, 1, ";", 10, 0, true, 12);
         
 //
         maquina.criaTransicoes(17,4);
@@ -345,7 +345,7 @@ public class Comando {
         Contadores contador = Contadores.getInstance();
         aSemantica = Semantico.getInstance();
         String origem;
-        //String destino;
+        String destino;
         String labelElse;
         String labelEndif;
         String labelCond;
@@ -432,7 +432,17 @@ public class Comando {
             //*** outros ***
                 
             case 11: //OUTPUT
-                //aSemantica.
+                System.out.println("Faz output do resultado que esta no topo da pilha na variavelRetorno");
+                origem = pilhaEA.removeOperando().valor;
+                aSemantica.addLoad(origem);
+                aSemantica.addPut();
+                break;
+                
+            case 12: //INPUT
+                System.out.println("Faz input para o endereço resultado da expressão que esta no topo da pilha na variavelRetorno");
+                destino = pilhaEA.removeOperando().valor;
+                aSemantica.addGet();
+                aSemantica.addStore(destino);
                 break;
                 
             default:

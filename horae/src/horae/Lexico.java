@@ -1135,7 +1135,7 @@ public class Lexico {
                             case 32://Espaço: fim do token
                             case (int) '\n':
                             case (int) ';':
-                                token.type = "INPUT";
+                                token.type = "OUTPUT";
                                 
                                 estado = 0;
                                 return token;

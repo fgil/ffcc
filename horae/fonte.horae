@@ -1,6 +1,12 @@
 START
-INT J;
 INT K;
-INT L;
-IF ((3+2) == (2+3)) THEN L = 9; ENDIF;
+K = 48;
+WHILE ( K != 58 ) DO
+OUTPUT K;
+K = K + 1;
+ENDW;
+OUTPUT 65;
+INPUT K;
+K = K + 1;
+OUTPUT K;
 END
