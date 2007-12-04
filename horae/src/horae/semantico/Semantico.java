@@ -145,15 +145,15 @@ public class Semantico {
             writetoFile(temp);
             pulaTrue = count.nextCocont();
             pulaFalse = count.nextCocont();
-            temp = "JZ " + pulaFalse;
+            temp = "JZ " + pulaTrue;
             writetoFile(temp);
-            temp = "LD TRUE";
+            temp = "LD FALSE";
             writetoFile(temp);
-            temp = "JP " + pulaTrue;
+            temp = "JP " + pulaFalse;
             writetoFile(temp);
-            temp = pulaFalse + " LD FALSE";
+            temp = pulaTrue + " LD TRUE";
             writetoFile(temp);
-            temp = pulaTrue + " MM " + resultado;
+            temp = pulaFalse + " MM " + resultado;
             writetoFile(temp);
         } else if(operador == "!=") {
             addLoad(operando1);
