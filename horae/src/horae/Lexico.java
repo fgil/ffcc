@@ -59,11 +59,11 @@ public class Lexico {
                             case -1://EOF
                                 return null;
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                                 estado = 0;
                                 break;
                             case (int) 'S':
-                                token.word = lido + (char) charLido;
+                                lido = "" + (char) charLido;
                                 estado = 1;
                                 break;
                             case (int) 'E':
@@ -215,7 +215,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -240,7 +240,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -265,7 +265,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -290,7 +290,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -315,7 +315,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                                 token.type = "START";
                                 
@@ -334,7 +334,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -363,7 +363,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -388,7 +388,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                                 token.type = "END";
                                 
@@ -414,7 +414,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                                 token.type = "ENDW";
                                 
@@ -432,7 +432,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -457,7 +457,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                                 token.type = "ENDIF";
                                 
@@ -476,7 +476,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -502,7 +502,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -528,7 +528,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                                 token.type = "ELSE";
                                 
@@ -547,7 +547,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -577,7 +577,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -607,7 +607,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                                 token.type = "INT";
                                 
@@ -626,7 +626,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -652,7 +652,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -677,7 +677,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                                 token.type = "INPUT";
@@ -696,7 +696,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) '(':
                             case (int) ';':
                                 token.type = "IF";
@@ -719,7 +719,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -744,7 +744,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -769,7 +769,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -794,7 +794,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -819,7 +819,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -844,7 +844,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -870,7 +870,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                                 token.type = "BOOLEAN";
                                 
@@ -889,7 +889,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -914,7 +914,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -939,7 +939,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -965,7 +965,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                                 token.type = "CHAR";
                                 
@@ -984,7 +984,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -1013,7 +1013,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                                 token.type = "OR";
                                 
@@ -1032,7 +1032,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -1057,7 +1057,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -1082,7 +1082,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -1107,7 +1107,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -1133,7 +1133,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                                 token.type = "OUTPUT";
                                 
@@ -1152,7 +1152,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -1182,7 +1182,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -1207,7 +1207,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -1233,7 +1233,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -1256,7 +1256,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -1281,7 +1281,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -1307,7 +1307,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                                 token.type = "THEN";
                                 
@@ -1326,7 +1326,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -1355,7 +1355,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -1380,7 +1380,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -1405,7 +1405,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -1431,7 +1431,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -1455,7 +1455,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -1480,7 +1480,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -1506,7 +1506,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                                 token.type = "NOT";
@@ -1527,7 +1527,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -1552,7 +1552,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -1578,7 +1578,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -1607,7 +1607,7 @@ public class Lexico {
                     case 58:
                         switch (charLido) {
                             case -1://EOF
-                            case (int) '\n'://EOF
+                            case (int) '\n': case 13://EOF
                             case 32://Espaço: fim do identificador
                             case (int) ';'://; fim do identificador
                             case (int) '(':
@@ -1659,7 +1659,7 @@ public class Lexico {
                                 estado = 59;
                                 break;
                             case -1://EOF
-                            case (int) '\n'://EOF
+                            case (int) '\n': case 13://EOF
                             case 32://Espaço: fim do numero
                             case (int) ';'://; fim do numero
                             case (int) '(':
@@ -1695,7 +1695,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                                 token.type = "=";
@@ -1717,7 +1717,7 @@ public class Lexico {
                         switch (charLido) {//esse no final das contas nao tem o que fazer... é voltar pro 0 mesmo...
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                                 token.type = "==";
@@ -1735,7 +1735,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF: erro
                             case 32://Espaço: erro
-                            case (int) '\n'://erro
+                            case (int) '\n': case 13://erro
                             case (int) ';':
                             case (int) '(':
                             case (int) '[':
@@ -1759,7 +1759,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                                 token.type = "!=";
@@ -1777,7 +1777,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                                 token.type = "<";
@@ -1798,7 +1798,7 @@ public class Lexico {
                         switch (charLido) {//esse no final das contas nao tem o que fazer... é voltar pro 0 mesmo...
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                                 token.type = "<=";
@@ -1815,7 +1815,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                                 token.type = ">";
@@ -1837,7 +1837,7 @@ public class Lexico {
                         switch (charLido) {//esse no final das contas nao tem o que fazer... é voltar pro 0 mesmo...
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                                 token.type = ">=";
@@ -1854,7 +1854,7 @@ public class Lexico {
                     case 70:
                         switch (charLido) {
                             case -1://EOF
-                            case (int) '\n'://EOF
+                            case (int) '\n': case 13://EOF
                             case 32://Espaço: fim do identificador
                             case (int) '&'://; fim do identificador
                             case (int) '(':
@@ -1894,7 +1894,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                                 token.type = "identificador";
                                 token.word = lido;
@@ -1915,7 +1915,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                                 token.type = "identificador";
                                 token.word = lido;
@@ -1936,7 +1936,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                                 token.type = "identificador";
                                 token.word = lido;
@@ -1957,7 +1957,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                                 token.type = "identificador";
                                 token.word = lido;
@@ -1978,7 +1978,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                                 token.type = "identificador";
                                 token.word = lido;
@@ -2000,7 +2000,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                                 token.type = "RETURN";
@@ -2021,7 +2021,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                                 token.type = "identificador";
                                 token.word = lido;
@@ -2042,7 +2042,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                                 token.type = "identificador";
                                 token.word = lido;
@@ -2063,7 +2063,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                                 token.type = "identificador";
                                 token.word = lido;
@@ -2084,7 +2084,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                                 token.type = "identificador";
                                 token.word = lido;
@@ -2105,7 +2105,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) ']':
@@ -2127,7 +2127,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) ')':
                             case (int) '(':
@@ -2152,7 +2152,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                             case (int) '(':
                             case (int) ']':
@@ -2175,7 +2175,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                                 token.type = "identificador";
                                 token.word = lido;
@@ -2196,7 +2196,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                                 token.type = "identificador";
                                 token.word = lido;
@@ -2217,7 +2217,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                                 token.type = "identificador";
                                 token.word = lido;
@@ -2238,7 +2238,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: desencana
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                                 token.type = "identificador";
                                 token.word = lido;
@@ -2260,7 +2260,7 @@ public class Lexico {
                         switch (charLido) {
                             case -1://EOF
                             case 32://Espaço: fim do token
-                            case (int) '\n':
+                            case (int) '\n': case 13:
                             case (int) ';':
                                 token.type = "FUNCAO";
                                 

@@ -298,7 +298,7 @@ public class Expressao {
             System.out.println(maquinaNome + " - " + token.getType() + " - Estado Atual: " + estadoAtual +
                     " Transicao nao encontrada: ");
             
-            return 0;
+            throw new RuntimeException("Transicao nao encontrada");
             
         }
     }

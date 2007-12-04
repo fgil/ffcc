@@ -129,13 +129,13 @@ public class Semantico {
         Contadores count = Contadores.getInstance();
         if (operador == "OR") {
             addLoad(operando1);
-            comando = "*";
+            comando = "+";
             temp = comando + "  " + operando2;
             writetoFile(temp);
             addStore(resultado);
         } else if (operador == "AND") {
             addLoad(operando1);
-            comando = "+";
+            comando = "*";
             temp = comando + "  " + operando2;
             writetoFile(temp);
             addStore(resultado);

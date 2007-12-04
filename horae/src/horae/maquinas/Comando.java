@@ -332,8 +332,7 @@ public class Comando {
         } catch(Exception e) {
             System.out.println(maquinaNome + " - " + token.getType() + " - Estado Atual: " + estadoAtual +
                     " Transicao nao encontrada: ");
-            
-            return 0;
+            throw new RuntimeException("Transicao nao encontrada");
             
         }
     }
@@ -346,7 +345,7 @@ public class Comando {
         PilhaWH pilhaWH = PilhaWH.getInstance();
         TabelaSimbolos tSimbolos = TabelaSimbolos.getInstance();
         Contadores contador = Contadores.getInstance();
-        aSemantica = Semantico.getInstance();
+        aSemantica = Semantico.getInstance(fileName);
         String origem;
         String destino;
         String labelElse;

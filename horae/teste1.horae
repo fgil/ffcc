@@ -1,0 +1,8 @@
+START
+INT K;
+INT J;
+INPUT J;
+K = 3;
+J = J + K * 2;
+OUTPUT K;
+END

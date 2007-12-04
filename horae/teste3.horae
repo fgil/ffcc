@@ -1,0 +1,14 @@
+START
+INT K;
+INT J;
+K = 48;
+WHILE ( K != 58 ) DO
+OUTPUT K;
+K = K + 1;
+J = 3;
+WHILE ( J > 0 ) DO
+OUTPUT 46;
+J = J - 1;
+ENDW;
+ENDW;
+END

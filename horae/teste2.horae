@@ -1,0 +1,14 @@
+START
+INT K;
+INT J;
+K = TRUE;
+INPUT J;
+IF ( K OR FALSE ) THEN
+J = 3;
+ELSE
+IF ( J == 4 ) THEN
+J = 5;
+ENDIF;
+ENDIF;
+OUTPUT J;
+END
