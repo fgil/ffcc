@@ -53,6 +53,9 @@ public class Lexico {
             while (true) {
 //                System.out.println((char)charLido + " " + (int) charLido +
 //                        "Estado Atual: " + (int) estado);
+                if (charLido >= 97 && charLido <= 122) {
+                    charLido = charLido - 32;
+                }
                 switch(estado) {
                     case 0:
                         switch (charLido) {
@@ -221,6 +224,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -246,6 +256,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -271,6 +288,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -296,6 +320,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -340,6 +371,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -369,6 +407,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -438,6 +483,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -482,6 +534,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -508,6 +567,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -553,6 +619,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -583,6 +656,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -632,6 +712,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -658,6 +745,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -725,6 +819,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -750,6 +851,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -775,6 +883,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -800,6 +915,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -825,6 +947,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -850,6 +979,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -895,6 +1031,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -920,6 +1063,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -945,6 +1095,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -990,6 +1147,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -1038,6 +1202,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -1063,6 +1234,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -1088,6 +1266,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -1113,6 +1298,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -1158,6 +1350,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -1188,6 +1387,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -1213,6 +1419,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -1239,6 +1452,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "TRUE";
                                 
                                 estado = 0;
@@ -1262,6 +1482,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -1287,6 +1514,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -1332,6 +1566,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -1361,6 +1602,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -1386,6 +1634,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -1411,6 +1666,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -1437,6 +1699,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "FALSE";
                                 
                                 estado = 0;
@@ -1461,6 +1730,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -1486,6 +1762,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -1533,6 +1816,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -1558,6 +1848,13 @@ public class Lexico {
                             case (int) '[':
                             case (int) ')':
                             case (int) ']':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -1896,6 +2193,13 @@ public class Lexico {
                             case 32://Espaço: desencana
                             case (int) '\n': case 13:
                             case (int) ';':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -1917,6 +2221,13 @@ public class Lexico {
                             case 32://Espaço: desencana
                             case (int) '\n': case 13:
                             case (int) ';':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -1938,6 +2249,13 @@ public class Lexico {
                             case 32://Espaço: desencana
                             case (int) '\n': case 13:
                             case (int) ';':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -1959,6 +2277,13 @@ public class Lexico {
                             case 32://Espaço: desencana
                             case (int) '\n': case 13:
                             case (int) ';':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -1980,6 +2305,13 @@ public class Lexico {
                             case 32://Espaço: desencana
                             case (int) '\n': case 13:
                             case (int) ';':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -2023,6 +2355,13 @@ public class Lexico {
                             case 32://Espaço: desencana
                             case (int) '\n': case 13:
                             case (int) ';':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -2044,6 +2383,13 @@ public class Lexico {
                             case 32://Espaço: desencana
                             case (int) '\n': case 13:
                             case (int) ';':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -2065,6 +2411,13 @@ public class Lexico {
                             case 32://Espaço: desencana
                             case (int) '\n': case 13:
                             case (int) ';':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -2086,6 +2439,13 @@ public class Lexico {
                             case 32://Espaço: desencana
                             case (int) '\n': case 13:
                             case (int) ';':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -2133,6 +2493,13 @@ public class Lexico {
                             case (int) '(':
                             case (int) ']':
                             case (int) '[':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -2177,6 +2544,13 @@ public class Lexico {
                             case 32://Espaço: desencana
                             case (int) '\n': case 13:
                             case (int) ';':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -2198,6 +2572,13 @@ public class Lexico {
                             case 32://Espaço: desencana
                             case (int) '\n': case 13:
                             case (int) ';':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -2219,6 +2600,13 @@ public class Lexico {
                             case 32://Espaço: desencana
                             case (int) '\n': case 13:
                             case (int) ';':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
@@ -2240,6 +2628,13 @@ public class Lexico {
                             case 32://Espaço: desencana
                             case (int) '\n': case 13:
                             case (int) ';':
+                            case (int) '+':
+                            case (int) '-':
+                            case (int) '/':
+                            case (int) '*':
+                            case (int) '<':
+                            case (int) '>':
+                            case (int) '=':
                                 token.type = "identificador";
                                 token.word = lido;
                                 estado = 0;
