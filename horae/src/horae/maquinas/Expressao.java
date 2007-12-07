@@ -445,6 +445,7 @@ public class Expressao {
                 aSemantica.addLoad("RETORNO");
                 aSemantica.addStore(novaVar);
                 pilhaEA.adicionaOperando("INT",novaVar);
+                tSimbolos.adicionaSimbolo(this.escopo, "INT", novaVar,"0");
 
                 break;
                 
