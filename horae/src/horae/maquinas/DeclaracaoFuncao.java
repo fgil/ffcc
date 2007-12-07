@@ -11,6 +11,7 @@ package horae.maquinas;
 
 import horae.Token;
 import horae.semantico.PilhaEA;
+import horae.semantico.Semantico;
 import horae.util.Fila;
 import horae.util.Maquina;
 import horae.util.Simbolo;
@@ -34,6 +35,7 @@ public class DeclaracaoFuncao {
     private Simbolo novoSimbolo;
     private PilhaEA pilhaEA;
     public String fileName;
+    private Simbolo parametro;
     
     /** Creates a new instance of Declaracao
      * Lembrando:
@@ -54,22 +56,22 @@ public class DeclaracaoFuncao {
 
 
         maquina.criaTransicoes(1,3);
-        maquina.setTransicao(1, 0, "INT",     2, 0, false);
-        maquina.setTransicao(1, 1, "CHAR",    2, 0, false);
-        maquina.setTransicao(1, 2, "BOOLEAN", 2, 0, false);
+        maquina.setTransicao(1, 0, "INT",     2, 0, false,1);
+        maquina.setTransicao(1, 1, "CHAR",    2, 0, false,1);
+        maquina.setTransicao(1, 2, "BOOLEAN", 2, 0, false,1);
 
         
         maquina.criaTransicoes(2,1);
-        maquina.setTransicao(2, 0, "identificador", 3, 0, false);
+        maquina.setTransicao(2, 0, "identificador", 3, 0, false,3);
         
         maquina.criaTransicoes(3,1);
-        maquina.setTransicao(3, 0, "(", 4, 0, false);
+        maquina.setTransicao(3, 0, "(", 4, 0, false,4);
         
         maquina.criaTransicoes(4,4);
         maquina.setTransicao(4, 0, ")",       5, 0,                    false);
-        maquina.setTransicao(4, 1, "INT",     6, maquina.A_Declaracao, true);
-        maquina.setTransicao(4, 2, "CHAR",    6, maquina.A_Declaracao, true);
-        maquina.setTransicao(4, 3, "BOOLEAN", 6, maquina.A_Declaracao, true);
+        maquina.setTransicao(4, 1, "INT",     6, maquina.A_Declaracao, true ,6);
+        maquina.setTransicao(4, 2, "CHAR",    6, maquina.A_Declaracao, true ,6);
+        maquina.setTransicao(4, 3, "BOOLEAN", 6, maquina.A_Declaracao, true ,6);
         
         maquina.criaTransicoes(5,1);
         maquina.setTransicao(5, 0, "{", 7, 0, false);
@@ -107,18 +109,18 @@ public class DeclaracaoFuncao {
         
         maquina.criaTransicoes(11,6);
         //maquina.setTransicao(11,X,"EXP",12,0,false);
-        maquina.setTransicao(11, 0, "-",             12, maquina.A_Expressao, true);
-        maquina.setTransicao(11, 1, "(",             12, maquina.A_Expressao, true);
-        maquina.setTransicao(11, 2, "identificador", 12, maquina.A_Expressao, true);
-        maquina.setTransicao(11, 3, "TRUE",          12, maquina.A_Expressao, true);
-        maquina.setTransicao(11, 4, "FALSE",         12, maquina.A_Expressao, true);
-        maquina.setTransicao(11, 5, "NUMERO",        12, maquina.A_Expressao, true);
+        maquina.setTransicao(11, 0, "-",             12, maquina.A_Expressao, true,2);
+        maquina.setTransicao(11, 1, "(",             12, maquina.A_Expressao, true,2);
+        maquina.setTransicao(11, 2, "identificador", 12, maquina.A_Expressao, true,2);
+        maquina.setTransicao(11, 3, "TRUE",          12, maquina.A_Expressao, true,2);
+        maquina.setTransicao(11, 4, "FALSE",         12, maquina.A_Expressao, true,2);
+        maquina.setTransicao(11, 5, "NUMERO",        12, maquina.A_Expressao, true,2);
         
         maquina.criaTransicoes(12,1);
         maquina.setTransicao(12,0,";",13,0,false);
         
         maquina.criaTransicoes(13,1);
-        maquina.setTransicao(13,0,"}",14,0,false);
+        maquina.setTransicao(13,0,"}",14,0,false,5);
         
         maquina.criaTransicoes(15,3);
         maquina.setTransicao(15, 0, "INT",     6, maquina.A_Declaracao, true);
@@ -137,7 +139,7 @@ public class DeclaracaoFuncao {
         System.out.println("Proximo Estado: " + transicao.proximoEstado);
         Token proximoToken = null;
         
-        analiseSemanticaPre(estadoAtual, transicao.proximoEstado, token);
+        analiseSemanticaPre(estadoAtual, transicao.proximoEstado, token, transicao.caso);
         
         if (transicao.proximaMaquina > 0) {
             switch(transicao.proximaMaquina) {
@@ -166,11 +168,13 @@ public class DeclaracaoFuncao {
                     } else {
                         proximoToken = null;
                         //System.out.println("Proximo token (s): " + proximoToken.getType());
-                    }                    
+                    }
+                    parametro = maquinaDeclaracao.simboloTemporario;
                     break;
                     
                 case 4://Maquina Comando
                     Comando maquinaComando = new Comando(filaLida, fileName);
+                    maquinaComando.escopo = this.escopo;
                     //System.out.println(filaLida.getTamanho());
                     //Aqui ve se precisa mandar o ultimo token lido ou se vai pro proximo
                     if (transicao.consome) {
@@ -218,7 +222,7 @@ public class DeclaracaoFuncao {
             }
         }
         
-        analiseSemanticaPos(estadoAtual, transicao.proximoEstado, token);
+        analiseSemanticaPos(estadoAtual, transicao.proximoEstado, token, transicao.caso);
         
         consome = transicao.consome;
         estadoAtual = transicao.proximoEstado;
@@ -241,37 +245,59 @@ public class DeclaracaoFuncao {
     }
 
     private void analiseSemanticaPos(int estadoAtual, int proximoEstado,
-            Token token){
-        if (estadoAtual == 0) {
-            
-        } else if (estadoAtual == 1) {
-            novoSimbolo.setTipoDeDado(token.getType());//Pega o tipo de retorno
-            novoSimbolo.setTipoDeSimbolo("FUNCAO");
-            novoSimbolo.setEscopo("PROGRAMA");
-        } else if (estadoAtual == 2) {
-            this.escopo = token.getWord();//Pega o nome da funcao
-            novoSimbolo.setIdentificador(this.escopo);
-            TabelaSimbolos tSimbolos = TabelaSimbolos.getInstance();
-            tSimbolos.adicionaSimbolo(novoSimbolo);
-            
-        } else if (estadoAtual == 11) {
-            if (proximoEstado == 12) {
-                System.out.println(pilhaEA.toString());
-            }
-        }
+            Token token, int caso){
+        Semantico aSemantica = Semantico.getInstance("");
+        switch (caso) {
+            case 0:
+                break;
+            case 1:
+                novoSimbolo.setTipoDeDado(token.getType());//Pega o tipo de retorno
+                novoSimbolo.setTipoDeSimbolo("FUNCAO");
+                novoSimbolo.setEscopo("main");
+                break;
+            case 3:
+                this.escopo = token.getWord();//Pega o nome da funcao
+                novoSimbolo.setIdentificador(this.escopo);
+                TabelaSimbolos tSimbolos = TabelaSimbolos.getInstance();
+                tSimbolos.adicionaSimbolo(novoSimbolo);
+                aSemantica.addLabel("0_" + this.escopo);
+                break;
+            case 4:
+                //aSemantica.addLabel("0_" + this.escopo);
+                //System.out.println(pilhaEA.toString());
+                break;
+            case 5://Fim da funcao, retorna
+                aSemantica.addLoad(pilhaEA.removeOperando().valor);
+                aSemantica.addEndOfFunction(this.escopo);
+                //System.out.println(pilhaEA.toString());
+                break;
+            case 6:
+                aSemantica.addPop(parametro);
+                //System.out.println(pilhaEA.toString());
+                break;
+            default:
+               System.out.println("Não implementado.");
+               break;
+       }
+       
     }
     
     
    private void analiseSemanticaPre(int estadoAtual, int proximoEstado,
-            Token token){
+            Token token, int caso){
        //Pro Enquanto Nada
-       
-       if (estadoAtual == 11) {
-            if (proximoEstado == 12) {
+       switch (caso) {
+           case 0:
+                break;
+           case 2:
                 pilhaEA = PilhaEA.getInstance();
                 pilhaEA.limpaPilha();
-            }
-        }
+                break;
+           default:
+               //System.out.println("Não implementado.");
+               break;
+       }
+       
     }
     
 }

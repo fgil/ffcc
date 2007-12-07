@@ -32,6 +32,7 @@ public class Expressao {
     private PilhaEA pilhaEA;
     int caso;
     public String fileName;
+    public String testeFuncao;
     
     /** Creates a new instance of Expressao */
     public Expressao(Fila filaLida, String fileName) {
@@ -87,10 +88,10 @@ public class Expressao {
         maquina.setTransicao(6, 5, "]", 3,  0, true,  8);
         maquina.setTransicao(6, 6, ")", 3,  0, true,  8);
         
-        maquina.criaTransicoes(7,16);//esse vai ser o mais chato
+        maquina.criaTransicoes(7,17);//esse vai ser o mais chato
         maquina.setTransicao(7, 0,  ";",  3,  0, true,  8);
         maquina.setTransicao(7, 1,  ")",  3,  0, true);//Esse ) nao é dele... deixa pra maquina que chamou...
-        maquina.setTransicao(7, 2,  "(",  12, 0, false);//Abre parenteses de funcao
+        maquina.setTransicao(7, 2,  "(",  12, 0, false, 9);//Abre parenteses de funcao
         maquina.setTransicao(7, 3,  "+",  10, 0, false, 6);
         maquina.setTransicao(7, 4,  "-",  10, 0, false, 6);
         maquina.setTransicao(7, 5,  "/",  10, 0, false, 7);
@@ -99,7 +100,7 @@ public class Expressao {
         maquina.setTransicao(7, 8,  "]",  3,  0, true);
         maquina.setTransicao(7, 9,  "<=", 3,  0, true);
         maquina.setTransicao(7, 10, "<",  3,  0, true);
-        maquina.setTransicao(7, 10, ">",  3,  0, true); //Tinha faltado essa
+        maquina.setTransicao(7, 16, ">",  3,  0, true); //Tinha faltado essa
         maquina.setTransicao(7, 11, ">=", 3,  0, true);
         maquina.setTransicao(7, 12, "==", 3,  0, true);
         maquina.setTransicao(7, 13, "!=", 3,  0, true);
@@ -110,7 +111,7 @@ public class Expressao {
         maquina.setTransicao(8, 0, ";", 3, 0, true, 8);
         maquina.setTransicao(8, 1, ")", 3, 0, true, 8);
         
-        maquina.criaTransicoes(9, 14);
+        maquina.criaTransicoes(9, 15);
         maquina.setTransicao(9,   0, ";", 3,  0, true,  8);
         maquina.setTransicao(9,   5, ")", 3,  0, true);
         maquina.setTransicao(9,   1, "+", 10, 0, false, 6);
@@ -120,7 +121,7 @@ public class Expressao {
         maquina.setTransicao(9,   6, "]", 3,  0, true,  8);
         maquina.setTransicao(9,   7,  "<=", 3,  0, true,  8);
         maquina.setTransicao(9,   8,  "<",  3,  0, true,  8);
-        maquina.setTransicao(9,   8,  ">",  3,  0, true,  8);
+        maquina.setTransicao(9,   14,  ">",  3,  0, true,  8);
         maquina.setTransicao(9,   9,  ">=", 3,  0, true,  8);
         maquina.setTransicao(9,  10, "==", 3,  0, true,  8);
         maquina.setTransicao(9,  11, "!=", 3,  0, true,  8);
@@ -148,15 +149,15 @@ public class Expressao {
         maquina.setTransicao(11, 10,  "OR", 3,  0, true,  8);
         
         maquina.criaTransicoes(12,7);
-        maquina.setTransicao(12, 0, "(",             14, maquina.A_Expressao, true);
-        maquina.setTransicao(12, 1, "identificador", 14, maquina.A_Expressao, true);
-        maquina.setTransicao(12, 2, "TRUE",          14, maquina.A_Expressao, true);
-        maquina.setTransicao(12, 3, "FALSE",         14, maquina.A_Expressao, true);
-        maquina.setTransicao(12, 4, "NUMERO",        14, maquina.A_Expressao, true);
-        maquina.setTransicao(12, 5, "-",             14, maquina.A_Expressao, true);
-        maquina.setTransicao(12, 6, ")",             15, 0,                   true);
+        maquina.setTransicao(12, 0, "(",             14, maquina.A_Expressao, true, 10);
+        maquina.setTransicao(12, 1, "identificador", 14, maquina.A_Expressao, true, 10);
+        maquina.setTransicao(12, 2, "TRUE",          14, maquina.A_Expressao, true, 10);
+        maquina.setTransicao(12, 3, "FALSE",         14, maquina.A_Expressao, true, 10);
+        maquina.setTransicao(12, 4, "NUMERO",        14, maquina.A_Expressao, true, 10);
+        maquina.setTransicao(12, 5, "-",             14, maquina.A_Expressao, true, 10);
+        maquina.setTransicao(12, 6, ")",             15, 0,                   true, 11);
         
-        maquina.criaTransicoes(13,5); // Sem uso
+        maquina.criaTransicoes(13,5);
         maquina.setTransicao(13, 1, "identificador", 14, maquina.A_Expressao, true);
         maquina.setTransicao(13, 2, "TRUE",          14, maquina.A_Expressao, true);
         maquina.setTransicao(13, 3, "FALSE",         14, maquina.A_Expressao, true);
@@ -165,9 +166,9 @@ public class Expressao {
         
         maquina.criaTransicoes(14,2);
         maquina.setTransicao(14, 0, ",", 13, 0, false);//Fim de um parametro da funcao
-        maquina.setTransicao(14, 0, ")", 15, 0, false);//Fim dos parametros
+        maquina.setTransicao(14, 0, ")", 15, 0, false,11);//Fim dos parametros
         
-        maquina.criaTransicoes(15,14);
+        maquina.criaTransicoes(15,15);
         maquina.setTransicao(15, 0,  ";",  3,  0, true,  8);
         maquina.setTransicao(15, 1,  ")",  3,  0, true);
         maquina.setTransicao(15, 2,  "+",  10, 0, false, 6);
@@ -177,7 +178,7 @@ public class Expressao {
         maquina.setTransicao(15, 6,  "]",  3,  0, true,  8);
         maquina.setTransicao(15, 7,  "<=", 3,  0, true,  8);
         maquina.setTransicao(15, 8,  "<",  3,  0, true,  8);
-        maquina.setTransicao(15, 8,  ">",  3,  0, true,  8);
+        maquina.setTransicao(15, 14,  ">",  3,  0, true,  8);
         maquina.setTransicao(15, 9,  ">=", 3,  0, true,  8);
         maquina.setTransicao(15, 10, "==", 3,  0, true,  8);
         maquina.setTransicao(15, 11, "!=", 3,  0, true,  8);
@@ -193,7 +194,7 @@ public class Expressao {
         maquina.criaTransicoes(17,1);
         maquina.setTransicao(17, 0, "]", 18, 0, false);
         
-        maquina.criaTransicoes(18,15);
+        maquina.criaTransicoes(18,16);
         maquina.setTransicao(18, 0,  ";",  3,  0, true,  8);
         maquina.setTransicao(18, 1,  ")",  3,  0, true);
         maquina.setTransicao(18, 2,  "+",  10, 0, false, 6);
@@ -204,6 +205,7 @@ public class Expressao {
         maquina.setTransicao(18, 8,  "]",  3,  0, true,  8);
         maquina.setTransicao(18, 9,  "<=", 3,  0, true,  8);
         maquina.setTransicao(18, 10, "<",  3,  0, true,  8);
+        maquina.setTransicao(18, 15, ">",  3,  0, true,  8);
         maquina.setTransicao(18, 11, ">=", 3,  0, true,  8);
         maquina.setTransicao(18, 12, "==", 3,  0, true,  8);
         maquina.setTransicao(18, 7,  "!=", 3,  0, true,  8);
@@ -219,7 +221,7 @@ public class Expressao {
         maquina.criaTransicoes(20,1);
         maquina.setTransicao(20, 0, "]", 21, 0, false);
         
-        maquina.criaTransicoes(21,14);
+        maquina.criaTransicoes(21,15);
         maquina.setTransicao(21, 0,  ";",  3,  0, true);
         maquina.setTransicao(21, 1,  ")",  3,  0, true);
         maquina.setTransicao(21, 2,  "+",  10, 0, false, 6);
@@ -230,6 +232,7 @@ public class Expressao {
         maquina.setTransicao(21, 7,  "<=", 3,  0, true, 8);
         maquina.setTransicao(21, 8,  "<",  3,  0, true, 8);
         maquina.setTransicao(21, 9,  ">=", 3,  0, true, 8);
+        maquina.setTransicao(21, 14,  ">", 3,  0, true, 8);
         maquina.setTransicao(21, 10, "==", 3,  0, true, 8);
         maquina.setTransicao(21, 11, "!=", 3,  0, true, 8);
         maquina.setTransicao(21, 12, "AND", 3,  0, true,  8);
@@ -306,6 +309,7 @@ public class Expressao {
     
     private void analiseSemanticaPos(int estadoAtual, int proximoEstado,
             Token token, int caso){
+        Semantico aSemantica = Semantico.getInstance(this.fileName);
         System.out.println("Caso:" + caso);
         switch (caso) {
             case 0:
@@ -334,6 +338,13 @@ public class Expressao {
             case 8:
                 acaoOperadores(8,token);
                 break;
+            case 10:
+                acaoOperadores(10,token);
+                break;
+            case 11:
+                aSemantica.addCallFunction(testeFuncao);
+                acaoOperadores(11,token);
+            break;
                 
             default:
                 System.out.println("Ainda Nao Implementado");
@@ -355,6 +366,7 @@ public class Expressao {
         tSimbolos  = TabelaSimbolos.getInstance();
         Contadores contador = Contadores.getInstance();
         String     novaVar;
+        Semantico aSemantica = Semantico.getInstance(this.fileName);
         
         switch(acao) {
             case 1:// Usado para - XX
@@ -374,7 +386,13 @@ public class Expressao {
             case 4:
                 //buscar o tipo do identificador
                 Simbolo simbolo = tSimbolos.procuraSimbolo(this.escopo, token.getWord());
-                pilhaEA.adicionaOperando(simbolo.getTipoDeDado(),token.getWord());
+                if (simbolo.getTipoDeSimbolo() == "FUNCAO") {
+                    testeFuncao = simbolo.getIdentificador();
+                    System.out.println("##################################### Funcao");
+                } else {
+                    pilhaEA.adicionaOperando(simbolo.getTipoDeDado(),token.getWord());
+                }
+                
                 break;
             case 5:
                 novaVar = contador.nextEacont();
@@ -414,8 +432,24 @@ public class Expressao {
                     pilhaEA.removeOperador();
                 }
                 break;
-            default:
+            case 10:
+                //no acumlador vamos ter o resultado a ser enviado para a funcao.
+                //Devemos jogar na pilha
+                aSemantica.addPush(pilhaEA.removeOperando());
+                break;
+            case 11:
+                //no acumlador vamos ter o resultado a ser enviado para a funcao.
+                //Devemos jogar na pilha
+                //aSemantica.addLoad("RETURN");
+                novaVar = contador.nextEacont();
+                aSemantica.addLoad("RETORNO");
+                aSemantica.addStore(novaVar);
+                pilhaEA.adicionaOperando("INT",novaVar);
+
+                break;
                 
+            default:
+                break;
         }
     }
     

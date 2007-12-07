@@ -10,6 +10,7 @@
 package horae.semantico;
 
 import horae.util.Contadores;
+import horae.util.Operando;
 import horae.util.TabelaSimbolos;
 import java.io.FileOutputStream;
 import horae.util.Simbolo;
@@ -54,11 +55,13 @@ public class Semantico {
     public void startFile(){
         String start = "@ /0";
         writetoFile(start);
+        String temp = "JP INICIO_0";
+        writetoFile(temp);
     }
     
 
     public void closeFile(){
-        try {           
+        try {
             writetoFile("HM /00");
             
             TabelaSimbolos tSimbolos = TabelaSimbolos.getInstance();
@@ -67,7 +70,7 @@ public class Semantico {
             for (Iterator simbolos = tSimbolos.tabela.iterator(); simbolos.hasNext();) {
                 Simbolo simbolo = (Simbolo) simbolos.next();
                 
-                if(!simbolo.isDeclarado()){
+                if(!simbolo.isDeclarado() && simbolo.getTipoDeSimbolo() != "FUNCAO"){
                     addVariavel(simbolo);
                 }
             }
@@ -76,6 +79,26 @@ public class Semantico {
             addVariavel("TRUE",  "1");
             addVariavel("FALSE", "0");
             addVariavel("CONST_SHIFT","256");
+            
+            //Grava as instruções usadas nos saltos
+//            String temp = "0_JP JP /0000";
+//            writetoFile(temp);
+//            temp = "0_MM MM /0000";
+//            writetoFile(temp);
+//            temp = "0_LD LD /0000";
+//            writetoFile(temp);
+//            temp = "0_JZ JZ /0000";
+//            writetoFile(temp);
+//            temp = "0_MAIS + /0000";
+//            writetoFile(temp);
+            
+
+            //Rotinas do push e pop
+            addPushCode();
+            addPopCode();
+            addPilhaVars();
+            
+
             
             //String declaracao = (String)declaracoes.removeTop();
 //            while(declaracao!=null){
@@ -233,6 +256,46 @@ public class Semantico {
         writetoFile(label + " + FALSE ; NOP");
     }
     
+    public void addPushCode() {
+        String temp = "PUSH LD PONTEIRO_TOPO";
+        writetoFile(temp);
+        temp = "+ INST_MM";
+        writetoFile(temp);
+        temp = "MM GRAVAR";
+        writetoFile(temp);
+        temp = "LD TEMP";
+        writetoFile(temp);
+        temp = "GRAVAR 	K /0000";
+        writetoFile(temp);
+        temp = "LD PONTEIRO_TOPO";
+        writetoFile(temp);
+        temp = "+ DOIS";
+        writetoFile(temp);
+        temp = "MM PONTEIRO_TOPO";
+        writetoFile(temp);
+        temp = "RS PUSH";
+        writetoFile(temp);
+    }
+    
+    public void addPopCode() {
+        String temp = "POP	LD PONTEIRO_TOPO";
+        writetoFile(temp);
+        temp = "- DOIS";
+        writetoFile(temp);
+        temp = "MM PONTEIRO_TOPO";
+        writetoFile(temp);
+        temp = "+ INST_LD";
+        writetoFile(temp);
+        temp = "MM LER";
+        writetoFile(temp);
+        temp = "LER 	K /0000";
+        writetoFile(temp);
+        temp = "MM TEMP";
+        writetoFile(temp);
+        temp = "RS POP";
+        writetoFile(temp);
+    }
+    
     //Funçao que escreve no arquivo de saida
     private void writetoFile(String msg){
         try {
@@ -240,5 +303,50 @@ public class Semantico {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void addPilhaVars() {
+        String temp = "DOIS K /0002";
+        writetoFile(temp);
+        temp = "INST_LD LD /0000";
+        writetoFile(temp);
+        temp = "INST_MM MM /0000";
+        writetoFile(temp);
+        temp = "PONTEIRO_TOPO K TOPO";
+        writetoFile(temp);
+        temp = "RETORNO K /0000";
+        writetoFile(temp);
+        temp = "TEMP K /0000";
+        writetoFile(temp);
+        temp = "TOPO K /0000";
+        writetoFile(temp);
+    }
+
+    public void addPush(Operando operando) {
+        String temp = "LD " + operando.valor;
+        writetoFile(temp);
+        addStore("TEMP");
+        temp = "SC PUSH";
+        writetoFile(temp);
+    }
+
+    public void addEndOfFunction(String escopo) {
+        addStore("RETORNO");
+        String temp = "RS 0_" + escopo;
+        writetoFile(temp);
+    }
+
+    public void addCallFunction(String funcao) {
+        String temp = "SC 0_" + funcao;
+        writetoFile(temp);
+    }
+
+    public void addPop(Simbolo novoSimbolo) {
+        String temp = "SC POP";
+        writetoFile(temp);
+        temp = "LD TEMP";
+        writetoFile(temp);
+        temp = "MM " + novoSimbolo.getIdentificador();
+        writetoFile(temp);
     }
 }

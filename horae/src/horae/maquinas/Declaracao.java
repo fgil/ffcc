@@ -26,7 +26,7 @@ public class Declaracao {
     public boolean consome;
     public Token restoToken;
     private String maquinaNome = "Declaração";
-    private Simbolo simboloTemporario = new Simbolo();
+    public Simbolo simboloTemporario = new Simbolo();
     public String escopo;
     private Semantico aSemantica = Semantico.getInstance("");
     

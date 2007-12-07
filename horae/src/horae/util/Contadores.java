@@ -19,6 +19,7 @@ public class Contadores {
     private int cocont = 0;
     private int ifcont = 0;
     private int wcont = 0;
+    private int fcont = 0;
     
     /** Creates a new instance of Contadores */
     private Contadores() {
@@ -26,6 +27,7 @@ public class Contadores {
         ifcont = 0;
         wcont = 0;
         cocont = 0;
+        fcont = 0;
     }
 
     private static Contadores oContador;
@@ -74,5 +76,14 @@ public class Contadores {
     public String nextCocont() {
         cocont++;
         return "CO_" + cocont;
+    }
+    
+    public String getFcont() {
+        return "FU_" + fcont;
+    }
+    
+    public String nextFcont() {
+        fcont++;
+        return "FU_" + fcont;
     }
 }

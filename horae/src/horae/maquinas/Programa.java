@@ -26,6 +26,8 @@ public class Programa {
     private String maquinaNome = "Programa";
     private Semantico aSemantica;
     public String fileName;
+    private boolean inicioPrograma = false;
+
     
     /** Creates a new instance of Programa */
     public Programa(Fila filaLida, String fileName) {
@@ -36,7 +38,7 @@ public class Programa {
         
         //Cria transicoes do estado 0
         maquina.criaTransicoes(0,1);
-        maquina.setTransicao(0, 0, "START", 1, 0, false);
+        maquina.setTransicao(0, 0, "START", 1, 0, false,2);
         
         //Cria transicoes do estado 1
         maquina.criaTransicoes(1,10);
@@ -44,12 +46,12 @@ public class Programa {
         maquina.setTransicao(1, 1, "CHAR",          2, maquina.A_Declaracao,       true);
         maquina.setTransicao(1, 2, "BOOLEAN",       2, maquina.A_Declaracao,       true);
         maquina.setTransicao(1, 3, "FUNCAO",        4, maquina.A_DeclaracaoFuncao, true);
-        maquina.setTransicao(1, 4, "identificador", 6, maquina.A_Comando,          true);
-        maquina.setTransicao(1, 5, "INPUT",         6, maquina.A_Comando,          true);
-        maquina.setTransicao(1, 6, "OUTPUT",        6, maquina.A_Comando,          true);
-        maquina.setTransicao(1, 7, "IF",            6, maquina.A_Comando,          true);
-        maquina.setTransicao(1, 8, "WHILE",         6, maquina.A_Comando,          true);
-        maquina.setTransicao(1, 9, "END",           7, 0,                          false);
+        maquina.setTransicao(1, 4, "identificador", 6, maquina.A_Comando,          true,1);
+        maquina.setTransicao(1, 5, "INPUT",         6, maquina.A_Comando,          true,1);
+        maquina.setTransicao(1, 6, "OUTPUT",        6, maquina.A_Comando,          true,1);
+        maquina.setTransicao(1, 7, "IF",            6, maquina.A_Comando,          true,1);
+        maquina.setTransicao(1, 8, "WHILE",         6, maquina.A_Comando,          true,1);
+        maquina.setTransicao(1, 9, "END",           7, 0,                          false,3);
         
         //Cria transicoes do estado 2
         maquina.criaTransicoes(2,1);
@@ -58,12 +60,12 @@ public class Programa {
         //Cria transicoes do estado 3
         maquina.criaTransicoes(3,7);
         maquina.setTransicao(3, 0, "FUNCAO",        4, maquina.A_DeclaracaoFuncao, true);
-        maquina.setTransicao(3, 1, "identificador", 6, maquina.A_Comando,          true);
-        maquina.setTransicao(3, 2, "INPUT",         6, maquina.A_Comando,          true);
-        maquina.setTransicao(3, 3, "OUTPUT",        6, maquina.A_Comando,          true);
-        maquina.setTransicao(3, 4, "IF",            6, maquina.A_Comando,          true);
-        maquina.setTransicao(3, 5, "WHILE",         6, maquina.A_Comando,          true);
-        maquina.setTransicao(3, 6, "END",           7, 0,                          false);
+        maquina.setTransicao(3, 1, "identificador", 6, maquina.A_Comando,          true,1);
+        maquina.setTransicao(3, 2, "INPUT",         6, maquina.A_Comando,          true,1);
+        maquina.setTransicao(3, 3, "OUTPUT",        6, maquina.A_Comando,          true,1);
+        maquina.setTransicao(3, 4, "IF",            6, maquina.A_Comando,          true,1);
+        maquina.setTransicao(3, 5, "WHILE",         6, maquina.A_Comando,          true,1);
+        maquina.setTransicao(3, 6, "END",           7, 0,                          false,3);
         
         //Cria transicoes do estado 4
         maquina.criaTransicoes(4,1);
@@ -76,7 +78,7 @@ public class Programa {
         maquina.setTransicao(5, 2, "OUTPUT",        6, maquina.A_Comando, true);
         maquina.setTransicao(5, 3, "IF",            6, maquina.A_Comando, true);
         maquina.setTransicao(5, 4, "WHILE",         6, maquina.A_Comando, true);
-        maquina.setTransicao(5, 5, "END",           7, 0,                 false);
+        maquina.setTransicao(5, 5, "END",           7, 0,                 false,3);
         
         //Cria transicoes do estado 6
         maquina.criaTransicoes(6,1);
@@ -97,7 +99,7 @@ public class Programa {
             System.out.println("Proximo Estado: " + transicao.proximoEstado);
             Token proximoToken = null;
             
-            analiseSemanticaPre(estadoAtual, transicao.proximoEstado,token);
+            analiseSemanticaPre(estadoAtual, transicao.proximoEstado, token, transicao.caso);
             
             if (transicao.proximaMaquina > 0) {
                 switch(transicao.proximaMaquina) {
@@ -192,7 +194,7 @@ public class Programa {
                 }
             }
             
-            analiseSemanticaPos(estadoAtual, transicao.proximoEstado,token);
+            analiseSemanticaPos(estadoAtual, transicao.proximoEstado, token, transicao.caso);
             //Seta o estado de retorno
             estadoAtual = transicao.proximoEstado;
             return proximoToken;
@@ -209,31 +211,46 @@ public class Programa {
     
     
     private void analiseSemanticaPos(int estadoAtual, int proximoEstado,
-            Token token){
-        if (estadoAtual == 0) {
-            if (proximoEstado == 1) {
+            Token token, int caso){
+        switch (caso) {
+            case 0:
+                break;
+            case 1:
+//                aSemantica.addLabel("INICIO_0");
+                break;
+            case 2:
                 aSemantica = Semantico.getInstance(this.fileName);
-            }
-            
-        } else if (estadoAtual == 1) {
-            if (proximoEstado == 7) {
+                break;
+            case 3:
+                if (!inicioPrograma) aSemantica.addLabel("INICIO_0");
                 aSemantica.closeFile();
-            }
-        } else if (estadoAtual == 3) {
-            if (proximoEstado == 7) {
-                aSemantica.closeFile();
-            }
-        } else if (estadoAtual == 5) {
-            if (proximoEstado == 7) {
-                aSemantica.closeFile();
-            }
+                break;
+            default:
+                System.out.println("Caso ainda nao implementado");
+                break;
         }
     }
     
     
     private void analiseSemanticaPre(int estadoAtual, int proximoEstado,
-            Token token){
-        //Pro Enquanto Nada
+            Token token, int caso){
+        switch (caso) {
+            case 0:
+                break;
+            case 1:
+                aSemantica.addLabel("INICIO_0");
+                inicioPrograma = true;
+                break;
+//            case 2:
+//                aSemantica = Semantico.getInstance(this.fileName);
+//                break;
+//            case 3:
+//                aSemantica.closeFile();
+//                break;
+            default:
+                //System.out.println("Caso ainda nao implementado");
+                break;
+        }
     }
     
     

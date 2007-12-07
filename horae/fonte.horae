@@ -1,12 +1,19 @@
 START
-INT K;
-K = 48;
-WHILE ( K != 58 ) DO
-OUTPUT K;
-K = K + 1;
+int b;
+int e;
+funcao int teste(int d) {
+output 46;
+while (d < 10) do
+output 58;
+d=d+1;
+endw;
+return d;
+};
+b=1;
+e=6;
+while(b < 10) DO
+output 46;
+b=b+1;
+e=teste(b);
 ENDW;
-OUTPUT 65;
-INPUT K;
-K = K + 1;
-OUTPUT K;
 END
